@@ -40,9 +40,13 @@ public class Road
     ***************************************************************************/     
     public Road()
     {
+        //HOLDS COLLECT OF POINT ID
         this.ref = new ArrayList();
+        
+        //THESE WILL BE OUR DEFAULTS FOR THE MOMENT
         this.speed = 30;
         this.lane = 2;
+        this.oneway = false;
     }
    
   

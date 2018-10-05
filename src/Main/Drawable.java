@@ -11,10 +11,20 @@ import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-/**
- *
- * @author fathe
- */
+/*******************************************************************************
+***CLASS NAME: Drawable
+***CLASS AUTHOR: LUIS E VARGAS TAMAYO
+***CO-AUTHOR:
+********************************************************************************
+***PURPOSE OF CLASS: CLASS WILL DRAW OBJECTS FOR TRAFFIC PANEL
+********************************************************************************
+***DATE: OCTUBER 5, 2018
+********************************************************************************
+***LIST OF CHANGES WITH DATES: NONE
+********************************************************************************
+***SPECIAL NOTES: NONE
+*** 
+*******************************************************************************/
 public class Drawable 
 {
     
@@ -50,33 +60,55 @@ public class Drawable
     {
         g = TP.getGraphics();
     }
-    
+
+
+    /***************************************************************************
+    ***METHOD NAME: normalizeZone()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: NORMALIZE DATA TO A GIVEN RANGE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/    
     private void normalizeZone()
     {
-        System.out.println(this.Bounds[0]);
-        System.out.println(this.Bounds[1]);
-        System.out.println(this.Bounds[2]);
-        System.out.println(this.Bounds[3]);
-        
-        
+        //FIRST PARAMATER IS THE MAX LONGITUDE
+        //SECOND PARAMETER IS THE MIN LONGITUDE
+        //THIRD PARAMETER IS THE MAX X COORDINATE
+        //FOURTH PARAMETER IS THE MIN X COORDINATE
         normCalcX = new Normalization(this.Bounds[3],this.Bounds[1], this.WIDTH, 0 );
+                
+        //FIRST PARAMATER IS THE MAX LATITUDE
+        //SECOND PARAMETER IS THE MIN LATITUDE
+        //THIRD PARAMETER IS THE MAX X LATITUDE
+        //FOURTH PARAMETER IS THE MIN X LATITUDE
         normCalcY = new Normalization(this.Bounds[2],this.Bounds[0], this.HEIGHT, 0 );
     }
-    
+
+
+    /***************************************************************************
+    ***METHOD NAME: OperationY
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: TRANSFORMS CARTESIAN Y-CORDINATE TO JAVA CORDINATE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/    
     private double OperationY(double y)
     {
+        //NEGATIVE VALUE
         double newY = -y;
+        //ADD THE HEIGHT OF WINDOW
         return newY + this.HEIGHT;
     }    
     
-    
-    public void setAllRoads(ArrayList roads){ this.RoadList = roads;}
-    public void setMaxMinBounds(double[] arr){this.Bounds = arr; }
-    public void setHashTable(PointHashTable pht){this.PHT = pht;}
-    
-    public void setWidth(int width){this.WIDTH = width;}
-    public void setHeight(int height){this.HEIGHT = height; }
-    public void setScalar(int scale){this.scaler = scale;}
+
     
     /***************************************************************************
     ***METHOD NAME: DrawRoad()
@@ -89,54 +121,173 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public void draw(Graphics g)
+    public void DrawRoad(Graphics g)
     {
+        //NORMALIZE THE BOUNDARIES SO I CAN CONVERT FROM (LON,LAT) TO (X,Y)
         normalizeZone();
+        //DRAWING IN A 2D FIELD
         Graphics2D g2 = (Graphics2D) g;
-        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //MAKE THE LINES NICER (?)
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        //g2.drawRect(20, 20, 100, 50);
-       
-        
-        //System.out.println(this.RoadList.size());
+        //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
         for(int i = 0; i < this.RoadList.size() ; i++)
         {
+            //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
             ArrayList<String> curRoadPoints = this.RoadList.get(i).getRef();
             
-            //System.out.println(curRoadPoints.size());
-            
+            //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
             for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
             {
-                    //System.out.println(curRoadPoints.get(j));
+                    //GETS THE OBJECT POINT FROM THE HASHTABLE
                     Point p =this.PHT.getPoint(curRoadPoints.get(j));
+                    //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
                     double x1 = normCalcX.Normalize(p.getLongitude()) * this.scaler;
+                    //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
                     double y1 = OperationY(normCalcY.Normalize(p.getLatitude())) *this.scaler;
 
-                    //System.out.println(curRoadPoints.get(j+1));
+                    //GETS THE OBJECT POINT FROM THE HASHTABLE
                     Point p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
-                    
+                    //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
                     double x2 = normCalcX.Normalize(p2.getLongitude())*this.scaler;
+                    //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
                     double y2 = OperationY(normCalcY.Normalize(p2.getLatitude()))*this.scaler;
 
-                    //System.out.println("(x1,y1)  " + x1 + ", " + y1);
-                    //System.out.println("(x2,y2)  " + x2 + ", " + y2 + "\n");
+                    
+                    ////////////////////////////////////////////////
+                    
+                    //ANGELICA, THIS IS THE METHOD YOU'LL BE WORKING ON
+                    // ABOVE ARE THE POINTS THAT ARE GETTING READY FOR YOU
+                    //WHAT YOU NEED TO FIGURE OUT IS......
+                    //HOW TO DRAW A ROAD. 
+                    ////////////////////////////////////////////////
+                    
+                    
+                    //DRAW A LINE FROM P1 TO P2
                     g2.draw(new Line2D.Double(x1,y1,x2,y2)); 
-
+                                              
             }
         }    
     
     }
+    
+    
 
-
+    
     /***************************************************************************
     ***METHOD NAME: DrawCar()
+    ***METHOD AUTHOR: 
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: DRAWS VEHICLES
+    ***METHOD USED: 
+    ***METHOD PARAMETERS: 
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/   
+    public void DrawCar(Graphics g)
+    {
+        // I DONT KNOW HOW YOU'LL BE STORING YOUR COLLECTION OF VEHICLES EMILY,
+        //BUT IF YOU NEED AN EXAMPLE, LOOK AT THE DRAW ROAD METHOD ABOVE.
+        
+        //CODE GOES HERE
+        //DONT FORGET TO PLACE METHOD IN PAINTCOMPONENT ON TRAFFIC PANEL
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////    
+    
+     /***************************************************************************
+    ***METHOD NAME: setAllRoads()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD: Draws Roads
+    ***PURPOSE OF THE METHOD: STORE ARRAY OF TYPE ROADS
     ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
+    ***METHOD PARAMETERS: ARRAYLIST
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/   
+    public void setAllRoads(ArrayList roads){ this.RoadList = roads;}
+    
+    
+    /***************************************************************************
+    ***METHOD NAME: setMaxMinBounds() 
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE BOUNDARY INFORMATION IN VARIABLE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: DOUBLE[]
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/
+    public void setMaxMinBounds(double[] arr){this.Bounds = arr; }
+     
+    
+    /***************************************************************************
+    ***METHOD NAME: setHashTable
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE HASHTABLE THAT CONTAINS ALL POINTS
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: POINT HASH TABLE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/
+    public void setHashTable(PointHashTable pht){this.PHT = pht;}
+    
+    /***************************************************************************
+    ***METHOD NAME: setWidth()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE WIDTH VARIABLE BY THE WIDTH OF THE FORM
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: INT
     ***RETURN VALUE: NONE
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-}
+    public void setWidth(int width){this.WIDTH = width;}
+
+    
+    /***************************************************************************
+    ***METHOD NAME: setHeight()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE HEIGHT VARIABLE BY THE HEIGHT OF THE FORM
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: INT
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/
+    public void setHeight(int height){this.HEIGHT = height; }
+      
+     
+    /***************************************************************************
+    ***METHOD NAME: setScalar()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE SCALE OF THE DRAWINGS IN A VARIABLE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: INT
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/    
+    public void setScalar(int scale){this.scaler = scale;}    
+    
+    
+}   
+

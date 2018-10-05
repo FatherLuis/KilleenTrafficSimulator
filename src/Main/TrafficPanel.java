@@ -2,13 +2,9 @@ package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /*******************************************************************************
@@ -88,7 +84,7 @@ public class TrafficPanel extends JPanel implements  MouseListener
         Painter.setScalar(scalar);
         
         super.paintComponent(g);
-        Painter.draw(g);
+        Painter.DrawRoad(g);
     
     }
  
@@ -127,53 +123,59 @@ public class TrafficPanel extends JPanel implements  MouseListener
     
     /***************************************************************************
     ***METHOD NAME: mousePressed
-    ***METHOD AUTHOR:
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD:
-    ***METHOD USED:
-    ***METHOD PARAMETERS:
-    ***RETURN VALUE:
+    ***PURPOSE OF THE METHOD: NONE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE:
+    ***DATE: OCTUBER 5, 2018
     ***************************************************************************/
     @Override
     public void mousePressed(MouseEvent me) {}
+    
+    
     /***************************************************************************
-    ***METHOD NAME: 
-    ***METHOD AUTHOR:
+    ***METHOD NAME: mouseReleased()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD:
-    ***METHOD USED:
-    ***METHOD PARAMETERS:
-    ***RETURN VALUE:
+    ***PURPOSE OF THE METHOD: NONE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE:
+    ***DATE: OCTUBER 5, 2018
     ***************************************************************************/
     @Override
     public void mouseReleased(MouseEvent me) {}
+    
+    
     /***************************************************************************
-    ***METHOD NAME: 
-    ***METHOD AUTHOR:
+    ***METHOD NAME: mouseEntered
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD:
-    ***METHOD USED:
-    ***METHOD PARAMETERS:
-    ***RETURN VALUE:
+    ***PURPOSE OF THE METHOD: NONE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE:
+    ***DATE: OCTUBER 5, 2018
     ***************************************************************************/
     @Override
     public void mouseEntered(MouseEvent me) {}
+    
+    
     /***************************************************************************
-    ***METHOD NAME: 
-    ***METHOD AUTHOR:
+    ***METHOD NAME: MouseExited()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD:
-    ***METHOD USED:
-    ***METHOD PARAMETERS:
-    ***RETURN VALUE:
+    ***PURPOSE OF THE METHOD: NONE
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE:
+    ***DATE: OCTUBER 5, 2018
     ***************************************************************************/
     @Override
     public void mouseExited(MouseEvent me) {}

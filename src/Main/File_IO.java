@@ -46,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\test2.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST1.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
