@@ -20,6 +20,7 @@ public class MainGUI
     private static ArrayList<Road> RoadList;
     private static double[] bounds;
     private static PointHashTable PHT;
+    private static Drawable Painter;
    
     /***************************************************************************
     ***METHOD NAME: main()
@@ -61,10 +62,13 @@ public class MainGUI
         //SETS THE PANEL WHERE THE MAP IS GOING TO BE DRAWN
         TrafficPanel mainPanel = new TrafficPanel();
         
-        //GIVES INFORMATION TO THE PANEL
-        mainPanel.setAllRoads(RoadList);
-        mainPanel.setMaxMinBounds(bounds);
-        mainPanel.setHashTable(PHT);
+        //GIVES INFORMATION TO THE PAINTERS
+        Painter = new Drawable(mainPanel);
+        Painter.setAllRoads(RoadList);
+        Painter.setMaxMinBounds(bounds);
+        Painter.setHashTable(PHT);
+        
+        mainPanel.setPainter(Painter);
         
         //LAYOUT AT THE MOMENT; PACK THINGS IN THE WINDOW
         window.setContentPane(mainPanel);

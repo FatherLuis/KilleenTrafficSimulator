@@ -41,9 +41,11 @@ public class Road
     public Road()
     {
         this.ref = new ArrayList();
+        this.speed = 30;
+        this.lane = 2;
     }
    
-    
+  
     /***************************************************************************
     ***METHOD NAME: setName()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO

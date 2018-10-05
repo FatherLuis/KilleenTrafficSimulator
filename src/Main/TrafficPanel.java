@@ -12,219 +12,169 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /*******************************************************************************
-***CLASS NAME:
-***CLASS AUTHOR:
+***CLASS NAME: TrafficPanel
+***CLASS AUTHOR: LUIS E VARGAS TAMAYO
 ********************************************************************************
-***PURPOSE OF CLASS:
+***PURPOSE OF CLASS: PANEL SIMULATE TRAFFIC
 ********************************************************************************
-***DATE:
+***DATE: OCTOBER 5, 2018
 ********************************************************************************
-***LIST OF CHANGES WITH DATES:
+***LIST OF CHANGES WITH DATES: NONE
 ********************************************************************************
-***SPECIAL NOTES: 
+***SPECIAL NOTES: NONE
 *** 
-***
 *******************************************************************************/
-public class TrafficPanel extends JPanel implements Runnable, MouseListener
+public class TrafficPanel extends JPanel implements  MouseListener
 {    
-    private ArrayList<Road> AllRoads;
-    private double[] MaxMinBounds;
     
-    public static  int WIDTH = 1000;
-    public static  int HEIGHT = 1000;
-    
-    private Thread thread;
-    private boolean running;
+    public static  int WIDTH=500;
+    public static  int HEIGHT = 500;
     
     private BufferedImage image;
-    private Graphics2D g;
+    private Drawable Painter;  
+    private int scalar = 1;
     
-    private int FPS = 30;
-    private int targetTime = 1000 / FPS;
-    
-    private Normalization normCalcX;
-    private Normalization normCalcY;
-    
-    private PointHashTable PHT;
-    
-    
-    private int scaler = 1;
-    
-    
+    /***************************************************************************
+    ***METHOD NAME: TrafficPanel()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: CONSTRUCTOR
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5, 2018
+    ***************************************************************************/ 
     public TrafficPanel()
     {
         super();
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setFocusable(true);
         requestFocus();
-    }
-    
-    public void setAllRoads(ArrayList roads){ this.AllRoads = roads;}
-    public void setMaxMinBounds(double[] arr){this.MaxMinBounds = arr; }
-    public void setHashTable(PointHashTable pht){this.PHT = pht;}
-    
-    public void addNotify()
-    {
-        super.addNotify();
-        if(thread == null)
-        {
-            thread = new Thread(this);
-            thread.start();
-        }
-        
         this.addMouseListener(this);
+    }
+    
+    /***************************************************************************
+    ***METHOD NAME: setPainter()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: SET THE PAINTER
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: DRAWABLE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5, 2018
+    ***************************************************************************/ 
+    public void setPainter(Drawable p)
+    {
+        this.Painter = p;
+    }
+ 
+    /***************************************************************************
+    ***METHOD NAME: paintComponent()
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: DRAW LINES AND CARS
+    ***METHOD USED: setWidth(), setHeight(), setScalar()
+    ***METHOD PARAMETERS: GRAPHICS
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5, 2018
+    ***************************************************************************/
+    public void paintComponent(Graphics g)
+    {
+        Painter.setWidth(this.getWidth());
+        Painter.setHeight(this.getHeight());
+        Painter.setScalar(scalar);
+        
+        super.paintComponent(g);
+        Painter.draw(g);
+    
+    }
+ 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////    
 
-        
-    }
     
-    public void run()
-    {
-        init();
-        
-        long startTime;
-        long urdTime;
-        long waitTime;
-        
-        
-        while(running)
-        {
-            this.HEIGHT = this.getHeight();
-            this.WIDTH = this.getWidth();
-            
-            startTime = System.nanoTime();
-            //update();
-            render();
-            draw();
-            urdTime = (System.nanoTime() - startTime)/ 1000000;
-            waitTime = targetTime - urdTime;
-            
-            try{Thread.sleep(500);}catch(Exception ex){}
-            
-            
-                    
-        }
-        
-    }
-    
-    private void init()
-    {
-        running = true;
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        g = (Graphics2D) image.getGraphics();
-    
-    }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   ////////////////////////////////////////////////////
-    
-    private void normalizeZone()
-    {
-        normCalcX = new Normalization(this.MaxMinBounds[3],this.MaxMinBounds[1], this.WIDTH, 0 );
-        normCalcY = new Normalization(this.MaxMinBounds[2],this.MaxMinBounds[0], this.HEIGHT, 0 );
-    }
-    
-    private double OperationY(double y)
-    {
-        double newY = -y;
-        return newY + this.HEIGHT;
-    }
-    
-    public void drawLines(Graphics g)
-    {
-        
-        
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-               
-        
-        for(int i = 0; i < this.AllRoads.size() ; i++)
-        {
-            
-            
-            ArrayList<String> curRoadPoints = this.AllRoads.get(i).getRef();
-            
-            //System.out.println(curRoadPoints.size());
-            
-            for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
-            {
-                    //System.out.println(curRoadPoints.get(j));
-                    Point p =this.PHT.getPoint(curRoadPoints.get(j));
-                    double x1 = normCalcX.Normalize(p.getLongitude()) *this.scaler;
-                    double y1 = OperationY(normCalcY.Normalize(p.getLatitude())) *this.scaler;
-
-                    //System.out.println(curRoadPoints.get(j+1));
-                    Point p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
-                    
-                    double x2 = normCalcX.Normalize(p2.getLongitude())*this.scaler;
-                    double y2 = OperationY(normCalcY.Normalize(p2.getLatitude()))*this.scaler;
-
-                    //System.out.println("(x1,y1)  " + x1 + ", " + y1);
-                    //System.out.println("(x2,y2)  " + x2 + ", " + y2 + "\n");
-                    g2.draw(new Line2D.Double(x1,y1,x2,y2)); 
-
-            }
-        }
-    }
-    
-    public void paint(Graphics g)
-    {
-        normalizeZone();
-        super.paint(g);
-        drawLines(g);   
-    }
-    
-    
-    
-    private void update()
-    {
-    }
-    
-    private void render()
-    {
-        repaint();
-    }
-    
-    private void draw()
-    {
-        paint(g);
-        
-        
-    }
-
+    /***************************************************************************
+    ***METHOD NAME: MouseClicked
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: WHEN CLICK, ZOOM IN FEATURE OCCURS
+    ***METHOD USED: REPAINT()
+    ***METHOD PARAMETERS: MOUSEEVENT
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5, 2018
+    ***************************************************************************/
     @Override
     public void mouseClicked(MouseEvent me) { 
     
           if(me.getButton() == MouseEvent.BUTTON1) 
           {
-            this.scaler+= 1;
+            this.scalar+= 1;
           }
-          if(me.getButton() == MouseEvent.BUTTON3 && this.scaler > 1) 
+          if(me.getButton() == MouseEvent.BUTTON3 && this.scalar > 1) 
           {
-            this.scaler -= 1;
+            this.scalar -= 1;
           } 
           
-          System.out.println(this.scaler);
+          repaint();
     }
-
+   
+    
+    /***************************************************************************
+    ***METHOD NAME: mousePressed
+    ***METHOD AUTHOR:
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD:
+    ***METHOD USED:
+    ***METHOD PARAMETERS:
+    ***RETURN VALUE:
+    ****************************************************************************
+    ***DATE:
+    ***************************************************************************/
     @Override
     public void mousePressed(MouseEvent me) {}
-
+    /***************************************************************************
+    ***METHOD NAME: 
+    ***METHOD AUTHOR:
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD:
+    ***METHOD USED:
+    ***METHOD PARAMETERS:
+    ***RETURN VALUE:
+    ****************************************************************************
+    ***DATE:
+    ***************************************************************************/
     @Override
     public void mouseReleased(MouseEvent me) {}
-
+    /***************************************************************************
+    ***METHOD NAME: 
+    ***METHOD AUTHOR:
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD:
+    ***METHOD USED:
+    ***METHOD PARAMETERS:
+    ***RETURN VALUE:
+    ****************************************************************************
+    ***DATE:
+    ***************************************************************************/
     @Override
     public void mouseEntered(MouseEvent me) {}
-
+    /***************************************************************************
+    ***METHOD NAME: 
+    ***METHOD AUTHOR:
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD:
+    ***METHOD USED:
+    ***METHOD PARAMETERS:
+    ***RETURN VALUE:
+    ****************************************************************************
+    ***DATE:
+    ***************************************************************************/
     @Override
     public void mouseExited(MouseEvent me) {}
 
