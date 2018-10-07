@@ -1,7 +1,11 @@
 package Main;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 /*******************************************************************************
 ***CLASS NAME:MAINGUI 
 ***CLASS AUTHOR:LUIS E VARGAS TAMAYO
@@ -10,7 +14,8 @@ import javax.swing.JFrame;
 ********************************************************************************
 ***DATE: SEPTEMBER 28, 2018
 ********************************************************************************
-***LIST OF CHANGES WITH DATES: NONE
+***LIST OF CHANGES WITH DATES: 
+*** OCT 7 ,2018: ADDED A SCROLLPANEL AND A CONTROLPANEL TO THE WINDOW
 ********************************************************************************
 ***SPECIAL NOTES: NONE
 *** 
@@ -68,10 +73,21 @@ public class MainGUI
         Painter.setMaxMinBounds(bounds);
         Painter.setHashTable(PHT);
         
+        //THE PAINTER IS SENT TO THE MAINPANEL
         mainPanel.setPainter(Painter);
         
-        //LAYOUT AT THE MOMENT; PACK THINGS IN THE WINDOW
-        window.setContentPane(mainPanel);
+        //THIS IS THE PANEL THAT WILL CONTAIN THE TRAFFIC PANEL
+        ScrollPanel SP = new ScrollPanel(mainPanel);        
+        
+        //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
+        ControlPanel CP = new ControlPanel();
+     
+        SplitPanel SplitP = new SplitPanel(SP,CP);
+       
+        //LAYOUT FOR THE FRAME 
+        window.setLayout(new BorderLayout());
+        window.add(SplitP, BorderLayout.CENTER);
+
         window.pack();
         
         //MAKE WINDOW VISIBLE

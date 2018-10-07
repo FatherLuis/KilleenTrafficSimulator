@@ -46,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST1.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST4.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -132,7 +132,6 @@ public class File_IO
     ***************************************************************************/     
     private  void GetRoads()
     {
-        
         boolean Accept;
         
         Road Calle;
@@ -242,7 +241,7 @@ public class File_IO
                 }  
                 
             }
-            
+  
         }
         catch(Exception ex){
 
@@ -263,7 +262,7 @@ public class File_IO
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
     private void GetPoints()
-    {
+    {        
         String pointID = " ";
         double longitude = 0;
         double latitude = 0;
@@ -350,10 +349,24 @@ public class File_IO
     ***************************************************************************/         
     public void MainCalculation()
     {
+            Long start;
+            Long end;
+    
+        
         GetBounds();
+            //start = System.currentTimeMillis();
         GetRoads();
+            //end = System.currentTimeMillis();
+            //System.out.println("GetRoad Time: "+(double)(end - start)/1000+ " Seconds");
+            //start = System.currentTimeMillis();
         GetPoints();
+            //end = System.currentTimeMillis();
+            //System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
+            //start = System.currentTimeMillis();
         AssignParents();
+            //end = System.currentTimeMillis();
+            //System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
+            //start = System.currentTimeMillis();
     }
     
 

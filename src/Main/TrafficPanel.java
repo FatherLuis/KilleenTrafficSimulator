@@ -2,8 +2,6 @@ package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -17,19 +15,22 @@ import javax.swing.JPanel;
 ********************************************************************************
 ***LIST OF CHANGES WITH DATES: NONE
 ********************************************************************************
-***SPECIAL NOTES: NONE
+***SPECIAL NOTES: 
+*** OCTOBER 7, 2018 :(LUIS) I MOVED THE MOUSE LISTENER TO SCROLLPANEL CLASS 
+*** ALSO,I WILL BE GETTING RID OF VARIBALE SCALAR SOON, 
+*** SINCE I HAVE NO USE FOR IT ANY MORE
 *** 
 *******************************************************************************/
-public class TrafficPanel extends JPanel implements  MouseListener
+public class TrafficPanel extends JPanel 
 {    
     
-    public static  int WIDTH=500;
-    public static  int HEIGHT = 500;
+    public static  int WIDTH= 1000;
+    public static  int HEIGHT = 1000;
     
     private BufferedImage image;
     private Drawable Painter;  
     private int scalar = 1;
-    
+     
     /***************************************************************************
     ***METHOD NAME: TrafficPanel()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -39,7 +40,7 @@ public class TrafficPanel extends JPanel implements  MouseListener
     ***METHOD PARAMETERS: NONE
     ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
+    ***DATE: OCT0BER 5, 2018
     ***************************************************************************/ 
     public TrafficPanel()
     {
@@ -47,7 +48,9 @@ public class TrafficPanel extends JPanel implements  MouseListener
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setFocusable(true);
         requestFocus();
-        this.addMouseListener(this);
+        //this.addMouseListener(this);
+        
+        //this.parent = parent;
     }
     
     /***************************************************************************
@@ -59,7 +62,7 @@ public class TrafficPanel extends JPanel implements  MouseListener
     ***METHOD PARAMETERS: DRAWABLE
     ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
+    ***DATE: OCT0BER 5, 2018
     ***************************************************************************/ 
     public void setPainter(Drawable p)
     {
@@ -75,7 +78,7 @@ public class TrafficPanel extends JPanel implements  MouseListener
     ***METHOD PARAMETERS: GRAPHICS
     ***RETURN VALUE: NONE
     ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
+    ***DATE: OCT0BER 5, 2018
     ***************************************************************************/
     public void paintComponent(Graphics g)
     {
@@ -87,100 +90,4 @@ public class TrafficPanel extends JPanel implements  MouseListener
         Painter.DrawRoad(g);
     
     }
- 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////    
-
-    
-    /***************************************************************************
-    ***METHOD NAME: MouseClicked
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: WHEN CLICK, ZOOM IN FEATURE OCCURS
-    ***METHOD USED: REPAINT()
-    ***METHOD PARAMETERS: MOUSEEVENT
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
-    ***************************************************************************/
-    @Override
-    public void mouseClicked(MouseEvent me) { 
-    
-          if(me.getButton() == MouseEvent.BUTTON1) 
-          {
-            this.scalar+= 1;
-          }
-          if(me.getButton() == MouseEvent.BUTTON3 && this.scalar > 1) 
-          {
-            this.scalar -= 1;
-          } 
-          
-          repaint();
-    }
-   
-    
-    /***************************************************************************
-    ***METHOD NAME: mousePressed
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: NONE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
-    ***************************************************************************/
-    @Override
-    public void mousePressed(MouseEvent me) {}
-    
-    
-    /***************************************************************************
-    ***METHOD NAME: mouseReleased()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: NONE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
-    ***************************************************************************/
-    @Override
-    public void mouseReleased(MouseEvent me) {}
-    
-    
-    /***************************************************************************
-    ***METHOD NAME: mouseEntered
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: NONE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
-    ***************************************************************************/
-    @Override
-    public void mouseEntered(MouseEvent me) {}
-    
-    
-    /***************************************************************************
-    ***METHOD NAME: MouseExited()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: NONE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5, 2018
-    ***************************************************************************/
-    @Override
-    public void mouseExited(MouseEvent me) {}
-
-
-    
-    
 }
