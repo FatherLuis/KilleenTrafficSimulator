@@ -5,6 +5,10 @@
  */
 package Main;
 
+import Main.Init.Road;
+import Main.Init.Point;
+import Main.Init.PointHashTable;
+import Main.Window.TrafficPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

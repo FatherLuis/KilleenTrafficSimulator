@@ -1,5 +1,6 @@
-package Main;
+package Main.Window;
 
+import Main.Window.TrafficPanel;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

@@ -1,5 +1,11 @@
-package Main;
+package Main.Window;
 
+import Main.Drawable;
+import Main.Init.File_IO;
+import Main.Window.SplitPanel;
+import Main.Window.ControlPanel;
+import Main.Init.PointHashTable;
+import Main.Init.Road;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

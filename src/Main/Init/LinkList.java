@@ -1,4 +1,6 @@
-package Main;
+package Main.Init;
+
+import Main.Init.Point;
 
 /*******************************************************************************
 ***CLASS NAME: LinkList

@@ -1,5 +1,6 @@
-package Main;
+package Main.Window;
 
+import Main.Window.ControlPanel;
 import javax.swing.JSplitPane;
 
 /*******************************************************************************

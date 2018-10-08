@@ -1,5 +1,6 @@
-package Main;
+package Main.Window;
 
+import Main.Drawable;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

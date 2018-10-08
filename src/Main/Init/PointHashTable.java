@@ -1,4 +1,4 @@
-package Main;
+package Main.Init;
 
 /*******************************************************************************
 ***CLASS NAME: PointHashTable

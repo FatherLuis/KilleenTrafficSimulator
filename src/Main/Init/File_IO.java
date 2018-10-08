@@ -1,4 +1,4 @@
-package Main;
+package Main.Init;
 
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
