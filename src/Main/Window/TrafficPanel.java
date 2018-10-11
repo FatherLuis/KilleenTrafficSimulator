@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 *** SINCE I HAVE NO USE FOR IT ANY MORE
 *** 
 *******************************************************************************/
-public class TrafficPanel extends JPanel 
+public class TrafficPanel extends JPanel implements Runnable
 {    
     
     public static  int WIDTH= 1000;
@@ -33,6 +33,8 @@ public class TrafficPanel extends JPanel
     private Drawable Painter;  
 
     private int scalar = 1;
+    
+    private Thread animator;
      
     /***************************************************************************
     ***METHOD NAME: TrafficPanel()
@@ -96,6 +98,44 @@ public class TrafficPanel extends JPanel
         super.paintComponent(g);
         Painter.DrawRoad(g);
         Painter.DrawCar(g);
+    
+    }
+    
+    @Override
+    public void addNotify()
+    {
+        super.addNotify();
+        animator = new Thread(this);
+        animator.start();
+        
+    
+    }
+    
+    @Override
+    public void run() 
+    {
+        long beforeTime, timeDiff, sleep;
+        
+        beforeTime = System.currentTimeMillis();
+        
+        while(true)
+        {
+            repaint();
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = 125 - timeDiff;
+            
+            if(sleep < 0){sleep = 2;}
+            
+            try{Thread.sleep(sleep);}catch(Exception ex){}
+            
+            beforeTime = System.currentTimeMillis();
+        
+        }
+        
+        
+        
+        
+        
     
     }
 }

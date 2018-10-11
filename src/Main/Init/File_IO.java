@@ -134,10 +134,14 @@ public class File_IO
     {
         boolean Accept;
         
+        
+        
         Road Calle;
         String roadName ="";
         String roadID = " ";
         String refID = " ";
+        boolean oneway = false;
+        
         ArrayList<String> ref = null;
         
         String attrK = "";
@@ -188,6 +192,13 @@ public class File_IO
                                 roadName = attrV;
                                 break;
                                 
+                            case("oneway"):
+                                if(!(attrV.equals("no")))
+                                {                                
+                                    oneway = true;
+                                    break;
+                                }
+                                
                             case("highway"):
                                 
                                 if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian")  ))
@@ -236,6 +247,9 @@ public class File_IO
                     Calle.setName(roadName);
                     //SET REF ARRAY
                     Calle.setRef(ref);   
+                    
+                    Calle.setOneway(oneway);
+                    
                     //ADD ROAD TO THE ALLROADS
                     this.AllRoads.add(Calle);  
                 }  

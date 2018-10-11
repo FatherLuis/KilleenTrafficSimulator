@@ -220,6 +220,7 @@ public class Drawable
 
             Ellipse2D.Double shape = new Ellipse2D.Double(x1-5,y1-5,10,10);
 
+            g3.setColor(this.vehicleList.get(i).getColor());
             g3.draw(shape);
         }
         
