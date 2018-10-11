@@ -46,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST4.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST5.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -330,7 +330,7 @@ public class File_IO
                 //GET POINT FROM HASHTABLE
                 p = this.PHT.getPoint(refID.get(j));
                 //LET POINT KNOW WHO IT'S PARENT IS
-                p.addParent(this.AllRoads.get(i).getID());            
+                p.addParent(this.AllRoads.get(i));            
             }
         }
     }

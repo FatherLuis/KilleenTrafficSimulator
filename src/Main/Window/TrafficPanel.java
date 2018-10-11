@@ -1,6 +1,7 @@
 package Main.Window;
 
 import Main.Drawable;
+import Main.Vehicles.Vehicle;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,7 @@ public class TrafficPanel extends JPanel
     
     private BufferedImage image;
     private Drawable Painter;  
+
     private int scalar = 1;
      
     /***************************************************************************
@@ -69,6 +71,10 @@ public class TrafficPanel extends JPanel
     {
         this.Painter = p;
     }
+    
+    
+    
+
  
     /***************************************************************************
     ***METHOD NAME: paintComponent()
@@ -89,6 +95,7 @@ public class TrafficPanel extends JPanel
         
         super.paintComponent(g);
         Painter.DrawRoad(g);
+        Painter.DrawCar(g);
     
     }
 }

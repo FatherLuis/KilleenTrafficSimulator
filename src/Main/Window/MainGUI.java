@@ -6,6 +6,7 @@ import Main.Window.SplitPanel;
 import Main.Window.ControlPanel;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -79,6 +80,11 @@ public class MainGUI
         Painter.setMaxMinBounds(bounds);
         Painter.setHashTable(PHT);
         
+        CreateVehicles();
+        
+
+        
+        
         //THE PAINTER IS SENT TO THE MAINPANEL
         mainPanel.setPainter(Painter);
         
@@ -125,6 +131,27 @@ public class MainGUI
         bounds = Doc.getBounds();
         //GET HASHTABLE
         PHT = Doc.gethashTable();
+    
+    
+    }
+    
+    
+    private static void CreateVehicles()
+    {          
+        Vehicle vehicle = new Vehicle(RoadList, PHT);
+        ArrayList<Vehicle> vehicleList = new ArrayList();
+        
+        for(int i=0; i < 200; i++)
+        {
+            vehicle = new Vehicle(RoadList, PHT);
+            
+            vehicleList.add(vehicle);
+        
+        
+        }
+        
+        Painter.setVehicleList(vehicleList);
+    
     
     
     }

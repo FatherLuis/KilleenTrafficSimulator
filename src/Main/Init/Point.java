@@ -23,7 +23,7 @@ public class Point
     private double longitude;
     private double latitude;
     
-    private ArrayList<String> parentList;
+    private ArrayList<Road> parentList;
  
     
     /***************************************************************************
@@ -146,7 +146,7 @@ public class Point
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/
-    public void addParent(String parentID) 
+    public void addParent(Road parentID) 
     {
         this.parentList.add(parentID);
     }    

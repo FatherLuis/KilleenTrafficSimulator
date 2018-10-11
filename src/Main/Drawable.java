@@ -5,13 +5,18 @@
  */
 package Main;
 
+import Main.Vehicles.Vehicle;
 import Main.Init.Road;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
+import Main.Normalization;
 import Main.Window.TrafficPanel;
+import Main.Window.TrafficPanel;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -35,6 +40,8 @@ public class Drawable
     private double[] Bounds;
     private Normalization Norm;
     private ArrayList<Road> RoadList;
+    
+    private ArrayList<Vehicle> vehicleList;
     
     private Normalization normCalcX;
     private Normalization normCalcY;
@@ -191,11 +198,31 @@ public class Drawable
     ***************************************************************************/   
     public void DrawCar(Graphics g)
     {
-        // I DONT KNOW HOW YOU'LL BE STORING YOUR COLLECTION OF VEHICLES EMILY,
-        //BUT IF YOU NEED AN EXAMPLE, LOOK AT THE DRAW ROAD METHOD ABOVE.
+        for(int i = 0; i < this.vehicleList.size(); i++)
+        {
+            this.vehicleList.get(i).move();
+        }
         
-        //CODE GOES HERE
-        //DONT FORGET TO PLACE METHOD IN PAINTCOMPONENT ON TRAFFIC PANEL
+        normalizeZone();
+        Graphics2D g2 = (Graphics2D) g;
+        
+        Graphics2D g3 = (Graphics2D)g2.create();
+        g3.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+        g3.setColor(Color.BLUE);
+
+        for(int i = 0; i < this.vehicleList.size(); i++)
+        {
+            double x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude()) * this.scaler;
+            //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
+            double y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude())) *this.scaler;
+
+
+            Ellipse2D.Double shape = new Ellipse2D.Double(x1-5,y1-5,10,10);
+
+            g3.draw(shape);
+        }
+        
     }
     
     
@@ -209,6 +236,11 @@ public class Drawable
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////    
+    
+      public void setVehicleList(ArrayList v){this.vehicleList = v;}
+    
+    
+    
     
      /***************************************************************************
     ***METHOD NAME: setAllRoads()
