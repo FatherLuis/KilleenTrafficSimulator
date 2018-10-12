@@ -39,6 +39,8 @@ public class Vehicle
     
     private Random rand = new Random();
     
+    private int changePrb;
+    
     Color color;
 
     /***************************************************************************
@@ -72,6 +74,7 @@ public class Vehicle
         int k;
         
         
+        
             RoadIndex = rand.nextInt(this.RoadList.size());
         
             curRoad = this.RoadList.get(RoadIndex);
@@ -82,9 +85,11 @@ public class Vehicle
 
             curPoint = PHT.getPoint(ID);
             
-            int direction = rand.nextInt(10);
+            int direction = rand.nextInt(100);
                 
-            if(direction > 5){lanePosition = "RIGHT"; color = Color.BLUE;}else{lanePosition = "LEFT";color = Color.RED;}
+            if(direction > 55){lanePosition = "RIGHT"; color = Color.BLUE;}else{lanePosition = "LEFT";color = Color.RED;}
+            
+            //lanePosition = "RIGHT"; color = Color.BLUE;
 
     }
     
@@ -102,88 +107,128 @@ public class Vehicle
     
     private void LeftLaners()
     {
-        if(curPoint.getParentList().size() != 1)
+        if(curPoint.getParentList().size() > 1)
         {
-            relocate();
-        }
-
-            if(NodeIndex > 0)
-            {
-                //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
-
-                this.NodeIndex-= 1;
-                String ID = (String) curRoad.getRef().get(NodeIndex);
-
-                curPoint = PHT.getPoint(ID);
-
-            }
-            else if(NodeIndex == 0)
+            int dec = rand.nextInt(100);
+                
+            if(dec > 75)
             {
                 relocate();
-            }              
-            
-        
-        
+            }
+        }
+
+        if(NodeIndex > 0)
+        {
+            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
+
+            this.NodeIndex -= 1;
+            String ID = (String) curRoad.getRef().get(NodeIndex);
+
+            curPoint = PHT.getPoint(ID);
+
+        }
+        else if(NodeIndex <= 0)
+        {
+            relocate();
+        }       
+        else
+        {
+            System.out.println("SOMEONE CRACKED");
+        }                
     }
     
     private void RightLaners()
     {
-        if(curPoint.getParentList().size() != 1)
+        if(curPoint.getParentList().size() > 1)
         {
-            relocate();
+            int dec = rand.nextInt(100);
+                
+            if(dec > 75)
+            {
+                relocate();
+            }
         }
 
         
-            if(NodeIndex < this.curRoad.getRef().size()-1)
-            {
-                //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
+        if(NodeIndex < this.curRoad.getRef().size()-1)
+        {
+            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
 
-                this.NodeIndex+= 1;
-                String ID = (String) curRoad.getRef().get(NodeIndex);
+            this.NodeIndex += 1;
+            String ID = (String) curRoad.getRef().get(NodeIndex);
 
-                curPoint = PHT.getPoint(ID);
+            curPoint = PHT.getPoint(ID);
 
-            }
-            else if(NodeIndex == this.curRoad.getRef().size()-1)
-            {
-                relocate();
-            }    
+        }
+        else if(NodeIndex >= this.curRoad.getRef().size()-1)
+        {
+            relocate();
+        }          
+        else
+        {
+            System.out.println("SOMEONE CRACKED");
+        } 
             
     
     }
     
     private void relocate()
     {
-            ArrayList<Road> arr;
-            arr = curPoint.getParentList();
+        ArrayList<Road> arr;
+        arr = curPoint.getParentList();
+
+        //System.out.println("curPoint: " + curPoint.getID());
+        if(arr.size() > 1)
+        {
+            //System.out.println("ParentSize: " + arr.size());
             
-            if(arr.size() > 1)
+            int r = rand.nextInt(arr.size());
+           
+            curRoad = arr.get(r);
+            
+            for(int i = 0; i < curRoad.getRef().size();i++)
             {
-                int r = rand.nextInt(arr.size());
-                curRoad = arr.get(r);
-                
-                for(int i = 0; i < curRoad.getRef().size();i++)
+                if(curPoint.getID().equals(curRoad.getRef().get(i)))
                 {
-                    if(curPoint.getID().equals(curRoad.getRef().get(i)))
+                    NodeIndex = i;
+                    
+                    int direction = rand.nextInt(100);
+
+                    if(direction > 85){lanePosition = "RIGHT";color = Color.BLUE;}else{lanePosition = "LEFT"; color =Color.RED;}  
+                    
+                    if((NodeIndex == curRoad.getRef().size()-1) )
                     {
-                        NodeIndex = i;
-                        break;
+                        lanePosition = "LEFT"; color = Color.RED;
+                    }       
+                    else if(NodeIndex == 0)
+                    {
+                        lanePosition = "RIGHT"; color = Color.BLUE;
                     }
+                    break;
                 }
                 
-                
-                if(!curRoad.isOneWay())
-                {
-                    int direction = rand.nextInt(10);
-                
-                    if(direction > 5){lanePosition = "RIGHT";color = Color.BLUE;}else{lanePosition = "LEFT"; color =Color.RED;}
-                
-                }
+
             }
-            else
-            {
-                if(lanePosition.equals("LEFT")){lanePosition = "RIGHT"; color = Color.BLUE;}else{lanePosition = "LEFT"; color = Color.RED;}
-            }  
+            
+
+        }
+        else if(arr.size() == 1 )
+        {
+            //System.out.println("ParentSize: " + arr.size());
+            //System.out.println("NO PARENT HELP");
+               
+
+            int direction = rand.nextInt(100);
+
+            if(direction >85){lanePosition = "RIGHT";color = Color.BLUE;}else{lanePosition = "LEFT"; color = Color.RED;}
+                               
+        }  
+        else
+        {
+        
+            //System.out.println("ParentSize: " + arr.size());
+            //System.out.println("SOMEONE CRACKED");
+        }
     }
     
     public Color getColor(){return color;}

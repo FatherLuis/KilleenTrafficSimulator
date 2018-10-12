@@ -140,6 +140,8 @@ public class Drawable
         Graphics2D g2 = (Graphics2D) g;
         //MAKE THE LINES NICER (?)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        //g2.setColor(Color.WHITE);
 
         //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
         for(int i = 0; i < this.RoadList.size() ; i++)
@@ -220,7 +222,7 @@ public class Drawable
 
             Ellipse2D.Double shape = new Ellipse2D.Double(x1-5,y1-5,10,10);
 
-            g3.setColor(this.vehicleList.get(i).getColor());
+            //g3.setColor(this.vehicleList.get(i).getColor());
             g3.draw(shape);
         }
         
