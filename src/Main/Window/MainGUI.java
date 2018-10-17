@@ -141,7 +141,7 @@ public class MainGUI
         Vehicle vehicle = new Vehicle(RoadList, PHT);
         ArrayList<Vehicle> vehicleList = new ArrayList();
         
-        for(int i=0; i < 1000; i++)
+        for(int i=0; i < 500; i++)
         {
             vehicle = new Vehicle(RoadList, PHT);
             
