@@ -1,4 +1,4 @@
-//package Main;
+package Main;
 /*******************************************************************************
 ***CLASS NAME: Clock
 ***CLASS AUTHOR: LUIS E VARGAS TAMAYO
