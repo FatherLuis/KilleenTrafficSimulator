@@ -36,9 +36,9 @@ public class Clock
     public Clock()
     {
         day = 0;
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
+        seconds = 30;
+        minutes = 36;
+        hours = 13;
     }
     
     /***************************************************************************

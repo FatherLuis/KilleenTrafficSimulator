@@ -1,11 +1,14 @@
 package Main.Window;
 
+import Main.Clock;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,6 +34,10 @@ public class ControlPanel extends JPanel
     public int WIDTH= 400;
     public int HEIGHT = 500; 
     
+    private Clock clock;
+    
+    private boolean isOn;
+    
     /***************************************************************************
     ***METHOD NAME: ControlPanel()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -44,20 +51,24 @@ public class ControlPanel extends JPanel
     ***************************************************************************/     
     public ControlPanel()
     {
+        
+        
         super();
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.GRAY);  
         
         this.setLayout(new GridBagLayout());
         
-        
-        
+        clock = new Clock();
+        isOn = true;
         init();
     }    
     
     
     private void init()
     {
+        
+        ListenForButton ActionForButton = new ListenForButton();
 
         
         GridBagConstraints c = new GridBagConstraints();
@@ -93,6 +104,7 @@ public class ControlPanel extends JPanel
         c.gridheight = 1;
         c.weighty = .10;
         c.fill = GridBagConstraints.HORIZONTAL;
+        this.btnPause.addActionListener(ActionForButton);
         this.add(this.btnPause,c);
         
         this.btnNormalForward = new JButton(">");
@@ -101,7 +113,8 @@ public class ControlPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         c.weighty = .10;
-        c.fill = GridBagConstraints.HORIZONTAL;      
+        c.fill = GridBagConstraints.HORIZONTAL;    
+        this.btnNormalForward.addActionListener(ActionForButton);
         this.add(this.btnNormalForward,c);
         
         
@@ -112,6 +125,7 @@ public class ControlPanel extends JPanel
         c.gridheight = 1;
         c.weighty = .10;
         c.fill = GridBagConstraints.HORIZONTAL;
+        this.btnFastForward.addActionListener(ActionForButton);
         this.add(this.btnFastForward,c);
         
         
@@ -143,6 +157,11 @@ public class ControlPanel extends JPanel
     }
     
     
+    
+    public void setClock(String time){this.lblClock.setText(time);}
+    
+    public boolean isOn(){return this.isOn;}
+    
     private JButton btnPause;
     private JButton btnFastForward; 
     private JButton btnNormalForward;
@@ -152,6 +171,30 @@ public class ControlPanel extends JPanel
     
     private JLabel lblNumCars;
     private JTextField txtNumCars;
+ 
+    
+    
+   
+    private class ListenForButton implements ActionListener
+    {
+        public void actionPerformed(ActionEvent evt)
+        {
+            
+            if(evt.getSource() == btnPause)
+            {
+                isOn = false;
+            }
+            else if(evt.getSource() == btnNormalForward || evt.getSource() ==btnFastForward)
+            {
+                isOn = true;
+            }
+            
+        
+        }
+    }
+    
+    
+    
     
     
 }
