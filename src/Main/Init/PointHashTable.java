@@ -1,5 +1,8 @@
 package Main.Init;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 /*******************************************************************************
 ***CLASS NAME: PointHashTable
 ***CLASS AUTHOR: LUIS E VARGAS TAMAYO
@@ -111,6 +114,7 @@ public class PointHashTable
     ***************************************************************************/  
     public Point getPoint(String PointID)
     {
+        //System.out.println("Coming in " +PointID);
         Point point = null;
         
         try
@@ -127,7 +131,7 @@ public class PointHashTable
                     do
                     {
                         //IF THE NODEID MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
-                        if(temp.getPoint().nodeID.equals(PointID)) 
+                        if(temp.getPoint().getID().equals(PointID)) 
                         {
                             //GET MY OBJECT
                             point = temp.getPoint();
@@ -135,7 +139,7 @@ public class PointHashTable
                             break;
                         } 
                         //IF THE NODEID OF THE NEXT LINKLIST POINT MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
-                        else if(temp.getNextLink().getPoint().nodeID.equals(PointID))
+                        else if(temp.getNextLink().getPoint().getID().equals(PointID))
                         {
                             //GET MY OBJECT
                             point = temp.getNextLink().getPoint();
@@ -151,10 +155,10 @@ public class PointHashTable
                         {
                             break;
                         }
-                    }while(!(temp.getPoint().nodeID.equals(PointID)));
+                    }while(!(temp.getPoint().getID().equals(PointID)));
 
         }
-        }catch(Exception ex){}
+        }catch(Exception ex){ System.out.println("\n\nBROKEN\n\n");}
         
         //RETURN THE OBJECT
         return point;
@@ -178,7 +182,23 @@ public class PointHashTable
     {
         //NUMERIC STRING IS CAST TO LONG AND 
         //THEN A MODULAR OF 10000 IS CALCULATED
-        return Long.parseLong(curPointID) % 10000;
+        
+        try
+        {
+            NumberFormat NF = NumberFormat.getInstance();
+            return NF.parse(curPointID).longValue() % 10000;
+        }
+        catch(Exception ex)
+        {
+            System.out.println("\n\nBROKEN\n\n");
+        }
+        
+        return (long)0;
+            
+            
+            
+
+        //return Long.parseLong(curPointID) % 10000;
     }
       
 }

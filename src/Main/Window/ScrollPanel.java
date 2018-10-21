@@ -49,6 +49,10 @@ public class ScrollPanel extends JScrollPane implements MouseListener
         
     }
 
+    
+    
+        public TrafficPanel getTP(){return TP;}
+    
     /***************************************************************************
     ***METHOD NAME: MouseClicked
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO

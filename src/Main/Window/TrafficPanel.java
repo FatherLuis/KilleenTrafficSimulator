@@ -75,6 +75,9 @@ public class TrafficPanel extends JPanel //implements Runnable
     }
     
     
+
+    
+    
     
 
  
@@ -101,41 +104,8 @@ public class TrafficPanel extends JPanel //implements Runnable
     
     }
     
-//    @Override
-//    public void addNotify()
-//    {
-//        super.addNotify();
-//        animator = new Thread(this);
-//        animator.start();
-//        
-//    
-//    }
     
-//    @Override
-//    public void run() 
-//    {
-//        long beforeTime, timeDiff, sleep;
-//        
-//        beforeTime = System.currentTimeMillis();
-//        
-//        while(true)
-//        {
-//            repaint();
-//            timeDiff = System.currentTimeMillis() - beforeTime;
-//            sleep = 125 - timeDiff;
-//            
-//            if(sleep < 0){sleep = 2;}
-//            
-//            try{Thread.sleep(sleep);}catch(Exception ex){}
-//            
-//            beforeTime = System.currentTimeMillis();
-//        
-//        }
-        
-        
-        
-        
-        
+    public void update(){Painter.updateVehicles();}
     
-    ///}
+
 }

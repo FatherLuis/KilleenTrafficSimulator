@@ -1,5 +1,6 @@
 package Main.Init;
 
+import Main.FixRoad;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -46,7 +47,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST7.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -350,6 +351,21 @@ public class File_IO
     }
     
     
+    
+    private void FixRoads()
+    {
+        
+        FixRoad fixRoad = new FixRoad(this.PHT);
+    
+        for(int i = 0; i < this.AllRoads.size(); i++)
+        {
+            this.AllRoads.get(i).setRef(fixRoad.newRef(this.AllRoads.get(i)));
+        }
+        
+        this.PHT = fixRoad.getPHT();
+    }
+    
+    
     /***************************************************************************
     ***METHOD NAME: MainCalculation()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -377,10 +393,14 @@ public class File_IO
             //end = System.currentTimeMillis();
             //System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
             //start = System.currentTimeMillis();
+            
+        FixRoads();   
+            
         AssignParents();
             //end = System.currentTimeMillis();
             //System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
             //start = System.currentTimeMillis();
+        
     }
     
 

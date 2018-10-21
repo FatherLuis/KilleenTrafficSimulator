@@ -12,10 +12,12 @@ import Main.Init.PointHashTable;
 import Main.Normalization;
 import Main.Window.TrafficPanel;
 import Main.Window.TrafficPanel;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -137,9 +139,18 @@ public class Drawable
         //NORMALIZE THE BOUNDARIES SO I CAN CONVERT FROM (LON,LAT) TO (X,Y)
         normalizeZone();
         //DRAWING IN A 2D FIELD
-        Graphics2D g2 = (Graphics2D) g;
+        
+        //Graphics2D g3 = (Graphics2D) g.create();
+        //Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
+        //g3.setStroke(dashed); 
+        //g3.setColor(Color.yellow);
+        
+        Graphics2D g2 = (Graphics2D) g.create();
+        
+        g2.setStroke(new BasicStroke(1));
         //MAKE THE LINES NICER (?)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
         
         //g2.setColor(Color.WHITE);
 
@@ -178,6 +189,19 @@ public class Drawable
                     
                     //DRAW A LINE FROM P1 TO P2
                     g2.draw(new Line2D.Double(x1,y1,x2,y2)); 
+                    //g3.draw(new Line2D.Double(x1,y1,x2,y2));
+                    
+                               
+                    Ellipse2D.Double shape = new Ellipse2D.Double((int)x1-5,(int)y1-5,10,10);
+
+                    //g3.setColor(this.vehicleList.get(i).getColor());
+                    g2.draw(shape);
+                    
+                    shape = new Ellipse2D.Double((int)x2-5,(int)y2-5,10,10);
+
+                    //g3.setColor(this.vehicleList.get(i).getColor());
+                    g2.draw(shape);                    
+                    
                                               
             }
         }    
@@ -200,15 +224,9 @@ public class Drawable
     ***************************************************************************/   
     public void DrawCar(Graphics g)
     {
-        for(int i = 0; i < this.vehicleList.size(); i++)
-        {
-            this.vehicleList.get(i).move();
-        }
-        
+
         normalizeZone();
-        Graphics2D g2 = (Graphics2D) g;
-        
-        Graphics2D g3 = (Graphics2D)g2.create();
+        Graphics2D g3 = (Graphics2D) g.create();
         g3.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g3.setColor(Color.BLUE);
@@ -226,6 +244,15 @@ public class Drawable
             g3.draw(shape);
         }
         
+    }
+    
+    
+    public void updateVehicles()
+    {
+        for(int i = 0; i < this.vehicleList.size(); i++)
+        {
+            this.vehicleList.get(i).move();
+        }
     }
     
     

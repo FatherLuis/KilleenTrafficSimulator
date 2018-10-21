@@ -97,14 +97,20 @@ public class Vehicle
     
     private void forwardLoop()
     {
+        //System.out.println("      FL INDEX " + this.NodeIndex  );
+        
         if(NodeIndex < this.curRoad.getRef().size()-1)
         {
             //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
 
             this.NodeIndex += 1;
             String ID = (String) curRoad.getRef().get(NodeIndex);
-
+            
+            //System.out.println( "written " +ID);
+            //System.out.println(" " + PHT.getPoint(ID).getID()); 
             curPoint = PHT.getPoint(ID);
+            
+            
             isMoved = true;
 
         }
@@ -132,14 +138,32 @@ public class Vehicle
     
     private void reverseLoop()
     {
+        //System.out.println("       RL INDEX " + this.NodeIndex  );
+        
         if(NodeIndex > 0)
         {
             //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
 
             this.NodeIndex -= 1;
             String ID = (String) curRoad.getRef().get(NodeIndex);
+            
+            //System.out.println( "written " +ID);
 
-            curPoint = PHT.getPoint(ID);
+            
+            //System.out.println(" " + PHT.getPoint(ID).getID());
+            
+            try
+            {
+                curPoint = PHT.getPoint(ID);
+            }catch(Exception ex)
+            {
+                System.out.println("  BRING SOMETHING" );
+            }
+            
+            
+            
+            
+            
             isMoved = true;
         } 
         else if(!isMoved)
@@ -166,17 +190,23 @@ public class Vehicle
     
     public void move()
     {
+        //System.out.println("move INDEX " + this.NodeIndex +  "   Size: " + this.curRoad.getRef().size()  );
+        
+        
         if(!(NodeIndex <=0 || NodeIndex >= this.curRoad.getRef().size() -1))
         {
+            
             if(curPoint.getParentList().size() == 1)
             {
 
                 if(position.equals("FL"))
                 {
+                    //System.out.println("CHECKED IN");
                     forwardLoop();
                 }
                 else if(position.equals("RL"))
                 {
+                    //System.out.println("CHECKED IN");
                     reverseLoop();
                 }
             }
@@ -213,6 +243,16 @@ public class Vehicle
             }
             
         }
+        
+        //System.out.println("\n\nPOINT ID: " + this.curPoint.getID() + "  ("  +this.curPoint.getLongitude() + " , " + this.curPoint.getLatitude() + " )");
+        //System.out.println("Node Index: "  + this.NodeIndex  + "    ref Size: " + this.curRoad.getRef().size()  + "   position: " + this.position);
+        
+        //for (Object ref : this.curRoad.getRef()) 
+        //{
+        //    System.out.print(ref + " , ");
+        //}
+        
+        //System.out.println("OUT");
     }
     
     private void cornerRoad()

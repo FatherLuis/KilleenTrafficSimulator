@@ -24,6 +24,7 @@ public class SplitPanel extends JSplitPane implements Runnable
     private Thread animator;
     
     private ControlPanel CP;
+    private TrafficPanel TP;
     
     private Clock clock;
     
@@ -47,10 +48,11 @@ public class SplitPanel extends JSplitPane implements Runnable
         this.setDividerLocation(0.9);
         
         this.CP = CP;
+        this.TP = SP.getTP();
         clock = new Clock();
     }
     
-            @Override
+    @Override
     public void addNotify()
     {
         super.addNotify();
@@ -71,10 +73,11 @@ public class SplitPanel extends JSplitPane implements Runnable
         {
             if(CP.isOn())
             {
-                repaint();
-            
+                TP.update();
                 CP.setClock(clock.tick());
             }
+            
+            repaint();
             
             timeDiff = System.currentTimeMillis() - beforeTime;
             sleep = 125 - timeDiff;

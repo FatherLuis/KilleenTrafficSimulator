@@ -138,10 +138,12 @@ public class MainGUI
     
     private static void CreateVehicles()
     {          
+        //System.out.println("///////////////////////////////////////////// \n\n");
+        
         Vehicle vehicle = new Vehicle(RoadList, PHT);
         ArrayList<Vehicle> vehicleList = new ArrayList();
         
-        for(int i=0; i < 100; i++)
+        for(int i=0; i < 1; i++)
         {
             vehicle = new Vehicle(RoadList, PHT);
             
