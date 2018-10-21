@@ -192,15 +192,15 @@ public class Drawable
                     //g3.draw(new Line2D.Double(x1,y1,x2,y2));
                     
                                
-                    Ellipse2D.Double shape = new Ellipse2D.Double((int)x1-5,(int)y1-5,10,10);
+                    //Ellipse2D.Double shape = new Ellipse2D.Double((int)x1-5,(int)y1-5,10,10);
 
                     //g3.setColor(this.vehicleList.get(i).getColor());
-                    g2.draw(shape);
+                    //g2.draw(shape);
                     
-                    shape = new Ellipse2D.Double((int)x2-5,(int)y2-5,10,10);
+                    //shape = new Ellipse2D.Double((int)x2-5,(int)y2-5,10,10);
 
                     //g3.setColor(this.vehicleList.get(i).getColor());
-                    g2.draw(shape);                    
+                    //g2.draw(shape);                    
                     
                                               
             }

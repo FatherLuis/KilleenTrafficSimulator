@@ -1,6 +1,5 @@
 package Main.Init;
 
-import Main.FixRoad;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST7.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }

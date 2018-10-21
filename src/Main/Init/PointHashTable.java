@@ -158,7 +158,7 @@ public class PointHashTable
                     }while(!(temp.getPoint().getID().equals(PointID)));
 
         }
-        }catch(Exception ex){ System.out.println("\n\nBROKEN\n\n");}
+        }catch(Exception ex){ System.out.println("\n me? BROKEN\n\n");}
         
         //RETURN THE OBJECT
         return point;
@@ -186,11 +186,15 @@ public class PointHashTable
         try
         {
             NumberFormat NF = NumberFormat.getInstance();
+            
+            //System.out.println(NF.parse(curPointID).longValue() % 10000);
+            
+            
             return NF.parse(curPointID).longValue() % 10000;
         }
         catch(Exception ex)
         {
-            System.out.println("\n\nBROKEN\n\n");
+            System.out.println("\n\n mmmmmmhm BROKEN\n\n");
         }
         
         return (long)0;

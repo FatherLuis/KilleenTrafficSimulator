@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package Main.Init;
 
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -21,9 +22,12 @@ public class FixRoad
     
     private Road curRoad;
     
+    private Random rand;
+    
     public FixRoad(PointHashTable PHT)
     {   
         this.PHT = PHT;
+        this.rand = new Random();
     }
     
     
@@ -53,6 +57,7 @@ public class FixRoad
             if(i ==0)
             {
                 newRef.add(curRef.get(i));
+                //System.out.println("--" + curRef.get(i));
             }
             
            // System.out.println(" BEFORE " +  curRef.get(i));
@@ -63,6 +68,7 @@ public class FixRoad
             }
              
             newRef.add(curRef.get(i+1));
+            //System.out.println("--" + curRef.get(i+1));
             //next = false;
             
             
@@ -87,12 +93,14 @@ public class FixRoad
     
     private void createSubPoints(double desiredDistance,double distance,Point p1, Point p2)
     {
+        int extra = rand.nextInt(1000);
+        
         
         boolean forwardLoop= true;
         ArrayList subRef = new ArrayList();
         int numSlices = (int) (distance / desiredDistance);
         
-        if(numSlices > 1)
+        if(numSlices > 2)
         {
             /////////////////////////////////////////////////////////
 
@@ -174,18 +182,17 @@ public class FixRoad
 
                     newY = slope * (newX - x1) + y1;
 
-                    newPoint = new Point(ID + "." + i);
+                    newPoint = new Point(ID + "."+ Integer.toString(extra) + "00" + i);
                     newPoint.setLatitude(newY);
                     newPoint.setLongitude(newX);
 
                     PHT.put(newPoint);
 
-                    subRef.add(ID + "." + i);
+                    subRef.add(ID + "."+ Integer.toString(extra) + "00" + i);
                 } 
             }
             else if(deltaX == 0)
             {
-                System.out.println("\n\nWHO IS HERE\n\n");
 
                 if(p2.getLatitude() > p1.getLatitude())
                 {
@@ -212,13 +219,13 @@ public class FixRoad
                 {
                     newY += change;
 
-                    newPoint = new Point(ID + "." + i);
+                    newPoint = new Point(ID + "." + Integer.toString(extra) + "00" + i);
                     newPoint.setLatitude(newY);
                     newPoint.setLongitude(newX);
 
                     PHT.put(newPoint);
 
-                    subRef.add(ID + "." + i);
+                    subRef.add(ID + "."+ Integer.toString(extra) + "00" + i);
                 }                  
             }
             else
@@ -232,14 +239,17 @@ public class FixRoad
             {
                 for(int i = 0; i < subRef.size(); i++)
                 {
-                    this.newRef.add(subRef.get(i));       
+                    this.newRef.add(subRef.get(i));
+                    
+                    //System.out.println("     " + subRef.get(i));
                 }
             }
             else
             {
-                for(int i = subRef.size() -1; i > 0; i--)
+                for(int i = subRef.size() -1; i >= 0; i--)
                 {
-                    this.newRef.add(subRef.get(i));       
+                    this.newRef.add(subRef.get(i));    
+                    //System.out.println("     " + subRef.get(i));
                 }     
             } 
             
