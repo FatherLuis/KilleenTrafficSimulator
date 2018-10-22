@@ -84,7 +84,7 @@ public class SplitPanel extends JSplitPane implements Runnable
             
             if(sleep < 0)
             {
-                sleep = 2;
+                sleep = 5;
             }
             
             try{Thread.sleep(sleep);}catch(Exception ex){}

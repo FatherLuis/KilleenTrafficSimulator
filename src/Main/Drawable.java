@@ -166,16 +166,16 @@ public class Drawable
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
                     Point p =this.PHT.getPoint(curRoadPoints.get(j));
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    double x1 = normCalcX.Normalize(p.getLongitude()) * this.scaler;
+                    double x1 = normCalcX.Normalize(p.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    double y1 = OperationY(normCalcY.Normalize(p.getLatitude())) *this.scaler;
+                    double y1 = OperationY(normCalcY.Normalize(p.getLatitude()));
 
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
                     Point p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    double x2 = normCalcX.Normalize(p2.getLongitude())*this.scaler;
+                    double x2 = normCalcX.Normalize(p2.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    double y2 = OperationY(normCalcY.Normalize(p2.getLatitude()))*this.scaler;
+                    double y2 = OperationY(normCalcY.Normalize(p2.getLatitude()));
 
                     
                     ////////////////////////////////////////////////
@@ -233,12 +233,19 @@ public class Drawable
 
         for(int i = 0; i < this.vehicleList.size(); i++)
         {
-            double x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude()) * this.scaler;
+            double x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude());
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            double y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude())) *this.scaler;
+            double y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude()));
 
 
-            Ellipse2D.Double shape = new Ellipse2D.Double(x1-5,y1-5,10,10);
+            //subtract the x and y by the radius
+            //since there is a scalar, we'll gonna be to figure out something
+            
+            int d = 6 * (this.scaler)/3;
+            int r = d/2;
+            
+            
+            Ellipse2D.Double shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
 
             //g3.setColor(this.vehicleList.get(i).getColor());
             g3.draw(shape);
