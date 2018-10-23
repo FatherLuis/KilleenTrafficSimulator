@@ -49,7 +49,7 @@ public class PointHashTable
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/ 
-    public void put(Point newPoint)
+    public synchronized void put(Point newPoint)
     { 
         try
         {

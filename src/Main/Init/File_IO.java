@@ -1,6 +1,8 @@
 package Main.Init;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -276,42 +278,170 @@ public class File_IO
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
     private void GetPoints()
-    {        
-        String pointID = " ";
-        double longitude = 0;
-        double latitude = 0;
-        Point curPoint;
-        
-        //GET A NODELIST OF ONLY TAGS WITH THE WORD 'NODE'
+    {     
         NodeList listOfNodes = xmlDoc.getElementsByTagName("node");
+                
+
+        int length = listOfNodes.getLength();
         
-        try{
-            //ITERATES BY THE SIZE OF THE NODELIST WITH TAG NAME 'NODE'
-            for(int i=0; i < listOfNodes.getLength();i++ )
+        //System.out.println("LENGTH  " + length);
+        int size = 0;
+        
+        Node[] copy = null;
+        Node[] copy2 = null;
+        
+        
+        if(length % 2 == 0)
+        {
+            //System.out.println(  "           EVEN" );
+            
+            size = length / 2;
+            //System.out.println("SIZE  " + size);
+            
+            copy = new Node[size];
+            copy2 = new Node[size];
+
+            int count  = 0;
+            
+            for (int n = 0; n < length; n++)
             {
-                //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
-                Node curNode = listOfNodes.item(i);
+                //System.out.print("iteration   "  + n);
+
                 
-                //GET THE NODE ID
-                pointID = curNode.getAttributes().getNamedItem("id").getNodeValue();
-                //GET THE LATITUDE
-                latitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lat").getNodeValue());
-                //GET THE LONGITUDE
-                longitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lon").getNodeValue());
+                if(n < size)
+                {
+                    //System.out.println(  n + " ");
+                    copy[count] = listOfNodes.item(n);
+                    
+                    //System.out.print("   COPY 1  \n");
+                    count++;           
+                    
+                    if( count == size)
+                    {
+                        count = 0;
                 
-                //INSTANTIATE NEW POINT OBJECT
-                curPoint = new Point(pointID);
-                //SET LATITUDE
-                curPoint.setLatitude(latitude);
-                //SET LONGITITUDE
-                curPoint.setLongitude(longitude);
+                    }
                 
-                //ADD POINT TO THE HASHTABLE
-                PHT.put(curPoint);
-            }
+                }
+                else if(n >= size && n < length)
+                {                   
+                    //System.out.println(  n + " ");
+                    copy2[count] = listOfNodes.item(n);
+                    //System.out.print("   COPY 2  \n");
+                    count++;
+                
+                }
+                
+                
+            }  
         }
-        catch(Exception ex)
-        {}
+        else
+        {
+            //System.out.println(  "           ODD" );
+            
+            size = length / 2;
+            //System.out.println("SIZE  " + size);
+            
+            copy = new Node[size];
+            copy2 = new Node[size+1];
+
+            int count  = 0;
+            
+            for (int n = 0; n < length; n++)
+            {
+                //System.out.print("iteration   "  + n);
+
+                
+                if(n < size)
+                {
+                    //System.out.println(  n + " ");
+                    copy[count] = listOfNodes.item(n);
+                    
+                    //System.out.print("   COPY 1  \n");
+                    count++;           
+                    
+                    if( count == size)
+                    {
+                        count = 0;
+                
+                    }
+                
+                }
+                else if(n >= size && n < length)
+                {                   
+                    //System.out.println(  n + " ");
+                    copy2[count] = listOfNodes.item(n);
+                    //System.out.print("   COPY 2  \n");
+                    count++;
+                
+                }
+                
+                
+            }
+            
+        }
+        
+        //System.out.println("OUT");
+        
+        
+        
+        
+        
+        
+        
+        
+
+            //        String pointID = " ";
+//        double longitude = 0;
+//        double latitude = 0;
+//        Point curPoint;
+//        
+//        //GET A NODELIST OF ONLY TAGS WITH THE WORD 'NODE'
+                PointThread PT1 = new PointThread(this.PHT, copy, 1);
+                PointThread PT2 = new PointThread(this.PHT, copy2, 2);
+                
+                PT1.start();
+                PT2.start();
+                
+                while(PT1.isAlive() || PT2.isAlive())
+                {
+                
+                
+                }
+                
+                
+
+//        
+//        try{
+//            //ITERATES BY THE SIZE OF THE NODELIST WITH TAG NAME 'NODE'
+//            //System.out.println("Number of Nodes  " + listOfNodes.getLength());
+//            
+//            for(int i=0; i < listOfNodes.getLength();i++ )
+//            {
+//                //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
+//                Node curNode = listOfNodes.item(i);
+//                
+//                //GET THE NODE ID
+//                pointID = curNode.getAttributes().getNamedItem("id").getNodeValue();
+//                //GET THE LATITUDE
+//                latitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lat").getNodeValue());
+//                //GET THE LONGITUDE
+//                longitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lon").getNodeValue());
+//                
+//                //INSTANTIATE NEW POINT OBJECT
+//                curPoint = new Point(pointID);
+//                //SET LATITUDE
+//                curPoint.setLatitude(latitude);
+//                //SET LONGITITUDE
+//                curPoint.setLongitude(longitude);
+//                
+//                //ADD POINT TO THE HASHTABLE
+//                PHT.put(curPoint);
+//            }
+//        }
+//        catch(Exception ex)
+//        {}
+
 
     }
  
@@ -336,7 +466,7 @@ public class File_IO
         for(int i = 0; i < this.AllRoads.size(); i++)
         {
             //USED AS A REFERENCE
-            refID = this.AllRoads.get(i).getRef();
+            refID = this.AllRoads.get(i).getDetailedRef();
             
             //ITERATE BY THE SIZE OF THE REFARR
             for(int j = 0 ; j < refID.size(); j++)
@@ -358,10 +488,10 @@ public class File_IO
     
         for(int i = 0; i < this.AllRoads.size(); i++)
         {
-            this.AllRoads.get(i).setRef(fixRoad.newRef(this.AllRoads.get(i)));
+            this.AllRoads.get(i).setDetailedRef(fixRoad.newRef(this.AllRoads.get(i)));
         }
         
-        this.PHT = fixRoad.getPHT();
+        //this.PHT = fixRoad.getPHT();
     }
     
     
@@ -378,8 +508,8 @@ public class File_IO
     ***************************************************************************/         
     public void MainCalculation()
     {
-            Long start;
-            Long end;
+        //Long start;
+        //Long end;
     
         
         GetBounds();
@@ -392,9 +522,11 @@ public class File_IO
             //end = System.currentTimeMillis();
             //System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
             //start = System.currentTimeMillis();
-            
+
         FixRoads();   
-            
+            //end = System.currentTimeMillis();
+            //System.out.println("FixRoads Time: "+(double)(end - start)/1000+ " Seconds");
+            //start = System.currentTimeMillis();            
         AssignParents();
             //end = System.currentTimeMillis();
             //System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");

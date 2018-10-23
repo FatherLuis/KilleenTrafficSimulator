@@ -22,6 +22,8 @@ public class Road
     private String name;
     private ArrayList ref;
     
+    private ArrayList detailedRef;
+    
     private int lane;
     private boolean oneway;
     private int speed;
@@ -105,6 +107,12 @@ public class Road
     ***************************************************************************/ 
     public ArrayList getRef(){return this.ref;}
   
+
+    public void setDetailedRef(ArrayList ref){this.detailedRef = ref;}
+
+    public ArrayList getDetailedRef(){return this.detailedRef;}
+
+
     
     /***************************************************************************
     ***METHOD NAME: setID()
@@ -118,6 +126,8 @@ public class Road
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
     public void setID(String ID){this.roadID = ID;}
+    
+    
    
     
     /***************************************************************************

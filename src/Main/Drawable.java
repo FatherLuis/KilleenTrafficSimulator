@@ -241,7 +241,7 @@ public class Drawable
             //subtract the x and y by the radius
             //since there is a scalar, we'll gonna be to figure out something
             
-            int d = 6 * (this.scaler)/3;
+            int d = 6 * (this.scaler)/4;
             int r = d/2;
             
             

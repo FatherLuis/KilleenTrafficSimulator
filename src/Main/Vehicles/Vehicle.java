@@ -80,9 +80,9 @@ public class Vehicle
         
             curRoad = this.RoadList.get(RoadIndex);
             
-            NodeIndex = rand.nextInt(curRoad.getRef().size());
+            NodeIndex = rand.nextInt(curRoad.getDetailedRef().size());
 
-            String ID = (String) curRoad.getRef().get(NodeIndex);
+            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
 
             curPoint = PHT.getPoint(ID);
             
@@ -99,12 +99,12 @@ public class Vehicle
     {
         //System.out.println("      FL INDEX " + this.NodeIndex  );
         
-        if(NodeIndex < this.curRoad.getRef().size()-1)
+        if(NodeIndex < this.curRoad.getDetailedRef().size()-1)
         {
-            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
+            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getDetailedRef().size());
 
             this.NodeIndex += 1;
-            String ID = (String) curRoad.getRef().get(NodeIndex);
+            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
             
             //System.out.println( "written " +ID);
             //System.out.println(" " + PHT.getPoint(ID).getID()); 
@@ -142,10 +142,10 @@ public class Vehicle
         
         if(NodeIndex > 0)
         {
-            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getRef().size());
+            //System.out.println("FIRST IF      NodeIndex: " + NodeIndex + "   Size: " + this.curRoad.getDetailedRef().size());
 
             this.NodeIndex -= 1;
-            String ID = (String) curRoad.getRef().get(NodeIndex);
+            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
             
             //System.out.println( "written " +ID);
 
@@ -190,10 +190,10 @@ public class Vehicle
     
     public void move()
     {
-        //System.out.println("move INDEX " + this.NodeIndex +  "   Size: " + this.curRoad.getRef().size()  );
+        //System.out.println("move INDEX " + this.NodeIndex +  "   Size: " + this.curRoad.getDetailedRef().size()  );
         
         
-        if(!(NodeIndex <=0 || NodeIndex >= this.curRoad.getRef().size() -1))
+        if(!(NodeIndex <=0 || NodeIndex >= this.curRoad.getDetailedRef().size() -1))
         {
             
             if(curPoint.getParentList().size() == 1)
@@ -245,9 +245,9 @@ public class Vehicle
         }
         
         //System.out.println("\n\nPOINT ID: " + this.curPoint.getID() + "  ("  +this.curPoint.getLongitude() + " , " + this.curPoint.getLatitude() + " )");
-        //System.out.println("Node Index: "  + this.NodeIndex  + "    ref Size: " + this.curRoad.getRef().size()  + "   position: " + this.position);
+        //System.out.println("Node Index: "  + this.NodeIndex  + "    ref Size: " + this.curRoad.getDetailedRef().size()  + "   position: " + this.position);
         
-        //for (Object ref : this.curRoad.getRef()) 
+        //for (Object ref : this.curRoad.getDetailedRef()) 
         //{
         //    System.out.print(ref + " , ");
         //}
@@ -289,9 +289,9 @@ public class Vehicle
         {
             curRoad = tempRoad;
             
-            for(int i=0; i < curRoad.getRef().size(); i++)
+            for(int i=0; i < curRoad.getDetailedRef().size(); i++)
             {
-                if(curPoint.getID().equals(curRoad.getRef().get(i)))
+                if(curPoint.getID().equals(curRoad.getDetailedRef().get(i)))
                 {
                     this.NodeIndex = i;
                     
@@ -310,7 +310,7 @@ public class Vehicle
         }
         else
         {
-            if(!(NodeIndex <=0 || NodeIndex >= this.curRoad.getRef().size() -1))
+            if(!(NodeIndex <=0 || NodeIndex >= this.curRoad.getDetailedRef().size() -1))
             {
                 if(position.equals("FL"))
                 {
@@ -321,7 +321,7 @@ public class Vehicle
                     reverseLoop();
                 } 
             }
-            else if(NodeIndex <=0 || NodeIndex >= this.curRoad.getRef().size() -1)
+            else if(NodeIndex <=0 || NodeIndex >= this.curRoad.getDetailedRef().size() -1)
             {        
                 do
                 {
@@ -331,9 +331,9 @@ public class Vehicle
  
                 curRoad = (Road) curPoint.getParentList().get(randNum);
 
-                for(int i=0; i < curRoad.getRef().size(); i++)
+                for(int i=0; i < curRoad.getDetailedRef().size(); i++)
                 {
-                    if(curPoint.getID().equals(curRoad.getRef().get(i)))
+                    if(curPoint.getID().equals(curRoad.getDetailedRef().get(i)))
                     {
                         this.NodeIndex = i;
 
