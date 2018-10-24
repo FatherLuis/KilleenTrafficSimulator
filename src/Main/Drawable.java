@@ -252,6 +252,8 @@ public class Drawable
         
         for(int i = 0; i < this.vehicleList.size(); i++)
         {
+            g3.setColor(this.vehicleList.get(i).getColor());
+            
             x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude());
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
             y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude()));

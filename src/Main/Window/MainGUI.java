@@ -6,6 +6,7 @@ import Main.Window.SplitPanel;
 import Main.Window.ControlPanel;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Vehicles.Instructions;
 import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -140,12 +141,15 @@ public class MainGUI
     {          
         //System.out.println("///////////////////////////////////////////// \n\n");
         
-        Vehicle vehicle = new Vehicle(RoadList, PHT);
+        Instructions ins ;
+        Vehicle vehicle;
+        
         ArrayList<Vehicle> vehicleList = new ArrayList();
         
         for(int i=0; i < 1000; i++)
         {
-            vehicle = new Vehicle(RoadList, PHT);
+            ins = new Instructions(RoadList, PHT);
+            vehicle = new Vehicle(ins);
             
             vehicleList.add(vehicle);
         
