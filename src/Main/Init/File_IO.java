@@ -1,5 +1,6 @@
 package Main.Init;
 
+import Main.Init.Threads.PointThread;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +49,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST7.xml");
+        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -481,7 +482,7 @@ public class File_IO
     
     
     
-    private void FixRoads()
+    private void FixRoads() throws InterruptedException
     {
         
         FixRoad fixRoad = new FixRoad(this.PHT);
@@ -489,7 +490,9 @@ public class File_IO
         for(int i = 0; i < this.AllRoads.size(); i++)
         {
             this.AllRoads.get(i).setDetailedRef(fixRoad.newRef(this.AllRoads.get(i)));
+            //this.AllRoads.get(i).setDetailedRef(this.AllRoads.get(i).getRef());
         }
+        
         
         //this.PHT = fixRoad.getPHT();
     }
@@ -506,31 +509,31 @@ public class File_IO
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/         
-    public void MainCalculation()
+    public void MainCalculation() throws InterruptedException
     {
-        //Long start;
-        //Long end;
+        Long start;
+        Long end;
     
         
         GetBounds();
-            //start = System.currentTimeMillis();
+            start = System.currentTimeMillis();
         GetRoads();
-            //end = System.currentTimeMillis();
-            //System.out.println("GetRoad Time: "+(double)(end - start)/1000+ " Seconds");
-            //start = System.currentTimeMillis();
+            end = System.currentTimeMillis();
+            System.out.println("GetRoad Time: "+(double)(end - start)/1000+ " Seconds");
+            start = System.currentTimeMillis();
         GetPoints();
-            //end = System.currentTimeMillis();
-            //System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
-            //start = System.currentTimeMillis();
+            end = System.currentTimeMillis();
+            System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
+            start = System.currentTimeMillis();
 
         FixRoads();   
-            //end = System.currentTimeMillis();
-            //System.out.println("FixRoads Time: "+(double)(end - start)/1000+ " Seconds");
-            //start = System.currentTimeMillis();            
+            end = System.currentTimeMillis();
+            System.out.println("FixRoads Time: "+(double)(end - start)/1000+ " Seconds");
+            start = System.currentTimeMillis();            
         AssignParents();
-            //end = System.currentTimeMillis();
-            //System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
-            //start = System.currentTimeMillis();
+            end = System.currentTimeMillis();
+            System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
+            start = System.currentTimeMillis();
         
     }
     

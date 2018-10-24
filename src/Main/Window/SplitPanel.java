@@ -73,8 +73,9 @@ public class SplitPanel extends JSplitPane implements Runnable
         {
             if(CP.isOn())
             {
-                TP.update();
-                CP.setClock(clock.tick());
+                TP.update(CP.getIntFastForward());
+
+                CP.setClock(clock.tick(CP.getIntFastForward()));
             }
             
             repaint();
@@ -84,7 +85,7 @@ public class SplitPanel extends JSplitPane implements Runnable
             
             if(sleep < 0)
             {
-                sleep = 5;
+                sleep = 2;
             }
             
             try{Thread.sleep(sleep);}catch(Exception ex){}

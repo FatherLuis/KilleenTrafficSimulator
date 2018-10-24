@@ -34,6 +34,8 @@ public class ControlPanel extends JPanel
     public int WIDTH= 400;
     public int HEIGHT = 500; 
     
+    private int intFastForward;
+    
     private Clock clock;
     
     private boolean isOn;
@@ -61,6 +63,7 @@ public class ControlPanel extends JPanel
         
         clock = new Clock();
         isOn = true;
+        intFastForward = 1;
         init();
     }    
     
@@ -162,6 +165,8 @@ public class ControlPanel extends JPanel
     
     public boolean isOn(){return this.isOn;}
     
+    public int getIntFastForward(){return this.intFastForward;}
+    
     private JButton btnPause;
     private JButton btnFastForward; 
     private JButton btnNormalForward;
@@ -183,6 +188,12 @@ public class ControlPanel extends JPanel
             if(evt.getSource() == btnPause)
             {
                 isOn = false;
+                intFastForward = 1;
+            }
+            else if(evt.getSource() ==btnFastForward)
+            {
+                intFastForward += 1;
+                
             }
             else if(evt.getSource() == btnNormalForward || evt.getSource() ==btnFastForward)
             {

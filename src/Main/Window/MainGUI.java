@@ -45,7 +45,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
-    public static void main(String[] args)
+    public static void main(String[] args) throws InterruptedException
     {
         init();
     }
@@ -61,7 +61,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/ 
-    private static void init()
+    private static void init() throws InterruptedException
     {
         //CREATE THE WINDOW WITH NAME
         JFrame window = new JFrame("Traffic");
@@ -118,7 +118,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
-    private static void readFile()
+    private static void readFile() throws InterruptedException
     {
         
         //BEGIN READING XML FILE

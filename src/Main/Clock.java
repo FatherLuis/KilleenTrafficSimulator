@@ -52,9 +52,9 @@ public class Clock
     ****************************************************************************
     ***DATE: 18 OCTOBER, 2018
     ***************************************************************************/      
-    public String tick()
+    public String tick(int intFastForward)
     {
-        this.seconds++;
+        this.seconds += (1 * intFastForward);
         
         if(this.seconds >= 60)
         {

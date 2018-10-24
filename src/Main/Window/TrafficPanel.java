@@ -147,7 +147,14 @@ public class TrafficPanel extends JPanel //implements Runnable
     }
     
     
-    public void update(){Painter.updateVehicles();}
+    public void update(int fastForward)
+    {
+        for(int i = 0; i < fastForward; i++)
+        {
+            Painter.updateVehicles();
+        }
+    
+    }
     
     public int getScalar(){return scalar;}
     public void setScalar(int s){this.scalar = s;}
