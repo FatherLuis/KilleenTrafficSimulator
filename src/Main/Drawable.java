@@ -40,7 +40,6 @@ public class Drawable
 {
     
     private double[] Bounds;
-    private Normalization Norm;
     private ArrayList<Road> RoadList;
     
     private ArrayList<Vehicle> vehicleList;
@@ -116,9 +115,9 @@ public class Drawable
     private double OperationY(double y)
     {
         //NEGATIVE VALUE
-        double newY = -y;
+        //double newY = -y;
         //ADD THE HEIGHT OF WINDOW
-        return newY + this.HEIGHT;
+        return -y + this.HEIGHT;
     }    
     
 
@@ -154,28 +153,40 @@ public class Drawable
         
         //g2.setColor(Color.WHITE);
 
+        
+        Point p ;
+        double x1;
+        double y1 ;
+
+        Point p2;
+        double x2 ;
+        double y2;
+        
+        
+        ArrayList<String> curRoadPoints;
+        
         //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
         for(int i = 0; i < this.RoadList.size() ; i++)
         {
             //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
-            ArrayList<String> curRoadPoints = this.RoadList.get(i).getRef();
+            curRoadPoints = this.RoadList.get(i).getRef();
             
             //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
             for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
             {
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    Point p =this.PHT.getPoint(curRoadPoints.get(j));
+                    p =this.PHT.getPoint(curRoadPoints.get(j));
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    double x1 = normCalcX.Normalize(p.getLongitude());
+                    x1 = normCalcX.Normalize(p.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    double y1 = OperationY(normCalcY.Normalize(p.getLatitude()));
+                    y1 = OperationY(normCalcY.Normalize(p.getLatitude()));
 
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    Point p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
+                    p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    double x2 = normCalcX.Normalize(p2.getLongitude());
+                    x2 = normCalcX.Normalize(p2.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    double y2 = OperationY(normCalcY.Normalize(p2.getLatitude()));
+                    y2 = OperationY(normCalcY.Normalize(p2.getLatitude()));
 
                     
                     ////////////////////////////////////////////////
@@ -231,21 +242,29 @@ public class Drawable
         g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g3.setColor(Color.BLUE);
 
+        
+        double x1;
+        double y1;
+        int d;
+        int r;
+        
+        Ellipse2D.Double shape;
+        
         for(int i = 0; i < this.vehicleList.size(); i++)
         {
-            double x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude());
+            x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude());
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            double y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude()));
+            y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude()));
 
 
             //subtract the x and y by the radius
             //since there is a scalar, we'll gonna be to figure out something
             
-            int d = 6 * (this.scaler)/4;
-            int r = d/2;
+            d = 1 * (this.scaler);
+            r = d/2;
             
             
-            Ellipse2D.Double shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
+            shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
 
             //g3.setColor(this.vehicleList.get(i).getColor());
             g3.draw(shape);

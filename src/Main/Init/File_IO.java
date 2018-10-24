@@ -282,133 +282,63 @@ public class File_IO
     {     
         NodeList listOfNodes = xmlDoc.getElementsByTagName("node");
                 
-
         int length = listOfNodes.getLength();
-        
-        //System.out.println("LENGTH  " + length);
         int size = 0;
         
         Node[] copy = null;
         Node[] copy2 = null;
         
+        int count = 0;
+        
         
         if(length % 2 == 0)
         {
-            //System.out.println(  "           EVEN" );
-            
             size = length / 2;
-            //System.out.println("SIZE  " + size);
-            
             copy = new Node[size];
             copy2 = new Node[size];
-
-            int count  = 0;
-            
-            for (int n = 0; n < length; n++)
-            {
-                //System.out.print("iteration   "  + n);
-
-                
-                if(n < size)
-                {
-                    //System.out.println(  n + " ");
-                    copy[count] = listOfNodes.item(n);
-                    
-                    //System.out.print("   COPY 1  \n");
-                    count++;           
-                    
-                    if( count == size)
-                    {
-                        count = 0;
-                
-                    }
-                
-                }
-                else if(n >= size && n < length)
-                {                   
-                    //System.out.println(  n + " ");
-                    copy2[count] = listOfNodes.item(n);
-                    //System.out.print("   COPY 2  \n");
-                    count++;
-                
-                }
-                
-                
-            }  
         }
         else
         {
-            //System.out.println(  "           ODD" );
-            
             size = length / 2;
-            //System.out.println("SIZE  " + size);
-            
             copy = new Node[size];
             copy2 = new Node[size+1];
-
-            int count  = 0;
-            
-            for (int n = 0; n < length; n++)
+        }    
+        
+        for (int n = 0; n < length; n++)
+        {
+            if(n < size)
             {
-                //System.out.print("iteration   "  + n);
+                copy[count] = listOfNodes.item(n);
+                count++;           
 
-                
-                if(n < size)
+                if( count == size)
                 {
-                    //System.out.println(  n + " ");
-                    copy[count] = listOfNodes.item(n);
-                    
-                    //System.out.print("   COPY 1  \n");
-                    count++;           
-                    
-                    if( count == size)
-                    {
-                        count = 0;
-                
-                    }
-                
+                    count = 0;
                 }
-                else if(n >= size && n < length)
-                {                   
-                    //System.out.println(  n + " ");
-                    copy2[count] = listOfNodes.item(n);
-                    //System.out.print("   COPY 2  \n");
-                    count++;
-                
-                }
-                
-                
             }
-            
-        }
-        
-        //System.out.println("OUT");
-        
-        
-        
-        
-        
-        
-        
-        
+            else if(n >= size && n < length)
+            {                   
+                copy2[count] = listOfNodes.item(n);
+                count++;
+            }
+        } 
 
-            //        String pointID = " ";
-//        double longitude = 0;
-//        double latitude = 0;
-//        Point curPoint;
-//        
-//        //GET A NODELIST OF ONLY TAGS WITH THE WORD 'NODE'
-                PointThread PT1 = new PointThread(this.PHT, copy, 1);
-                PointThread PT2 = new PointThread(this.PHT, copy2, 2);
+        PointThread PT1 = new PointThread(this.PHT, copy, 1);
+        PointThread PT2 = new PointThread(this.PHT, copy2, 2);
+
+        PT1.start();
+        PT2.start();
                 
-                PT1.start();
-                PT2.start();
-                
-                while(PT1.isAlive() || PT2.isAlive())
-                {
-                
-                
-                }
+        try 
+        {
+            PT1.join();
+            PT2.join();
+            
+        } catch (InterruptedException ex) 
+        {
+            Logger.getLogger(File_IO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
                 
                 
 

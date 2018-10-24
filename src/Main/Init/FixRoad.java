@@ -20,9 +20,6 @@ public class FixRoad
 {
     private ArrayList newRef;
     private PointHashTable PHT;
-    
-    private Road curRoad;
-    
     private Random rand;
     
     public FixRoad(PointHashTable PHT)

@@ -41,6 +41,8 @@ public class Vehicle
     
     private boolean isMoved = true;
     
+    private int randNum;
+    
     
     Color color;
 
@@ -70,27 +72,21 @@ public class Vehicle
     
     private void SetUp()
     {
-        Random rand = new Random();
-        int  n;
-        int k;
-        
-        
-        
-            RoadIndex = rand.nextInt(this.RoadList.size());
-        
-            curRoad = this.RoadList.get(RoadIndex);
-            
-            NodeIndex = rand.nextInt(curRoad.getDetailedRef().size());
+        RoadIndex = rand.nextInt(this.RoadList.size());
 
-            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
+        curRoad = this.RoadList.get(RoadIndex);
 
-            curPoint = PHT.getPoint(ID);
-            
-            int direction = rand.nextInt(100);
-                
-            if(direction > 55){position = "FL"; color = Color.BLUE;}else{position = "RL";color = Color.RED;}
-            
-            //lanePosition = "RIGHT"; color = Color.BLUE;
+        NodeIndex = rand.nextInt(curRoad.getDetailedRef().size());
+
+        String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
+
+        curPoint = PHT.getPoint(ID);
+
+        randNum = rand.nextInt(100);
+
+        if(randNum > 55){position = "FL"; color = Color.BLUE;}else{position = "RL";color = Color.RED;}
+
+        //lanePosition = "RIGHT"; color = Color.BLUE;
 
     }
    
@@ -212,9 +208,9 @@ public class Vehicle
             }
             else if(curPoint.getParentList().size() > 1)
             {
-                int possible = rand.nextInt(100);
+                randNum = rand.nextInt(100);
 
-                if(possible > 80)
+                if(randNum > 80)
                 {
                     relocate();
                 }
@@ -257,9 +253,9 @@ public class Vehicle
     
     private void cornerRoad()
     {
-        int possibility = rand.nextInt(100);
+        randNum = rand.nextInt(100);
         
-        if(possibility >= 20)
+        if(randNum >= 20)
         {
             if(position.equals("FL"))
             {
@@ -274,14 +270,14 @@ public class Vehicle
         }
         else
         {
-            //System.out.println("I'm Stuck:  "  + possibility);
+            //System.out.println("I'm Stuck:  "  + randNum);
             //SetUp();     
         }
     }
     
     private void relocate()
     {
-        int randNum = rand.nextInt(curPoint.getParentList().size());
+        randNum = rand.nextInt(curPoint.getParentList().size());
         
         Road tempRoad = (Road) curPoint.getParentList().get(randNum);
         

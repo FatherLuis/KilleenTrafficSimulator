@@ -62,7 +62,7 @@ public class SplitPanel extends JSplitPane implements Runnable
     
     }
     
-            @Override
+    @Override
     public void run() 
     {
         long beforeTime, timeDiff, sleep;
@@ -78,7 +78,7 @@ public class SplitPanel extends JSplitPane implements Runnable
                 CP.setClock(clock.tick(CP.getIntFastForward()));
             }
             
-            repaint();
+            TP.repaint();
             
             timeDiff = System.currentTimeMillis() - beforeTime;
             sleep = 125 - timeDiff;
