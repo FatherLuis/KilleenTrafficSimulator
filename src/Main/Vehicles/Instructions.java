@@ -8,7 +8,6 @@ package Main.Vehicles;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,18 +22,16 @@ public class Instructions
     PointHashTable PHT;   
     
     private Road curRoad;
-    private Point curPoint;
-    
-    private String position;
-    
+    private Point curPoint;   
+    private String position;  
     private int RoadIndex;
-    private int NodeIndex;
-    
+    private int NodeIndex;  
     private Random rand = new Random();
-    
-    private boolean isMoved = true;
-    
+    private boolean isMoved = true; 
     private int randNum;
+    
+    
+    private int wait = 0; 
     
 
     public Instructions(ArrayList<Road> RoadList, PointHashTable PHT)
@@ -45,7 +42,7 @@ public class Instructions
     }
     
     
-    public void setUpLocation()
+    private void setUpLocation()
     {
                
         RoadIndex = rand.nextInt(this.RoadList.size());
