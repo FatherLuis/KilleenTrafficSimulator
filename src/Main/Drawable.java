@@ -240,7 +240,7 @@ public class Drawable
         Graphics2D g3 = (Graphics2D) g.create();
         g3.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-        g3.setColor(Color.BLUE);
+        //g3.setColor(Color.BLUE);
 
         
         double x1;
@@ -264,12 +264,15 @@ public class Drawable
             
             d = 1 * (this.scaler);
             r = d/2;
-            
-            
-            shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
+//            
+//            
+//            shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
+//
+//            //g3.setColor(this.vehicleList.get(i).getColor());
+//            g3.draw(shape);
+            this.vehicleList.get(i).draw(g3, x1-r, y1-r, d, d);
 
-            //g3.setColor(this.vehicleList.get(i).getColor());
-            g3.draw(shape);
+
         }
         
     }

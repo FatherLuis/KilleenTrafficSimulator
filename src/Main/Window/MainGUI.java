@@ -6,12 +6,15 @@ import Main.Window.SplitPanel;
 import Main.Window.ControlPanel;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Vehicles.Bus;
 import Main.Vehicles.Instructions;
+import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 /*******************************************************************************
@@ -146,12 +149,27 @@ public class MainGUI
         
         ArrayList<Vehicle> vehicleList = new ArrayList();
         
+        Random rand = new Random();
+        
+        int num = rand.nextInt(100);
+        
         for(int i=0; i < 1000; i++)
         {
             ins = new Instructions(RoadList, PHT);
-            vehicle = new Vehicle(ins);
+            
+            if(num > 10)
+            {
+                vehicle = new PersonalCar(ins);
+            }
+            else
+            {
+                vehicle = new Bus(ins);
+            }
+            
             
             vehicleList.add(vehicle);
+            
+            num = rand.nextInt(100);
         
         
         }
