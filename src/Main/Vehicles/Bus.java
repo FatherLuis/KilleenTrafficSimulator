@@ -21,7 +21,7 @@ public class Bus extends Vehicle
 {
     Ellipse2D.Double shape;
     
-    public Bus(Instructions GPS) 
+    public Bus(Instructions2 GPS) 
     {
         super(GPS);
         this.GPS = GPS; 

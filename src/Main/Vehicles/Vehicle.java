@@ -8,10 +8,10 @@ import java.util.Random;
 public class Vehicle 
 {
     Color color;
-    Instructions GPS;
+    Instructions2 GPS;
 
    
-    public Vehicle(Instructions GPS)
+    public Vehicle(Instructions2 GPS)
     {        
         this.GPS = GPS;   
     }

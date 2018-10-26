@@ -296,14 +296,23 @@ public class Instructions
                 } 
             }
             else if(NodeIndex <=0 || NodeIndex >= this.curRoad.getDetailedRef().size() -1)
-            {        
+            {                 
+                //Road tempRoad;
                 do
-                {
+                {        
                     randNum = rand.nextInt(curPoint.getParentList().size());
-                
-                }while(randNum == NodeIndex);
- 
-                curRoad = (Road) curPoint.getParentList().get(randNum);
+                    tempRoad = (Road) curPoint.getParentList().get(randNum);
+
+                }while(curRoad.getID().equals(tempRoad.getID()));
+
+                curRoad = tempRoad; 
+//                do
+//                {
+//                    randNum = rand.nextInt(curPoint.getParentList().size());
+//                
+//                }while(randNum == NodeIndex);
+// 
+//                curRoad = (Road) curPoint.getParentList().get(randNum);
 
                 for(int i=0; i < curRoad.getDetailedRef().size(); i++)
                 {

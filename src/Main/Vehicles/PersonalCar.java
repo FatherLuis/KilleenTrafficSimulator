@@ -19,7 +19,7 @@ public class PersonalCar extends Vehicle
 {
     Ellipse2D.Double shape;
     
-    public PersonalCar(Instructions GPS) 
+    public PersonalCar(Instructions2 GPS) 
     {
         super(GPS);
         this.GPS = GPS; 

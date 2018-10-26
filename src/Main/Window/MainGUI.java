@@ -8,6 +8,7 @@ import Main.Init.PointHashTable;
 import Main.Init.Road;
 import Main.Vehicles.Bus;
 import Main.Vehicles.Instructions;
+import Main.Vehicles.Instructions2;
 import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
@@ -71,6 +72,10 @@ public class MainGUI
         JFrame window = new JFrame("Traffic");
         //SET DEAULT CLOSURE OF FORM
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        
  
         //GETS INFORMATION FROM XML FILE AND OTHER
         readFile();
@@ -92,8 +97,12 @@ public class MainGUI
         //THE PAINTER IS SENT TO THE MAINPANEL
         mainPanel.setPainter(Painter);
         
+        mainPanel.setBackground(Color.BLACK);
+        
         //THIS IS THE PANEL THAT WILL CONTAIN THE TRAFFIC PANEL
-        ScrollPanel SP = new ScrollPanel(mainPanel);        
+        ScrollPanel SP = new ScrollPanel(mainPanel);    
+        
+        
         
         //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
         ControlPanel CP = new ControlPanel();
@@ -105,6 +114,7 @@ public class MainGUI
         window.add(SplitP, BorderLayout.CENTER);
 
         window.pack();
+        
         
         //MAKE WINDOW VISIBLE
         window.setVisible(true);    
@@ -144,7 +154,7 @@ public class MainGUI
     {          
         //System.out.println("///////////////////////////////////////////// \n\n");
         
-        Instructions ins ;
+        Instructions2 ins ;
         Vehicle vehicle;
         
         ArrayList<Vehicle> vehicleList = new ArrayList();
@@ -155,7 +165,7 @@ public class MainGUI
         
         for(int i=0; i < 1000; i++)
         {
-            ins = new Instructions(RoadList, PHT);
+            ins = new Instructions2(RoadList, PHT);
             
             if(num > 10)
             {

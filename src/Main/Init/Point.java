@@ -149,5 +149,11 @@ public class Point
     public void addParent(Road parentID) 
     {
         this.parentList.add(parentID);
-    }    
+    } 
+    
+    public boolean hasParents()
+    {
+        return this.parentList.size() > 1;
+    }
+    
 }
