@@ -24,12 +24,13 @@ public class PersonalCar extends Vehicle
         super(GPS);
         this.GPS = GPS; 
         color = Color.GREEN;
+        increments = 5;
     }
 
     @Override
-    public void move()
+    public void move(int rate)
     {
-        GPS.move();
+        GPS.move(rate*increments);
     }     
     
 

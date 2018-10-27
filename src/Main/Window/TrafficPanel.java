@@ -149,10 +149,7 @@ public class TrafficPanel extends JPanel //implements Runnable
     
     public void update(int rate)
     {
-        for(int i = 0; i < rate; i++)
-        {
-            Painter.updateVehicles();
-        }
+        Painter.updateVehicles(rate);
     
     }
     

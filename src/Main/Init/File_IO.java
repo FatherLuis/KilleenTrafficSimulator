@@ -1,6 +1,6 @@
 package Main.Init;
 
-import Main.Init.Threads.PointThread;
+import Main.Threads.PointThread;
 import Main.CVSFiles.CSVReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -50,7 +50,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -160,6 +160,7 @@ public class File_IO
             for(int i=0; i < listOfWays.getLength(); i++)
             {
                 Accept = false;
+                oneway = false;
                 
                 
                 //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
@@ -176,6 +177,7 @@ public class File_IO
                 {
                     //ARRAY IS INITIALIZED; ARRAY HOLDS INT VALUES THAT REFER TO THE POINT ID'S
                     ref = new ArrayList();
+                    
                     
                     //USED AS A REFERENCE VARIABLE FOR A GIVEN NODE IN THE NODELIST
                     Node refList2Element = refList2.item(j);
@@ -205,15 +207,16 @@ public class File_IO
                                 
                             case("highway"):
                                 
-                                if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian")  ))
+                                if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian") || attrV.equals("paved") ))
                                 {
+                                    if(roadName.isEmpty()){roadName = "NO NAME";}
+                                    
                                     roadID = NodeID;
-                                    roadName = "NO NAME";
                                     Accept = true;  
                                 }                              
                                 break;
                                
-                            default:
+                            default:     
                                 break;
                         }
                         

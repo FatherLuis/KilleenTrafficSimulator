@@ -26,12 +26,13 @@ public class Bus extends Vehicle
         super(GPS);
         this.GPS = GPS; 
         color = Color.YELLOW;
+        increments = 2;
     }
 
     @Override
-    public void move()
+    public void move(int rate)
     {
-        GPS.move();
+        GPS.move(rate*increments);
     }
 
     @Override

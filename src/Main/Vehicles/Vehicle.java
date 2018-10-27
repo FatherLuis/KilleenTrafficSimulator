@@ -3,12 +3,12 @@ package Main.Vehicles;
 import Main.Init.Point;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Random;
 
 public class Vehicle 
 {
-    Color color;
-    Instructions2 GPS;
+    protected Color color;
+    protected Instructions2 GPS;
+    protected int increments;
 
    
     public Vehicle(Instructions2 GPS)
@@ -19,9 +19,9 @@ public class Vehicle
     public void setPoint(Point p){GPS.setPoint(p);}
 
     
-    public void move()
+    public void move(int rate)
     {
-        GPS.move();
+        GPS.move(rate);
     }
     
 

@@ -83,40 +83,17 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
         public void mouseWheelMoved(MouseWheelEvent e) 
         {
             this.scale = TP.getScalar();
-           
            int notches = e.getWheelRotation();
 
            if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) 
            {     
-               if (notches < 0) 
-               {
-                   if(this.scale < 10)
-                   {
-                        TP.setPreferredSize(new Dimension(TP.getWidth() + 250,TP.getHeight() + 250));
-                        
-                        //TP.setScalar(this.scale + 1);
-                        
-                        
-                        //System.out.println("VSB:  "+ this.getVerticalScrollBar().getUnitIncrement());
-                        //System.out.println("HSB:  "+ this.getHorizontalScrollBar().getUnitIncrement()); 
-                   }
-
-               } 
+                if (notches < 0) 
+                {
+                    TP.setPreferredSize(new Dimension(TP.getWidth() + 250,TP.getHeight() + 250));      
+                }
                else 
                {
-                    if(this.scale > 1 && this.scale <= 10)
-                    {
-                        TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));
-                        //TP.setScalar(this.scale - 1);
-                    }
-                    else
-                    {
-                        TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));
-                    } 
-                    
-                    //System.out.println("VSB:  "+ this.getVerticalScrollBar().getUnitIncrement());
-                    //System.out.println("HSB:  "+ this.getHorizontalScrollBar().getUnitIncrement()); 
-                    
+                    TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));      
                }
                
               
@@ -131,10 +108,9 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
 //               message += "    Vertical unit increment: "
 //                   + this.getVerticalScrollBar().getUnitIncrement(1)
 //                   + " pixels";
-
-            
            } 
-           else {
+           else 
+           {
 //               //scroll type == MouseWheelEvent.WHEEL_BLOCK_SCROLL
 //               message += "    Scroll type: WHEEL_BLOCK_SCROLL ";
 //               message += "    Vertical block increment: "

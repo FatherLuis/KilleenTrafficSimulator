@@ -5,7 +5,7 @@
  */
 package Main.Init;
 
-import Main.Init.Threads.FixRoadThread;
+import Main.Threads.FixRoadThread;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;

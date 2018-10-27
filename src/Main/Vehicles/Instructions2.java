@@ -69,12 +69,20 @@ public class Instructions2
     public Point getPoint(){return curPoint;}
     public void setPoint(Point p){this.curPoint = p;}
 
+    private void basicMove()
+    {                  
+        if(position.equals("FL"))
+        {
+            forwardLoop(); 
+        }
+        else if(position.equals("RL"))
+        {
+            reverseLoop();
+        }
+    }
     
     private void forwardLoop()
     {
-
-        
-        
         if(NodeIndex < this.curRoad.getDetailedRef().size() -1)
         {          
             NodeIndex++;       
@@ -90,15 +98,13 @@ public class Instructions2
          }     
         else
         {
-            System.out.println("Node Index on FL  "  + NodeIndex);
+            //System.out.println("Node Index on FL  "  + NodeIndex);
         }
 
     }
     
     private void reverseLoop()
     {        
-       
-       
         if(NodeIndex > 0)
         {            
             NodeIndex--;
@@ -114,61 +120,53 @@ public class Instructions2
         }
         else
         {
-            System.out.println("Node Index on RL  "  + NodeIndex);
+            //System.out.println("Node Index on RL  "  + NodeIndex);
         }
             
 
     }
     
-    public void move()
+    public void move(int rate)
     {
-        if(isMoveable)
+        for(int i =0; i < rate ; i++)
         {
-            if(NodeIndex == 0 || NodeIndex == curRoad.getDetailedRef().size() - 1)
-            {   
-                if(curPoint.hasParents())
-                {
-                    //System.out.println("\n1REL?");
-                    relocate();
-                    //System.out.println("2REL?");
+            if(curRoad.isOneWay())
+            {
+                //System.out.println("curRoad: "  + curRoad.getName() + "    " + curRoad.isOneWay());
+                position = "FL";
+            }
 
-                    if(position.equals("FL"))
+            if(isMoveable)
+            {
+                if(NodeIndex == 0 || NodeIndex == curRoad.getDetailedRef().size() - 1)
+                {   
+                    if(curPoint.hasParents())
                     {
-                        forwardLoop(); 
+                        //System.out.println("\n1REL?");
+                        relocate();
+                        //System.out.println("2REL?");
+
+                        basicMove();
                     }
-                    else if(position.equals("RL"))
+                    else
                     {
-                        reverseLoop();
+                        //System.out.println("\n1CR?");
+                        cornerRoad(); 
+                        //System.out.println("2CR?");
                     }   
+
                 }
                 else
-                {
-                    //System.out.println("\n1CR?");
-                    cornerRoad(); 
-                    //System.out.println("2CR?");
-                }   
-
-            }
-            else
-            {       
-                switch (position) {
-                    case "FL":
-                        forwardLoop();
-                        break;
-                    case "RL":
-                        reverseLoop();
-                        break;
-                    default:
-                        System.out.println("Messed up someone loop?");
-                        break;
+                {       
+                    basicMove();
                 }
             }
-        }
-        else
-        {
-            wait--;
-            
-            if(wait ==0){isMoveable = true;}
+            else
+            {
+                wait--;
+
+                if(wait ==0){isMoveable = true;}
+            }
         }
 
 
@@ -240,14 +238,14 @@ public class Instructions2
             
             if(NodeIndex == 0)
             {
-                position = "FL";
-                forwardLoop();
+                position = "FL"; 
             }
             else if(NodeIndex == curRoad.getDetailedRef().size() - 1 )
             {
-                position = "RL";
-                reverseLoop();
+                position = "RL";  
             } 
+            
+            basicMove();
         }
         else
         {
@@ -256,7 +254,6 @@ public class Instructions2
         }
     }
     
-       
     private void possibleRelocate()
     {
         
@@ -303,19 +300,10 @@ public class Instructions2
                             }
                         }
 
-                        //System.out.println("Node ID: " + curPoint.getID() +"   MADE THE CHANGE");      
-                        switch (position) 
-                        {
-                            case "FL":
-                                forwardLoop();
-                                break;
-                            case "RL":
-                                reverseLoop();
-                                break;
-                            default:
-                                System.out.println("Messed up someone loop?");
-                                break;
-                        }
+                        //System.out.println("Node ID: " + curPoint.getID() +"   MADE THE CHANGE");     
+                        if(curRoad.isOneWay()){position = "FL";}
+                        
+                        basicMove();
                         
                         break;              
                     }
