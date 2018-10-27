@@ -20,10 +20,10 @@ import java.util.ArrayList;
 public class Point
 {
     String nodeID;
-    private double longitude;
-    private double latitude;
+    protected double longitude;
+    protected double latitude;
     
-    private ArrayList<Road> parentList;
+    protected ArrayList<Road> parentList;
  
     
     /***************************************************************************
@@ -131,7 +131,7 @@ public class Point
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/
-    public ArrayList getParentList() {
+    public ArrayList<Road> getParentList() {
         return this.parentList;
     }
 
@@ -148,7 +148,18 @@ public class Point
     ***************************************************************************/
     public void addParent(Road parentID) 
     {
-        this.parentList.add(parentID);
+        if(!this.parentList.isEmpty())
+        {
+            if(!this.parentList.contains(parentID))
+            {
+                this.parentList.add(parentID);
+            }
+        }
+        else
+        {
+            this.parentList.add(parentID);
+        }
+            
     } 
     
     public boolean hasParents()

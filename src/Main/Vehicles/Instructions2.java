@@ -8,6 +8,7 @@ package Main.Vehicles;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Operators.StopSign;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,7 +28,7 @@ public class Instructions2
     private int RoadIndex;
     private int NodeIndex;  
     private Random rand = new Random();
-    private boolean isMoved = true; 
+    private boolean isMoveable = true; 
     private int randNum;
     
     
@@ -71,65 +72,103 @@ public class Instructions2
     
     private void forwardLoop()
     {
-                    
-        NodeIndex++;       
-        String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
-        curPoint = PHT.getPoint(ID);
+
         
-//        if(NodeIndex  == curRoad.getDetailedRef().size() - 1)
-//        {
-//            move();
-//        }
+        
+        if(NodeIndex < this.curRoad.getDetailedRef().size() -1)
+        {          
+            NodeIndex++;       
+            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
+            curPoint = PHT.getPoint(ID); 
+            possibleRelocate();
+
+            if((curPoint instanceof StopSign))
+            {
+                isMoveable = false;
+                wait = 5;
+            }
+         }     
+        else
+        {
+            System.out.println("Node Index on FL  "  + NodeIndex);
+        }
+
     }
     
     private void reverseLoop()
-    {              
-        NodeIndex--;
-        String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
-        curPoint = PHT.getPoint(ID);
-        
-//        if(NodeIndex == 0)
-//        {
-//            move();
-//        }  
+    {        
+       
+       
+        if(NodeIndex > 0)
+        {            
+            NodeIndex--;
+            String ID = (String) curRoad.getDetailedRef().get(NodeIndex);
+            curPoint = PHT.getPoint(ID);
+            possibleRelocate();
+
+            if((curPoint instanceof StopSign))
+            {
+                isMoveable = false;
+                wait = 5;
+            }
+        }
+        else
+        {
+            System.out.println("Node Index on RL  "  + NodeIndex);
+        }
+            
+
     }
     
     public void move()
     {
-        //System.out.println(position + "  NodeIndex  " + NodeIndex + "   Road: " + curRoad.getName() + " Size: " + curRoad.getDetailedRef().size());
-        
-        if(NodeIndex == 0 || NodeIndex == curRoad.getDetailedRef().size() - 1)
-        {   
-            if(curPoint.hasParents())
-            {
-                relocate(); 
-                
-                if(position.equals("FL"))
+        if(isMoveable)
+        {
+            if(NodeIndex == 0 || NodeIndex == curRoad.getDetailedRef().size() - 1)
+            {   
+                if(curPoint.hasParents())
                 {
-                    forwardLoop(); 
+                    //System.out.println("\n1REL?");
+                    relocate();
+                    //System.out.println("2REL?");
+
+                    if(position.equals("FL"))
+                    {
+                        forwardLoop(); 
+                    }
+                    else if(position.equals("RL"))
+                    {
+                        reverseLoop();
+                    }   
                 }
-                else if(position.equals("RL"))
+                else
                 {
-                    reverseLoop();
+                    //System.out.println("\n1CR?");
+                    cornerRoad(); 
+                    //System.out.println("2CR?");
                 }   
+
             }
             else
-            {
-                cornerRoad();      
-            }   
-    
+            {       
+                switch (position) {
+                    case "FL":
+                        forwardLoop();
+                        break;
+                    case "RL":
+                        reverseLoop();
+                        break;
+                    default:
+                        System.out.println("Messed up someone loop?");
+                        break;
+                }
+            }
         }
         else
         {
-                   
-            if(position.equals("FL"))
-            {
-                forwardLoop(); 
-            }
-            else if(position.equals("RL"))
-            {
-                reverseLoop();
-            }
+            wait--;
+            
+            if(wait ==0){isMoveable = true;}
         }
 
 
@@ -139,16 +178,18 @@ public class Instructions2
     private void relocate()
     {
         Road tempRoad;
-                      
+
         do
         {        
             randNum = rand.nextInt(curPoint.getParentList().size());
             tempRoad = (Road) curPoint.getParentList().get(randNum);
 
+                
+
         }while(curRoad.getID().equals(tempRoad.getID()));
 
         curRoad = tempRoad; 
-
+        
         for(int i=0; i < curRoad.getDetailedRef().size(); i++)
         {
             if(curPoint.getID().equals(curRoad.getDetailedRef().get(i)))
@@ -181,14 +222,15 @@ public class Instructions2
                 break;              
             }
         }
+        
+        
 
 
         
         
     
     }   
-    
-        
+         
     private void cornerRoad()
     {
         randNum = rand.nextInt(100);
@@ -214,7 +256,81 @@ public class Instructions2
         }
     }
     
-    
+       
+    private void possibleRelocate()
+    {
+        
+        randNum = rand.nextInt(100);
+ 
+        if(curPoint.hasParents() && randNum > 70)
+        {
+            randNum = rand.nextInt(curPoint.getParentList().size());
+            Road tempRoad = (Road) curPoint.getParentList().get(randNum);
+
+            if(!(curRoad.getID().equals(tempRoad.getID())))
+            {
+                //System.out.println("\nold Road: " + curRoad.getID());
+                //System.out.println("new Road: " + tempRoad.getID());
+                
+                
+                curRoad = tempRoad; 
+
+                for(int i=0; i < curRoad.getDetailedRef().size(); i++)
+                {
+                    if(curPoint.getID().equals(curRoad.getDetailedRef().get(i)))
+                    {
+                        this.NodeIndex = i;
+
+                        if(NodeIndex == 0)
+                        {
+                            position = "FL";
+                        }
+                        else if(NodeIndex == curRoad.getDetailedRef().size() - 1 )
+                        {
+                            position = "RL";
+                        }
+                        else
+                        {
+                            randNum = rand.nextInt(100);
+
+                            if(randNum > 70)
+                            {                
+                                position = "FL";
+                            }
+                            else
+                            {
+                                position = "RL";
+                            }
+                        }
+
+                        //System.out.println("Node ID: " + curPoint.getID() +"   MADE THE CHANGE");      
+                        switch (position) 
+                        {
+                            case "FL":
+                                forwardLoop();
+                                break;
+                            case "RL":
+                                reverseLoop();
+                                break;
+                            default:
+                                System.out.println("Messed up someone loop?");
+                                break;
+                        }
+                        
+                        break;              
+                    }
+                }
+            }
+            else
+            {//System.out.println("Node ID: " + curPoint.getID() +"   DIDNT MAKE THE CHANGE");
+                
+            }
+        }
+
+
+        
+    }   
+      
     
     
     

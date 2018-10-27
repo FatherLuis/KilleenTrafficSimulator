@@ -10,9 +10,12 @@ import Main.Init.Point;
 
 public class StopSign extends Point
 {
-    public StopSign(String nodeID) 
+    public StopSign(Point p) 
     {
-        super(nodeID);    
+        super(p.getID()); 
+        this.latitude = p.getLatitude();
+        this.longitude = p.getLongitude();
+        this.parentList = p.getParentList();
     }
     
 }

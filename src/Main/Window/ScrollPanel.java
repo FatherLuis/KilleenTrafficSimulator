@@ -94,7 +94,7 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
                    {
                         TP.setPreferredSize(new Dimension(TP.getWidth() + 250,TP.getHeight() + 250));
                         
-                        TP.setScalar(this.scale + 1);
+                        //TP.setScalar(this.scale + 1);
                         
                         
                         //System.out.println("VSB:  "+ this.getVerticalScrollBar().getUnitIncrement());
@@ -107,7 +107,7 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
                     if(this.scale > 1 && this.scale <= 10)
                     {
                         TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));
-                        TP.setScalar(this.scale - 1);
+                        //TP.setScalar(this.scale - 1);
                     }
                     else
                     {

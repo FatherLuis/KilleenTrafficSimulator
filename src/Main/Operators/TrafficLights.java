@@ -14,9 +14,12 @@ import Main.Init.Point;
 public class TrafficLights extends Point
 {
     
-    public TrafficLights(String nodeID) 
+    public TrafficLights(Point p) 
     {
-        super(nodeID);
+        super(p.getID()); 
+        this.latitude = p.getLatitude();
+        this.longitude = p.getLongitude();
+        this.parentList = p.getParentList();
     }
     
 }

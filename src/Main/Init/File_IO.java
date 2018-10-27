@@ -1,6 +1,7 @@
 package Main.Init;
 
 import Main.Init.Threads.PointThread;
+import Main.CVSFiles.CSVReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +50,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST7.xml");
+        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -463,7 +464,12 @@ public class File_IO
         AssignParents();
             end = System.currentTimeMillis();
             System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
-            start = System.currentTimeMillis();
+
+
+//        CSVReader reader = new CSVReader(PHT);
+//        reader.ReadFile();
+            
+            
         
     }
     

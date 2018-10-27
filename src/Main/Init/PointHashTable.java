@@ -71,12 +71,18 @@ public class PointHashTable
             else
             {   //LINKLIST TEMP WILL REFERENCE THE FIRST LINKLIST IN THE ARRAY
                 LinkList temp = Table[indexKey];
-
+                                
                 do
                 {
+                    if(newPoint.getID().equals(temp.getPoint().getID()))    
+                    {               
+                        temp.setPoint(newPoint); 
+                        break;
+                    }
+                    
                     //IF THE NEXT LINKLIST DOES NOT EXIST, THEN WE'LL STORE THE 
                     //NEW LINKLIST AFTER THE LAST ONE
-                    if(temp.getNextLink() == null)
+                    else if(temp.getNextLink() == null)
                     {
                         //NEW LINKLIST OBJECT IS MADE
                         LinkList newObj = new LinkList();
@@ -87,11 +93,11 @@ public class PointHashTable
                         break;
                     } 
                     else
-                    {
+                    {  
                         //GET THE NEXT LINKLIST IN THE CHAIN
                         temp = temp.getNextLink();
                     }   
-                //CONTINUE LOOPING UNTIL TEMP IS NULL
+                    //CONTINUE LOOPING UNTIL TEMP IS NULL
                 }while(temp != null);
             } 
         }
