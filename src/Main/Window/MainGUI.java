@@ -9,6 +9,7 @@ import Main.Init.Road;
 import Main.Vehicles.Bus;
 import Main.Vehicles.Instructions;
 import Main.Vehicles.Instructions2;
+import Main.Vehicles.ObstacleSeer;
 import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
@@ -38,6 +39,9 @@ public class MainGUI
     private static double[] bounds;
     private static PointHashTable PHT;
     private static Drawable Painter;
+    
+    private static ArrayList<Vehicle> vehicleList;
+    private static ObstacleSeer seer;
    
     /***************************************************************************
     ***METHOD NAME: main()
@@ -90,6 +94,8 @@ public class MainGUI
         Painter.setHashTable(PHT);
         
         CreateVehicles();
+        
+        
         
 
         
@@ -157,7 +163,8 @@ public class MainGUI
         Instructions2 ins ;
         Vehicle vehicle;
         
-        ArrayList<Vehicle> vehicleList = new ArrayList();
+        vehicleList = new ArrayList();
+        seer = new ObstacleSeer(vehicleList,RoadList, PHT);
         
         Random rand = new Random();
         
@@ -165,7 +172,7 @@ public class MainGUI
         
         for(int i=0; i < 20; i++)
         {
-            ins = new Instructions2(RoadList, PHT);
+            ins = new Instructions2(RoadList, PHT, seer);
             
             if(num > 10)
             {
@@ -183,6 +190,8 @@ public class MainGUI
         
         
         }
+        
+        
         
         Painter.setVehicleList(vehicleList);
     

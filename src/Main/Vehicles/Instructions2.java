@@ -32,14 +32,18 @@ public class Instructions2
     private int randNum;
     
     
+        
+    protected ObstacleSeer seer;
+        
     private int wait = 0; 
     
 
-    public Instructions2(ArrayList<Road> RoadList, PointHashTable PHT)
+    public Instructions2(ArrayList<Road> RoadList, PointHashTable PHT, ObstacleSeer seer)
     {
         this.RoadList = RoadList;
         this.PHT = PHT;
         this.setUpLocation();
+        this.seer = seer;
     }
     
     
@@ -68,6 +72,15 @@ public class Instructions2
     
     public Point getPoint(){return curPoint;}
     public void setPoint(Point p){this.curPoint = p;}
+    
+    public Road getRoad(){return curRoad;}  
+    
+    public String getDirection()
+    {
+        return position;
+    }
+    
+    
 
     private void basicMove()
     {                  
@@ -83,6 +96,8 @@ public class Instructions2
     
     private void forwardLoop()
     {
+        
+        
         if(NodeIndex < this.curRoad.getDetailedRef().size() -1)
         {          
             NodeIndex++;       
@@ -319,7 +334,14 @@ public class Instructions2
         
     }   
       
+    private void checkCollision()
+    {
+         if(seer.forSee(curPoint, curRoad, position) > 5)
+         {
+            //IDK YET
+         }
     
+    }
     
     
     

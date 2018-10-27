@@ -1,6 +1,7 @@
 package Main.Vehicles;
 
 import Main.Init.Point;
+import Main.Init.Road;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -9,6 +10,8 @@ public class Vehicle
     protected Color color;
     protected Instructions2 GPS;
     protected int increments;
+    
+
 
    
     public Vehicle(Instructions2 GPS)
@@ -17,6 +20,13 @@ public class Vehicle
     }
     public Point getPoint(){return GPS.getPoint();}
     public void setPoint(Point p){GPS.setPoint(p);}
+    
+    public Road getRoad(){return GPS.getRoad();}
+    public String getDirection()
+    {
+        return GPS.getDirection();
+    }
+
 
     
     public void move(int rate)
