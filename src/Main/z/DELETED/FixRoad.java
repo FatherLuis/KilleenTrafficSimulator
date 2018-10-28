@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Threads;
+package Main.z.DELETED;
 
+import Main.z.DELETED.FixRoadThread;
+import Main.Init.Point;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
+import Main.Init.PointHashTable;
+import Main.Init.Road;
+import Main.Init.Road;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,37 +19,222 @@ import java.util.Random;
  *
  * @author fathe
  */
-public class FixRoadThread extends Thread
-{   
-    
-    private volatile ArrayList newRef;
+public class FixRoad 
+{
+    private ArrayList newRef;
     private PointHashTable PHT;
-    
-    private String[] curRef;
-    
     private Random rand;
     
-    public int ID;
-    
-    public FixRoadThread(PointHashTable PHT, String[] curRef, int ID)
+    public FixRoad(PointHashTable PHT)
     {   
         this.PHT = PHT;
         this.rand = new Random();
-        
-        this.curRef = curRef;
-        
-        this.ID = ID;
     }
     
-    public ArrayList getNewRef(){return this.newRef;}
+//    
+//    public ArrayList newRef(Road curRoad) throws InterruptedException
+//    {
+//              
+//        ArrayList curRef = (ArrayList)curRoad.getRef().clone();
+//
+//        int length = curRef.size();
+//        
+//        //System.out.println("LENGTH  " + length);
+//        int size = 0;
+//        
+//        String[] copy = null;
+//        String[] copy2 = null;
+//        
+//        
+//        
+//        
+//        if(length >= 10)
+//        {
+//            if(length % 2 == 0)
+//            {
+//                //System.out.println(  "           EVEN" );
+//
+//                size = length / 2;
+//                //System.out.println("SIZE  " + size);
+//
+//                copy = new String[size];
+//                copy2 = new String[size];
+//
+//                int count  = 0;
+//
+//                for (int n = 0; n < length; n++)
+//                {
+//                    //System.out.print("iteration   "  + n);
+//
+//                    if(n < size)
+//                    {
+//                        //System.out.println(  n + " ");
+//                        copy[count] = (String)curRef.get(n);
+//
+//                        //System.out.print("   COPY 1  \n");
+//                        count++;           
+//
+//                        if( count == size)
+//                        {
+//                            count = 0;
+//
+//                        }
+//
+//                    }
+//                    else if(n >= size && n < length)
+//                    {                   
+//                        //System.out.println(  n + " ");
+//                        copy2[count] = (String)curRef.get(n);
+//                        //System.out.print("   COPY 2  \n");
+//                        count++;
+//
+//                    }
+//
+//
+//                } 
+//            }     
+//            else
+//            {
+//                //System.out.println(  "           ODD" );
+//
+//                size = length / 2;
+//                //System.out.println("SIZE  " + size);
+//
+//                copy = new String[size];
+//                copy2 = new String[size+1];
+//
+//                int count  = 0;
+//
+//                for (int n = 0; n < length; n++)
+//                {
+//                    //System.out.print("iteration   "  + n);
+//
+//                    if(n < size)
+//                    {
+//                        //System.out.println(  n + " ");
+//                        copy[count] = (String)curRef.get(n);
+//
+//                        //System.out.print("   COPY 1  \n");
+//                        count++;           
+//
+//                        if( count == size)
+//                        {
+//                            count = 0;
+//
+//                        }
+//
+//                    }
+//                    else if(n >= size && n < length)
+//                    {                   
+//                        //System.out.println(  n + " ");
+//                        copy2[count] = (String)curRef.get(n);
+//                        //System.out.print("   COPY 2  \n");
+//                        count++;
+//
+//                    }
+//
+//                }   
+//            }    
+//            
+//            //System.out.println("Copy One Size: " + copy.length);
+//            //System.out.println("Copy Two Size: " + copy2.length);
+//
+//
+//            FixRoadThread FRT1 = new FixRoadThread(this.PHT, copy, 1);
+//            FixRoadThread FRT2 = new FixRoadThread(this.PHT, copy2, 2);
+//
+//            FRT1.start();
+//            FRT2.start();
+//
+//            FRT1.join();
+//            FRT2.join();
+//
+//    //        while(FRT1.isAlive() || FRT2.isAlive())
+//    //        {
+//    //
+//    //
+//    //        }
+//    //        
+//            //System.out.println("Thread 1 "+FRT1.getNewRef().size());
+//            //System.out.println("Thread 2 "+FRT2.getNewRef().size());
+//
+//            
+//            
+//            this.newRef =  FRT1.getNewRef();
+//
+//            this.newRef.addAll(FRT2.getNewRef());
+//            
+//            //System.out.println("COMBINE SIZE: " + this.newRef.size());
+//            //System.out.println("\n");
+//            
+//
+//            
+//            
+//            
+//            
+//            
+//        }
+//        else
+//        {
+//            copy = new String[length];
+//            
+//            for(int n=0; n < length; n++)
+//            {
+//                copy[n] = (String)curRef.get(n);
+//            }   
+//            
+//            FixRoadThread FRT1 = new FixRoadThread(this.PHT, copy, 3);
+//            
+//            FRT1.start();
+//            FRT1.join();
+//            
+//            //System.out.println("Copy 3 Size: " + copy.length);
+//            //System.out.println("Thread 3 "+FRT1.getNewRef().size());
+//            
+//
+//            this.newRef =  FRT1.getNewRef();
+//            
+//            //System.out.println("EL SIZE: " + this.newRef.size() + " \n");
+//            
+//        }
+//        
+//
+//
+//
+//       //this.newRef =
+//
+//
+//
+//        
+//
+//        return this.newRef;
+//        
+//        //return curRef;
+//        
+//    }
+//    
+//    
     
-    public void newRef()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public ArrayList newRef(Road curRoad)
     {
         
         double distance = 0;
         
         newRef = new ArrayList();
         
+        ArrayList curRef = (ArrayList)curRoad.getRef().clone();
+                
         Point p1 = null;
         Point p2 = null;
         
@@ -52,16 +242,16 @@ public class FixRoadThread extends Thread
         double desiredDistance = (1.0 * Math.pow(10, -5)); // -9
         //boolean next = true;
         
-        for(int i = 0; i < curRef.length -1; i++)
+        for(int i = 0; i < curRef.size()-1; i++)
         {
-            p1 = PHT.getPoint((String)curRef[i]);
-            p2 = PHT.getPoint((String)curRef[i+1]);
+            p1 = PHT.getPoint((String)curRef.get(i));
+            p2 = PHT.getPoint((String)curRef.get(i+1));
             
             distance = euclideanDistance(p1,p2);
             
             if(i ==0)
             {
-                newRef.add(curRef[i]);
+                newRef.add(curRef.get(i));
                 //System.out.println("--" + curRef.get(i));
             }
             
@@ -72,7 +262,7 @@ public class FixRoadThread extends Thread
                 createSubPoints(desiredDistance,distance, p1, p2);
             }
              
-            newRef.add(curRef[i+1]);
+            newRef.add(curRef.get(i+1));
             //System.out.println("--" + curRef.get(i+1));
             //next = false;
             
@@ -80,6 +270,9 @@ public class FixRoadThread extends Thread
             //System.out.println(" AFTER " +  curRef.get(i+1) + "\n");
             
         }
+        
+        
+        return this.newRef;
     }
     
     
@@ -260,27 +453,12 @@ public class FixRoadThread extends Thread
             
         }
     }
-
     
-        @Override
-    public void run() 
+    
+    public PointHashTable getPHT()
     {
-        newRef();      
+        return this.PHT;
     }
-
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

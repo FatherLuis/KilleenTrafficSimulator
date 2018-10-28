@@ -1,7 +1,8 @@
 package Main.Init;
 
-import Main.Threads.PointThread;
-import Main.CVSFiles.CSVReader;
+import Main.z.DELETED.FixRoad;
+import Main.z.DELETED.PointThread;
+import Main.z.DELETED.CSVReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ import org.xml.sax.*;
 ***LIST OF CHANGES WITH DATES: NONE
 ********************************************************************************
 ***SPECIAL NOTES: NONE
-*** 
+*** Oct 28, 2018: ADDED THE CREATESIGNS METHOD
 ***
 *******************************************************************************/
 public class File_IO 
@@ -137,19 +138,18 @@ public class File_IO
     private  void GetRoads()
     {
         boolean Accept;
-        
-        
-        
+
         Road Calle;
-        String roadName ="";
-        String roadID = " ";
-        String refID = " ";
-        boolean oneway = false;
+        String roadName;
+        String roadID;
+        String refID;
+        boolean oneway;
+        String type;
         
         ArrayList<String> ref = null;
         
-        String attrK = "";
-        String attrV = "";
+        String attrK;
+        String attrV;
         
         //GET A NODELIST OF ONLY TAGS WITH THE WORD 'WAY'
         NodeList listOfWays = xmlDoc.getElementsByTagName("way");
@@ -160,7 +160,16 @@ public class File_IO
             for(int i=0; i < listOfWays.getLength(); i++)
             {
                 Accept = false;
+                
+                roadName = "";
+                roadID = "";
+                refID = "";
                 oneway = false;
+                       
+                attrK = "";
+                attrV = "";
+                type = "";
+                
                 
                 
                 //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
@@ -201,15 +210,15 @@ public class File_IO
                             case("oneway"):
                                 if(!(attrV.equals("no")))
                                 {                                
-                                    oneway = true;
-                                    break;
+                                    oneway = true; 
                                 }
-                                
+                                break;
                             case("highway"):
-                                
                                 if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian") || attrV.equals("paved") ))
                                 {
                                     if(roadName.isEmpty()){roadName = "NO NAME";}
+                                    
+                                    type = attrV;
                                     
                                     roadID = NodeID;
                                     Accept = true;  
@@ -253,7 +262,9 @@ public class File_IO
                     //SET ROAD NAME
                     Calle.setName(roadName);
                     //SET REF ARRAY
-                    Calle.setRef(ref);   
+                    Calle.setRef(ref); 
+                    //SET ROAD TYPE
+                    Calle.setType(type);
                     
                     Calle.setOneway(oneway);
                     
@@ -285,63 +296,105 @@ public class File_IO
     private void GetPoints()
     {     
         NodeList listOfNodes = xmlDoc.getElementsByTagName("node");
+        
                 
         int length = listOfNodes.getLength();
-        int size = 0;
         
-        Node[] copy = null;
-        Node[] copy2 = null;
+        Node[] copy = new Node[length];
         
-        int count = 0;
-        
-        
-        if(length % 2 == 0)
+        for(int i =0; i < length ; i++)
         {
-            size = length / 2;
-            copy = new Node[size];
-            copy2 = new Node[size];
+            copy[i] = listOfNodes.item(i);
+        
         }
-        else
-        {
-            size = length / 2;
-            copy = new Node[size];
-            copy2 = new Node[size+1];
-        }    
         
-        for (int n = 0; n < length; n++)
+         
+        Point curPoint = null;
+        
+        for(int i=0; i < copy.length; i++ )
         {
-            if(n < size)
-            {
-                copy[count] = listOfNodes.item(n);
-                count++;           
+            //System.out.println(i);
 
-                if( count == size)
-                {
-                    count = 0;
-                }
-            }
-            else if(n >= size && n < length)
-            {                   
-                copy2[count] = listOfNodes.item(n);
-                count++;
-            }
-        } 
+            //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
+            Node curNode = copy[i];
 
-        PointThread PT1 = new PointThread(this.PHT, copy, 1);
-        PointThread PT2 = new PointThread(this.PHT, copy2, 2);
+            //GET THE NODE ID
+            //pointID = curNode.getAttributes().getNamedItem("id").getNodeValue();
+            //GET THE LATITUDE
+            //latitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lat").getNodeValue());
+            //GET THE LONGITUDE
+            //longitude = Double.parseDouble(curNode.getAttributes().getNamedItem("lon").getNodeValue());
 
-        PT1.start();
-        PT2.start();
-                
-        try 
-        {
-            PT1.join();
-            PT2.join();
-            
-        } catch (InterruptedException ex) 
-        {
-            Logger.getLogger(File_IO.class.getName()).log(Level.SEVERE, null, ex);
+            //INSTANTIATE NEW POINT OBJECT
+            curPoint = new Point(curNode.getAttributes().getNamedItem("id").getNodeValue());
+            //SET LATITUDE
+            curPoint.setLatitude(Double.parseDouble(curNode.getAttributes().getNamedItem("lat").getNodeValue()));
+            //SET LONGITITUDE
+            curPoint.setLongitude(Double.parseDouble(curNode.getAttributes().getNamedItem("lon").getNodeValue()));
+
+            //ADD POINT TO THE HASHTABLE
+            PHT.put(curPoint);
         }
+        
+        
+        
+        
+        
+//        int size = 0;
+//        
+//        Node[] copy = null;
+//        Node[] copy2 = null;
+//        
+//        int count = 0;
+//        
+//        
+//        if(length % 2 == 0)
+//        {
+//            size = length / 2;
+//            copy = new Node[size];
+//            copy2 = new Node[size];
+//        }
+//        else
+//        {
+//            size = length / 2;
+//            copy = new Node[size];
+//            copy2 = new Node[size+1];
+//        }    
+//        
+//        for (int n = 0; n < length; n++)
+//        {
+//            if(n < size)
+//            {
+//                copy[count] = listOfNodes.item(n);
+//                count++;           
+//
+//                if( count == size)
+//                {
+//                    count = 0;
+//                }
+//            }
+//            else if(n >= size && n < length)
+//            {                   
+//                copy2[count] = listOfNodes.item(n);
+//                count++;
+//            }
+//        } 
+//
+//        PointThread PT1 = new PointThread(this.PHT, copy, 1);
+//        PointThread PT2 = new PointThread(this.PHT, copy2, 2);
+//
+//        PT1.start();
+//        PT2.start();
+//                
+//        try 
+//        {
+//            PT1.join();
+//            PT2.join();
+//            
+//        } catch (InterruptedException ex) 
+//        {
+//            Logger.getLogger(File_IO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
                 
                 
@@ -401,7 +454,7 @@ public class File_IO
         for(int i = 0; i < this.AllRoads.size(); i++)
         {
             //USED AS A REFERENCE
-            refID = this.AllRoads.get(i).getDetailedRef();
+            refID = this.AllRoads.get(i).getRef();
             
             //ITERATE BY THE SIZE OF THE REFARR
             for(int j = 0 ; j < refID.size(); j++)
@@ -414,22 +467,27 @@ public class File_IO
         }
     }
     
-    
-    
-    private void FixRoads() throws InterruptedException
+    /***************************************************************************
+    ***METHOD NAME: createSigns
+    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+    ****************************************************************************
+    ***PURPOSE OF THE METHOD: replace Point objects with Stop lights/sign 
+    ***METHOD USED: NONE
+    ***METHOD PARAMETERS: NONE
+    ***RETURN VALUE: NONE
+    ****************************************************************************
+    ***DATE: OCTUBER 5 , 2018
+    ***************************************************************************/     
+    private void CreateSigns()
     {
-        
-        FixRoad fixRoad = new FixRoad(this.PHT);
+        CreateSigns CS = new CreateSigns(this.PHT);
     
         for(int i = 0; i < this.AllRoads.size(); i++)
         {
-            this.AllRoads.get(i).setDetailedRef(fixRoad.newRef(this.AllRoads.get(i)));
-            //this.AllRoads.get(i).setDetailedRef(this.AllRoads.get(i).getRef());
+            CS.createStopSigns(this.AllRoads.get(i));          
         }
-        
-        
-        //this.PHT = fixRoad.getPHT();
     }
+    
     
     
     /***************************************************************************
@@ -437,7 +495,7 @@ public class File_IO
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
     ***PURPOSE OF THE METHOD: DO ALL OPERATIONS TO XML FILE
-    ***METHOD USED: GetBounds(), GetRoads(), GetPoints(), AssignParents()
+    ***METHOD USED: GetBounds(), GetRoads(), GetPoints(), AssignParents(), CreateSigns
     ***METHOD PARAMETERS: NONE
     ***RETURN VALUE: NONE
     ****************************************************************************
@@ -450,27 +508,31 @@ public class File_IO
     
         
         GetBounds();
+            
             start = System.currentTimeMillis();
         GetRoads();
             end = System.currentTimeMillis();
+            
             System.out.println("GetRoad Time: "+(double)(end - start)/1000+ " Seconds");
             start = System.currentTimeMillis();
         GetPoints();
             end = System.currentTimeMillis();
             System.out.println("GetPoints Time: "+(double)(end - start)/1000+ " Seconds");
-            start = System.currentTimeMillis();
 
-        FixRoads();   
-            end = System.currentTimeMillis();
-            System.out.println("FixRoads Time: "+(double)(end - start)/1000+ " Seconds");
             start = System.currentTimeMillis();            
         AssignParents();
             end = System.currentTimeMillis();
             System.out.println("AssignParents Time: "+(double)(end - start)/1000+ " Seconds");
 
-
-//        CSVReader reader = new CSVReader(PHT);
-//        reader.ReadFile();
+            start = System.currentTimeMillis();
+        CreateSigns();   
+            end = System.currentTimeMillis();
+            System.out.println("CreateSigns Time: "+(double)(end - start)/1000+ " Seconds");
+            
+            
+            
+        //CSVReader reader = new CSVReader(PHT);
+        //reader.ReadFile();
             
             
         

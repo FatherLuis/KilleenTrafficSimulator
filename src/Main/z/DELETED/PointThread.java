@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Threads;
+package Main.z.DELETED;
 
 import Main.Init.Point;
 import Main.Init.PointHashTable;

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Vehicles;
+package Main.z.DELETED;
 
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Vehicles.Vehicle;
 import java.util.ArrayList;
 
 /**
@@ -28,40 +29,40 @@ public class ObstacleSeer
     }
     
     
-    public int forSee(Point curPoint, Road curRoad, String position)
-    {
-        int distance;
-        
-        for(int i = 0; i < vehicles.size() ; i++)
-        {
-            if(vehicles.get(i).getRoad().getID().equals(curRoad.getID()) && !(vehicles.get(i).getDirection().equals(position)))
-            {
-                distance = distance(curPoint,vehicles.get(i).getPoint(),curRoad);
-                
-                if(distance > 8)
-                {
-                    return 2;
-                }                
-                else if(distance > 6)
-                {
-                    return 4;
-                }                
-                else if(distance > 4)
-                {
-                    return 6;
-                }
-                                
-                else if(distance > 2)
-                {
-                    return 8;
-                }
-            }
-        }
-        
-        
-        return 1;
-
-    }
+//    public int forSee(Point curPoint, Road curRoad, String position)
+//    {
+////        int distance;
+////        
+////        for(int i = 0; i < vehicles.size() ; i++)
+////        {
+////            if(vehicles.get(i).getRoad().getID().equals(curRoad.getID()) && !(vehicles.get(i).getDirection().equals(position)))
+////            {
+////                distance = distance(curPoint,vehicles.get(i).getPoint(),curRoad);
+////                
+////                if(distance > 8)
+////                {
+////                    return 2;
+////                }                
+////                else if(distance > 6)
+////                {
+////                    return 4;
+////                }                
+////                else if(distance > 4)
+////                {
+////                    return 6;
+////                }
+////                                
+////                else if(distance > 2)
+////                {
+////                    return 8;
+////                }
+////            }
+////        }
+////        
+////        
+////        return 1;
+//
+//    }
     
     
     private int distance(Point p1, Point p2, Road curRoad)

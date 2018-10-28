@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Vehicles;
+package Main.z.DELETED;
 
 import Main.Init.Point;
 import Main.Init.PointHashTable;
@@ -334,14 +334,14 @@ public class Instructions2
         
     }   
       
-    private void checkCollision()
-    {
-         if(seer.forSee(curPoint, curRoad, position) > 5)
-         {
-            //IDK YET
-         }
-    
-    }
+//    private void checkCollision()
+//    {
+//         if(seer.forSee(curPoint, curRoad, position) > 5)
+//         {
+//            //IDK YET
+//         }
+//    
+//    }
     
     
     

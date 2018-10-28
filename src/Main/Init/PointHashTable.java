@@ -1,7 +1,6 @@
 package Main.Init;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 
 /*******************************************************************************
 ***CLASS NAME: PointHashTable
@@ -13,12 +12,17 @@ import java.text.ParseException;
 ********************************************************************************
 ***LIST OF CHANGES WITH DATES: NONE
 ********************************************************************************
-***SPECIAL NOTES: NONE
+***SPECIAL NOTES: 
+*** OCT 28,2018 : MODIFIED THE PUT METHOD SO THAT IF A OBJECT THAT WAS ALREADY
+***               IN THE TABLE COMES IN, IT GETS OVERRIDEN
 *** 
 *******************************************************************************/
 public class PointHashTable 
 {
     private LinkList[] Table;
+    private NumberFormat NF;
+
+            
     
     
     /***************************************************************************
@@ -134,37 +138,37 @@ public class PointHashTable
                 //LINKLIST TEMP WILL REFERENCE THE FIRST LINKLIST IN THE ARRAY
                 LinkList temp = Table[indexKey]; 
 
-                    do
+                do
+                {
+                    //IF THE NODEID MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
+                    if(temp.getPoint().getID().equals(PointID)) 
                     {
-                        //IF THE NODEID MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
-                        if(temp.getPoint().getID().equals(PointID)) 
-                        {
-                            //GET MY OBJECT
-                            point = temp.getPoint();
-                            //END DO-WHILE LOOP
-                            break;
-                        } 
-                        //IF THE NODEID OF THE NEXT LINKLIST POINT MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
-                        else if(temp.getNextLink().getPoint().getID().equals(PointID))
-                        {
-                            //GET MY OBJECT
-                            point = temp.getNextLink().getPoint();
-                            //END DO-WHILE LOOP
-                            break;
-                        }   
-                        else if(temp.getNextLink() != null)
-                        {
-                            //GO TO THE NEXT LINKLIST OF THE CHAIN
-                            temp = temp.getNextLink();
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }while(!(temp.getPoint().getID().equals(PointID)));
+                        //GET MY OBJECT
+                        point = temp.getPoint();
+                        //END DO-WHILE LOOP
+                        break;
+                    } 
+                    //IF THE NODEID OF THE NEXT LINKLIST POINT MATCHES WHAT I'M LOOKING FOR, THEN COLLECT MY OBJECT
+                    else if(temp.getNextLink().getPoint().getID().equals(PointID))
+                    {
+                        //GET MY OBJECT
+                        point = temp.getNextLink().getPoint();
+                        //END DO-WHILE LOOP
+                        break;
+                    }   
+                    else if(temp.getNextLink() != null)
+                    {
+                        //GO TO THE NEXT LINKLIST OF THE CHAIN
+                        temp = temp.getNextLink();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }while(!(temp.getPoint().getID().equals(PointID)));
 
-        }
-        }catch(Exception ex){ System.out.println("\n me? BROKEN\n\n");}
+            }
+        }catch(Exception ex){ System.out.println("\n  "  +PointID+"  me? BROKEN\n\n");}
         
         //RETURN THE OBJECT
         return point;
@@ -188,14 +192,10 @@ public class PointHashTable
     {
         //NUMERIC STRING IS CAST TO LONG AND 
         //THEN A MODULAR OF 10000 IS CALCULATED
-        
+        NF = NumberFormat.getInstance();
         try
         {
-            NumberFormat NF = NumberFormat.getInstance();
-            
             //System.out.println(NF.parse(curPointID).longValue() % 10000);
-            
-            
             return NF.parse(curPointID).longValue() % 10000;
         }
         catch(Exception ex)

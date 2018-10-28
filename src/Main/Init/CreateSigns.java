@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Vehicles;
+package Main.Init;
 
-import Main.Vehicles.Instructions.Instructions3;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
+import Main.Operators.StopSign;
+import java.util.ArrayList;
 
 /*******************************************************************************
-***CLASS NAME: Bus
+***CLASS NAME: CreateSigns
 ***CLASS AUTHOR: LUIS E VARGAS TAMAYO
 ********************************************************************************
-***PURPOSE OF CLASS: MORE DETAILED VEHICLE 
+***PURPOSE OF CLASS: CREATE STOPSIGNS AND STOP LIGHTS ON MAP
 ********************************************************************************
 ***DATE: OCTOBER 28, 2018
 ********************************************************************************
@@ -23,72 +20,75 @@ import java.awt.geom.Ellipse2D;
 ********************************************************************************
 ***SPECIAL NOTES: NONE
 *** 
+***
 *******************************************************************************/
-public class Bus extends Vehicle
-{
-    private Ellipse2D.Double shape;
+public class CreateSigns 
+{   
+    private PointHashTable PHT;
     
     /***************************************************************************
-    ***METHOD NAME: Bus
+    ***METHOD NAME: CreateSigns
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
     ***PURPOSE OF THE METHOD: CONSTRUCTOR
     ***METHOD USED: NONE
-    ***METHOD PARAMETERS: INSTRUCTIONS3
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTOBER 28, 2018
-    ***************************************************************************/     
-    public Bus(Instructions3 GPS) 
-    {
-        super(GPS);
-        this.GPS = GPS; 
-        color = Color.YELLOW;
-        speed = 20;
-    }
-    
-    /***************************************************************************
-    ***METHOD NAME: move()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: MOVE OBJECT 
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: INT
+    ***METHOD PARAMETERS: POINTHASHTABLE
     ***RETURN VALUE: NONE
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    @Override
-    public void move(int rate)
-    {
-        GPS.move(rate*speed*300);
+    public CreateSigns (PointHashTable PHT)
+    {   
+        this.PHT = PHT;
     }
     
     /***************************************************************************
-    ***METHOD NAME: draw()
+    ***METHOD NAME: createStopSigns
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
-    ***PURPOSE OF THE METHOD: DRAW OBJECT
+    ***PURPOSE OF THE METHOD: CHANGE POINT OBJECT TO STOP SIGN OBJECT
     ***METHOD USED: NONE
-    ***METHOD PARAMETERS: GRAPHICS2D, XCOR, YCOR, DIAMETER(WIDTH), DIAMETER(HEIGHT)
+    ***METHOD PARAMETERS: ROAD
     ***RETURN VALUE: NONE
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    @Override
-    public void draw(Graphics2D g,double x1,double y1, double d1,double d2)
+    public void createStopSigns(Road curRoad)
     {
+        if(curRoad.getType().equals("residential"))
+        {
+            //System.out.println("OOOF");
+            StopSign ss;
                 
-        //COVERS AREA OF THE SHAPE
-        Area a1 = new Area(new Ellipse2D.Double(x1,y1,d1,d2));   
-        
-        //shape = new Ellipse2D.Double(x1,y1,d1,d2);
-        //g.draw(shape);
-        
-        //SHAPE IS FILLED
-        g.fill(a1);
-    
+            ArrayList curRef = (ArrayList)curRoad.getRef();
+                
+            Point p1 = null;
+
+            for(int i = 0; i < curRef.size(); i++)
+            {
+                p1 = PHT.getPoint((String)curRef.get(i));
+                
+                if(p1 == null)
+                {
+                    System.out.println("CSS Point was NUll");
+                }
+                
+                
+                if(p1.hasParents())
+                {             
+                    ss = new StopSign(p1);
+                    PHT.put(ss);   
+                }   
+            }  
+        }
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     

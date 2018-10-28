@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.CVSFiles;
+package Main.z.DELETED;
 
 import Main.Init.Point;
 import Main.Init.PointHashTable;
@@ -24,10 +24,10 @@ public class CSVReader
         this.PHT = PHT;
     }
     
-    
+    //All Files	C:\Users\fathe\Documents\NetBeansProjects\KilleenTrafficSimulator\src\Main\CVSFiles\ssTEST3.csv
     public void ReadFile()
     {
-        String csvFile = "src\\Main\\other\\ssTEST3.csv";
+        String csvFile = "src\\Main\\CVSFiles\\ssTEST3.csv";
         String line = "";
         String cvsSplitBy = ",";
 

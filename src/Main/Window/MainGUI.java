@@ -7,9 +7,10 @@ import Main.Window.ControlPanel;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
 import Main.Vehicles.Bus;
-import Main.Vehicles.Instructions;
-import Main.Vehicles.Instructions2;
-import Main.Vehicles.ObstacleSeer;
+import Main.z.DELETED.Instructions;
+import Main.z.DELETED.Instructions2;
+import Main.Vehicles.Instructions.Instructions3;
+import Main.z.DELETED.ObstacleSeer;
 import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
@@ -41,7 +42,6 @@ public class MainGUI
     private static Drawable Painter;
     
     private static ArrayList<Vehicle> vehicleList;
-    private static ObstacleSeer seer;
    
     /***************************************************************************
     ***METHOD NAME: main()
@@ -160,19 +160,18 @@ public class MainGUI
     {          
         //System.out.println("///////////////////////////////////////////// \n\n");
         
-        Instructions2 ins ;
+        Instructions3 ins ;
         Vehicle vehicle;
         
         vehicleList = new ArrayList();
-        seer = new ObstacleSeer(vehicleList,RoadList, PHT);
         
         Random rand = new Random();
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 20; i++)
+        for(int i=0; i < 10000; i++)
         {
-            ins = new Instructions2(RoadList, PHT, seer);
+            ins = new Instructions3(RoadList, PHT);
             
             if(num > 10)
             {

@@ -176,13 +176,26 @@ public class Drawable
             {
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
                     p =this.PHT.getPoint(curRoadPoints.get(j));
+                    
+                    //GETS THE OBJECT POINT FROM THE HASHTABLE
+                    p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
+                    
+                    if(p == null)
+                    {
+                            System.out.println("p NULL");
+                    }
+                    if(p2 == null)
+                    {
+                            System.out.println("p2 NULL");
+                    }                    
+                    
+                    
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
                     x1 = normCalcX.Normalize(p.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
                     y1 = OperationY(normCalcY.Normalize(p.getLatitude()));
 
-                    //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
+
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
                     x2 = normCalcX.Normalize(p2.getLongitude());
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
@@ -254,15 +267,15 @@ public class Drawable
         {
             g3.setColor(this.vehicleList.get(i).getColor());
             
-            x1 = normCalcX.Normalize(this.vehicleList.get(i).getPoint().getLongitude());
+            x1 = normCalcX.Normalize(this.vehicleList.get(i).getCorX());
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getPoint().getLatitude()));
+            y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getCorY()));
 
 
             //subtract the x and y by the radius
             //since there is a scalar, we'll gonna be to figure out something
             
-            d = 8 * (this.scaler);
+            d = 6 * (this.scaler);
             r = d/2;
 //            
 //            
