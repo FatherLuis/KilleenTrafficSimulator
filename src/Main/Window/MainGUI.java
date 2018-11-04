@@ -172,7 +172,7 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 10; i++)
+        for(int i=0; i < 100; i++)
         {
             ins = new Instructions3(RoadList, PHT);
             

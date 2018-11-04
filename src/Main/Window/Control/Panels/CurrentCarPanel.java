@@ -5,12 +5,14 @@
  */
 package Main.Window.Control.Panels;
 
+import Main.Vehicles.Vehicle;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,14 +26,18 @@ import javax.swing.SwingConstants;
  */
 public class CurrentCarPanel extends JPanel
 {
+    private ArrayList<Vehicle> vehicleList;
     
-    public CurrentCarPanel()
+    private int currentCar;
+    
+    
+    public CurrentCarPanel(ArrayList<Vehicle> vehicleList)
     {
         super();
         
-        init();
+        this.vehicleList = vehicleList;
         
-    
+        init();
     }
     
     
@@ -203,6 +209,37 @@ public class CurrentCarPanel extends JPanel
         this.add(space,c);  
 
     }
+    
+    public void setCarID(String ID){this.lblCarID.setText(ID);}
+    public void setCarLon(String lon){this.lblCarLongitude.setText(lon);}
+    public void setCarLat(String lat){this.lblCarLatitude.setText(lat);}
+    public void setCarSpeed(String speed){this.lblCarSpeed.setText(speed);}
+    public void setCarCurrentRoad(String CCR){this.lblCarCurrentRoad.setText(CCR);}
+    
+    
+    public void setCurrentvehicle(int vehicle)
+    {
+        this.currentCar = vehicle;
+    }
+    
+    public void setCurrentIndex(int index)
+    {
+        this.currentCar = index;
+    }
+    
+    
+    public void update()
+    {
+        if(currentCar != - 1)
+        {
+          this.setCarID("1");
+          this.setCarLon(String.valueOf(vehicleList.get(this.currentCar).getCorX()));
+          this.setCarLat(String.valueOf(vehicleList.get(this.currentCar).getCorY()));
+          this.setCarSpeed("30");
+          this.setCarCurrentRoad(vehicleList.get(this.currentCar).getRoad().getName());
+        }
+    }
+    
     
     
     private JLabel lblTitle;

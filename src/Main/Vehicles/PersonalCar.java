@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 /*******************************************************************************
 ***CLASS NAME: PersonalCar
@@ -79,6 +80,11 @@ public class PersonalCar extends Vehicle
     @Override
     public void draw(Graphics2D g,double x1,double y1, double d1,double d2)
     {
+        if(trackable)
+        {
+             g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 20,20 ));
+        
+        }
                     
         //COVERS AREA OF THE SHAPE
         Area a1 = new Area(new Ellipse2D.Double(x1,y1,d1,d2)); 

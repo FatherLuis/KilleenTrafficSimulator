@@ -27,6 +27,8 @@ public class Vehicle
     protected Instructions3 GPS;
     protected int speed;
     
+    protected boolean trackable;
+    
 
 
     /***************************************************************************
@@ -43,6 +45,7 @@ public class Vehicle
     public Vehicle(Instructions3 GPS)
     {        
         this.GPS = GPS;   
+        trackable = false;
     }
     
     
@@ -72,6 +75,8 @@ public class Vehicle
 
     public Color getColor(){return color;}
     public void setColor(Color color){ this.color = color;}
+    
+    public void setTrackable(boolean track){ this.trackable = track;}
     
     /***************************************************************************
     ***METHOD NAME: draw()

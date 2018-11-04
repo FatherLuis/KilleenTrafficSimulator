@@ -3,6 +3,7 @@ package Main.Window;
 import Main.Drawable;
 import Main.Vehicles.Instructions.Tracker;
 import Main.Vehicles.Vehicle;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -64,6 +65,8 @@ public class TrafficPanel extends JPanel
         requestFocus();
         
         this.Painter = painter;
+        Cursor hand = new Cursor(Cursor.HAND_CURSOR);
+        this.setCursor(hand);
         
         //this.addMouseListener(this);
         

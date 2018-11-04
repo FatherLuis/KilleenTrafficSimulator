@@ -60,14 +60,15 @@ public class ControlPanel extends JPanel
     {
         super();
 
-        init();
+        //init();
         //setUpPanels();
         
         
     }    
     
+    public void setCCP(CurrentCarPanel CCP){this.CCP = CCP;}
     
-    private void init()
+    public void init()
     {  
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.GRAY);  
@@ -102,12 +103,7 @@ public class ControlPanel extends JPanel
         p1.setBackground(Color.GRAY);
         
         this.panel.add(p1,"Overview");
-        this.panel.add(new CurrentCarPanel(),"Current Car");
-        
-        
-        
-        
-        
+        this.panel.add(CCP,"Current Car");
         c.gridx = 0;  
         c.gridy = 2;
         c.weighty = 0.60;

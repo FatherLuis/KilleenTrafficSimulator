@@ -1,6 +1,7 @@
 package Main.Window;
 
 import Main.Clock;
+import Main.Window.Control.Panels.CurrentCarPanel;
 import Main.Window.ControlPanel;
 import javax.swing.JSplitPane;
 
@@ -28,6 +29,9 @@ public class SplitPanel extends JSplitPane implements Runnable
     
     private Clock clock;
     
+    
+    private CurrentCarPanel CCP;
+    
     /***************************************************************************
     ***METHOD NAME:  SplitPanel()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -46,6 +50,14 @@ public class SplitPanel extends JSplitPane implements Runnable
         this.setRightComponent(CP);
         this.setResizeWeight(1.0);
         this.setDividerLocation(0.9);
+        
+        this.CCP = new CurrentCarPanel(SP.getTP().getVehicles());
+        
+        
+        SP.setCCP(this.CCP);
+        CP.setCCP(this.CCP);
+        
+        CP.init();
         
         this.CP = CP;
         this.TP = SP.getTP();
@@ -73,6 +85,7 @@ public class SplitPanel extends JSplitPane implements Runnable
         {
             if(CP.isOn())
             {
+                CCP.update();
                 TP.update(CP.getIntFastForward());
 
                 CP.setClock(clock.tick(CP.getIntFastForward()));
