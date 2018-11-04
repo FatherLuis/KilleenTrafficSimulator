@@ -1,5 +1,6 @@
 package Main.Window;
 
+import Main.Vehicles.Instructions.Tracker;
 import Main.Window.TrafficPanel;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -35,6 +36,8 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
     private TrafficPanel TP;
     
     private int scale;
+    
+    private Tracker tracker;
  
     /***************************************************************************
     ***METHOD NAME: ScrollPanel
@@ -71,6 +74,8 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
         this.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         
         
+        this.tracker = new Tracker(TP.getVehicles(),TP.getBoundList(),WIDTH, HEIGHT);
+        
     }
 
     
@@ -80,26 +85,26 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
         
         
     @Override
-        public void mouseWheelMoved(MouseWheelEvent e) 
-        {
-            this.scale = TP.getScalar();
-           int notches = e.getWheelRotation();
+    public void mouseWheelMoved(MouseWheelEvent e) 
+    {
+        this.scale = TP.getScalar();
+       int notches = e.getWheelRotation();
 
-           if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) 
-           {     
-                if (notches < 0) 
-                {
-                    TP.setPreferredSize(new Dimension(TP.getWidth() + 250,TP.getHeight() + 250));      
-                }
-               else 
-               {
-                    TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));      
-               }
-               
-              
-               
-               
-               
+       if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) 
+       {     
+            if (notches < 0) 
+            {
+                TP.setPreferredSize(new Dimension(TP.getWidth() + 250,TP.getHeight() + 250));      
+            }
+           else 
+           {
+                TP.setPreferredSize(new Dimension(TP.getWidth() - 250,TP.getHeight() - 250));      
+           }
+
+
+
+
+
 //               message += "    Scroll type: WHEEL_UNIT_SCROLL ";
 //               message += "    Scroll amount: " + e.getScrollAmount()
 //                       + " unit increments per notch ";
@@ -108,22 +113,22 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
 //               message += "    Vertical unit increment: "
 //                   + this.getVerticalScrollBar().getUnitIncrement(1)
 //                   + " pixels";
-           } 
-           else 
-           {
+       } 
+       else 
+       {
 //               //scroll type == MouseWheelEvent.WHEEL_BLOCK_SCROLL
 //               message += "    Scroll type: WHEEL_BLOCK_SCROLL ";
 //               message += "    Vertical block increment: "
 //                   + this.getVerticalScrollBar().getBlockIncrement(1)
 //                   + " pixels";
-           }
+       }
 
-           //System.out.println(message);
-           TP.revalidate();
-        }        
-        
-        
-        
+       //System.out.println(message);
+       TP.revalidate();
+    }        
+
+
+
         
         
         
@@ -154,6 +159,23 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
           //LEFT MOUSE CLICK WILL CAUSE THIS
           if(me.getButton() == MouseEvent.BUTTON1) 
           {
+//              tracker.setHeight(TP.getHeight());
+//              tracker.setWidth(TP.getWidth());
+//              
+//              Point p = me.getPoint();
+//              
+//              System.out.println(p.x);
+//              System.out.println(p.y);
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
             //TP.setPreferredSize(new Dimension(TP.getWidth() + 1000,TP.getHeight() + 1000));
             
             //System.out.println("BUTTON 1: W:" + TP.getWidth() + "  H:" + TP.getHeight());   

@@ -34,7 +34,9 @@ public class Instructions3
     
     private Route route;
     
-    private int rate = 1;
+    private double rate = 1;
+    
+    private double speed;
         
     protected ObstacleSeer seer;
         
@@ -49,7 +51,6 @@ public class Instructions3
     {
         this.RoadList = RoadList;
         this.PHT = PHT;
-        this.seer = seer;
         this.route = new Route();
         this.setUpLocation();
     }
@@ -66,6 +67,8 @@ public class Instructions3
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
         curPoint = PHT.getPoint(ID);
+        
+        this.speed = curRoad.getSpeed();
 
 
         randNum = rand.nextInt(100);
@@ -239,7 +242,7 @@ public class Instructions3
         
     }
     
-    public void move(int rate)
+    public void move(double rate)
     {
         this.rate = rate;
         
@@ -309,6 +312,7 @@ public class Instructions3
         }while(curRoad.getID().equals(tempRoad.getID()));
 
         curRoad = tempRoad; 
+        //this.speed = curRoad.getSpeed();
         
         for(int i=0; i < curRoad.getRef().size(); i++)
         {
@@ -365,7 +369,7 @@ public class Instructions3
         else
         {
             //System.out.println("I'm Stuck");
-            //SetUp();     
+            setUpLocation();    
         }
     }
     
@@ -386,6 +390,7 @@ public class Instructions3
                 
                 
                 curRoad = tempRoad; 
+                //this.speed = curRoad.getSpeed();
 
                 for(int i=0; i < curRoad.getRef().size(); i++)
                 {

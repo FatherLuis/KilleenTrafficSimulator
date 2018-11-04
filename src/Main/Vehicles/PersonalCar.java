@@ -45,7 +45,7 @@ public class PersonalCar extends Vehicle
         super(GPS);
         this.GPS = GPS; 
         color = Color.GREEN;
-        speed = 50;
+        speed = 40;
     }
     
     /***************************************************************************
@@ -60,9 +60,9 @@ public class PersonalCar extends Vehicle
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
     @Override
-    public void move(int rate)
+    public void move(double rate)
     {
-        GPS.move(rate*speed *300);
+        GPS.move(rate*speed*300);
     }     
     
     /***************************************************************************

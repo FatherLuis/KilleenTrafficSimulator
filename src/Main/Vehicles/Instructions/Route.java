@@ -147,7 +147,7 @@ public class Route
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/     
-    public void update(int rate)
+    public void update(double rate)
     {
         double oldx = newX;
         double oldy = newY;

@@ -84,11 +84,9 @@ public class MainGUI
         //GETS INFORMATION FROM XML FILE AND OTHER
         readFile();
         
-        //SETS THE PANEL WHERE THE MAP IS GOING TO BE DRAWN
-        TrafficPanel mainPanel = new TrafficPanel();
-        
+
         //GIVES INFORMATION TO THE PAINTERS
-        Painter = new Drawable(mainPanel);
+        Painter = new Drawable();
         Painter.setAllRoads(RoadList);
         Painter.setMaxMinBounds(bounds);
         Painter.setHashTable(PHT);
@@ -101,7 +99,12 @@ public class MainGUI
         
         
         //THE PAINTER IS SENT TO THE MAINPANEL
-        mainPanel.setPainter(Painter);
+        //mainPanel.setPainter(Painter);
+        
+        //SETS THE PANEL WHERE THE MAP IS GOING TO BE DRAWN
+        TrafficPanel mainPanel = new TrafficPanel(Painter);
+        
+        
         
         mainPanel.setBackground(Color.BLACK);
         
@@ -169,7 +172,7 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 10000; i++)
+        for(int i=0; i < 10; i++)
         {
             ins = new Instructions3(RoadList, PHT);
             

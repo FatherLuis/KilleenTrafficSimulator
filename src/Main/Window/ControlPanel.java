@@ -1,6 +1,8 @@
 package Main.Window;
 
 import Main.Clock;
+import Main.Window.Control.Panels.CurrentCarPanel;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,8 +11,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,11 +41,9 @@ public class ControlPanel extends JPanel
     public int WIDTH= 400;
     public int HEIGHT = 500; 
     
-    private int intFastForward;
-    
-    private Clock clock;
-    
-    private boolean isOn;
+
+    private TimerPanel Timer;
+    private CurrentCarPanel CCP;
     
     /***************************************************************************
     ***METHOD NAME: ControlPanel()
@@ -53,158 +58,107 @@ public class ControlPanel extends JPanel
     ***************************************************************************/     
     public ControlPanel()
     {
-        
-        
         super();
-        this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        this.setBackground(Color.GRAY);  
-        
-        this.setLayout(new GridBagLayout());
-        
-        clock = new Clock();
-        isOn = true;
-        intFastForward = 1;
+
         init();
+        //setUpPanels();
+        
+        
     }    
     
     
     private void init()
-    {
-        
-        ListenForButton ActionForButton = new ListenForButton();
-
-        
+    {  
+        this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        this.setBackground(Color.GRAY);  
+        this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(10,20,10,10);
-
-       
-        this.lblClock = new JLabel(" 00 : 00 : 00 ");  
-        this.lblClock.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        this.lblClock.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
+        c.insets = new Insets(1,1,1,1);
+        
+        ListenForItemStateChange StateChange = new ListenForItemStateChange();
+        
+        
+        
+        this.Timer = new TimerPanel();  
         c.gridx = 0;  
         c.gridy = 0;
-        c.gridwidth = 2;
-        c.gridheight = 2;
-        c.weighty = 0.10;
+        c.weighty = 0.05;
         c.fill = GridBagConstraints.BOTH;
-        this.add(this.lblClock,c);
-        
-        this.btnChangeTime = new JButton("Change Time...");
-        c.gridx = 3;  
-        c.gridy = 0;  
-        c.gridwidth = 2;
-        c.gridheight = 2;
-        c.weighty = .10;
-        c.fill = GridBagConstraints.WEST;
-        this.add(this.btnChangeTime,c);
-        
-        
-        this.btnPause = new JButton("||");
+        this.add(this.Timer,c);
+
+
+        this.cmbPanelChoice = new JComboBox();
+        this.cmbPanelChoice.addItemListener(StateChange);
+        cmbPanelChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Overview", "Current Car", "What-If Scenerios"}));   
         c.gridx = 0;  
-        c.gridy = 3;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.weighty = .10;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        this.btnPause.addActionListener(ActionForButton);
-        this.add(this.btnPause,c);
+        c.gridy = 1;
+        c.weighty = 0.05;
+        c.fill = GridBagConstraints.BOTH;
+        this.add(this.cmbPanelChoice,c);
         
-        this.btnNormalForward = new JButton(">");
-        c.gridx = 2;  
-        c.gridy = 3;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.weighty = .10;
-        c.fill = GridBagConstraints.HORIZONTAL;    
-        this.btnNormalForward.addActionListener(ActionForButton);
-        this.add(this.btnNormalForward,c);
+        this.panel = new JPanel(new CardLayout());
+        JPanel p1 = new JPanel();
+        p1.setBackground(Color.GRAY);
+        
+        this.panel.add(p1,"Overview");
+        this.panel.add(new CurrentCarPanel(),"Current Car");
         
         
-        this.btnFastForward = new JButton(">>");
-        c.gridx = 4;  
-        c.gridy = 3;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.weighty = .10;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        this.btnFastForward.addActionListener(ActionForButton);
-        this.add(this.btnFastForward,c);
         
         
-        this.lblNumCars = new JLabel("# of vehicles: ");  
-        this.lblNumCars.setFont(new Font("SansSerif", Font.PLAIN, 14));       
+        
         c.gridx = 0;  
-        c.gridy = 4;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.weighty = 5; 
-        c.fill = GridBagConstraints.EAST;
-        this.add(this.lblNumCars,c);    
-        
-        
-        this.txtNumCars = new JTextField("200");
-        this.txtNumCars.setFont(new Font("SansSerif", Font.PLAIN, 14)); 
-        c.gridx = 2;  
-        c.gridy = 4;
-        c.gridwidth = 5;
-        c.gridheight = 1;
-        c.weighty = .10;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        this.add(this.txtNumCars,c);  
+        c.gridy = 2;
+        c.weighty = 0.60;
+        c.fill = GridBagConstraints.BOTH;
+        this.add(this.panel,c);
         
         
         
+        
+
         
         
     }
     
     
+    public void setClock(String time)
+    {
+        this.Timer.setClock(time);
+        //this.lblClock.setText(time);
+    }
     
-    public void setClock(String time){this.lblClock.setText(time);}
+    public boolean isOn()
+    {
+        return this.Timer.isOn();
+        //return this.isOn;
+        //return true;
+    }
     
-    public boolean isOn(){return this.isOn;}
+    public int getIntFastForward()
+    {
+        return this.Timer.getIntFastForward();
+        //return this.intFastForward;
+        //return 1;
+    }
     
-    public int getIntFastForward(){return this.intFastForward;}
-    
-    private JButton btnPause;
-    private JButton btnFastForward; 
-    private JButton btnNormalForward;
-    
-    private JLabel lblClock;
-    private JButton btnChangeTime;
-    
-    private JLabel lblNumCars;
-    private JTextField txtNumCars;
- 
-    
+    private JPanel panel;
+    private JComboBox cmbPanelChoice;
     
    
-    private class ListenForButton implements ActionListener
+
+    private class ListenForItemStateChange implements ItemListener
     {
-        public void actionPerformed(ActionEvent evt)
+
+        @Override
+        public void itemStateChanged(ItemEvent ie) 
         {
-            
-            if(evt.getSource() == btnPause)
-            {
-                isOn = false;
-                intFastForward = 1;
-            }
-            else if(evt.getSource() ==btnFastForward)
-            {
-                intFastForward += 1;
-                
-            }
-            else if(evt.getSource() == btnNormalForward || evt.getSource() ==btnFastForward)
-            {
-                isOn = true;
-            }
-            
-        
+            CardLayout cl = (CardLayout)(panel.getLayout());
+            System.out.println(ie.getItem());
+            cl.show(panel, (String)ie.getItem());
         }
-    }
-    
-    
+    }    
     
     
     

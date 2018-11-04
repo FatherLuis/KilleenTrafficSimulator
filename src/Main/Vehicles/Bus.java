@@ -44,7 +44,7 @@ public class Bus extends Vehicle
         super(GPS);
         this.GPS = GPS; 
         color = Color.YELLOW;
-        speed = 20;
+        speed = 25;
     }
     
     /***************************************************************************
@@ -59,7 +59,7 @@ public class Bus extends Vehicle
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
     @Override
-    public void move(int rate)
+    public void move(double rate)
     {
         GPS.move(rate*speed*300);
     }

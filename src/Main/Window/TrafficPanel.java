@@ -1,10 +1,15 @@
 package Main.Window;
 
 import Main.Drawable;
+import Main.Vehicles.Instructions.Tracker;
 import Main.Vehicles.Vehicle;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /*******************************************************************************
@@ -23,7 +28,7 @@ import javax.swing.JPanel;
 *** SINCE I HAVE NO USE FOR IT ANY MORE
 *** 
 *******************************************************************************/
-public class TrafficPanel extends JPanel //implements Runnable
+public class TrafficPanel extends JPanel 
 {    
     
     public static  int WIDTH= 1000;
@@ -33,6 +38,8 @@ public class TrafficPanel extends JPanel //implements Runnable
     private Drawable Painter;  
 
     private int scalar = 1;
+    
+    private Tracker tracker;
     
     //private Thread ani;
     
@@ -49,12 +56,19 @@ public class TrafficPanel extends JPanel //implements Runnable
     ****************************************************************************
     ***DATE: OCT0BER 5, 2018
     ***************************************************************************/ 
-    public TrafficPanel()
+    public TrafficPanel(Drawable painter)
     {
         super();
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setFocusable(true);
         requestFocus();
+        
+        this.Painter = painter;
+        
+        //this.addMouseListener(this);
+        
+        this.tracker = new Tracker(this.getVehicles(),this.getBoundList(),WIDTH, HEIGHT);
+       
         //this.addMouseListener(this);
         
         //this.parent = parent;
@@ -115,7 +129,16 @@ public class TrafficPanel extends JPanel //implements Runnable
     
    
     
+    public double[] getBoundList()
+    {
+        return this.Painter.getBounds();
     
+    }
+    
+    public ArrayList<Vehicle> getVehicles()
+    {
+        return this.Painter.getVehicles();
+    }
 
     
     
@@ -158,9 +181,7 @@ public class TrafficPanel extends JPanel //implements Runnable
     
     
     
-    
-    
-    
+
     
     
     

@@ -51,7 +51,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
     }
@@ -145,6 +145,7 @@ public class File_IO
         String refID;
         boolean oneway;
         String type;
+        int speed;
         
         ArrayList<String> ref = null;
         
@@ -169,6 +170,7 @@ public class File_IO
                 attrK = "";
                 attrV = "";
                 type = "";
+                speed = 0;
                 
                 
                 
@@ -220,6 +222,28 @@ public class File_IO
                                     
                                     type = attrV;
                                     
+//                                    if(type.equals("primary"))
+//                                    {
+//                                        speed = 60;
+//                                    }
+//                                    else if(type.equals("secondary"))
+//                                    {
+//                                        speed = 50;
+//                                    }
+//                                    else if(type.equals("tertiary"))
+//                                    {
+//                                        speed = 40;
+//                                    }
+//                                    else if(type.equals("residential"))
+//                                    {
+//                                        speed = 30;
+//                                    }
+//                                    else
+//                                    {
+//                                        speed = 30;
+//                                    }
+                                    
+                                    
                                     roadID = NodeID;
                                     Accept = true;  
                                 }                              
@@ -266,6 +290,7 @@ public class File_IO
                     //SET ROAD TYPE
                     Calle.setType(type);
                     
+//                    Calle.setSpeed(speed);
                     Calle.setOneway(oneway);
                     
                     //ADD ROAD TO THE ALLROADS

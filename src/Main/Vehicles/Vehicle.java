@@ -67,7 +67,7 @@ public class Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public void move(int rate) { GPS.move(rate*1000); }
+    public void move(double rate) { GPS.move(rate*1000); }
     
 
     public Color getColor(){return color;}

@@ -68,9 +68,9 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public Drawable(TrafficPanel TP)
+    public Drawable()
     {
-        g = TP.getGraphics();
+        //g = TP.getGraphics();
     }
 
 
@@ -302,6 +302,19 @@ public class Drawable
     
     
     
+    
+    
+    public double[] getBounds()
+    {
+        return this.Bounds;
+    
+    
+    }
+    
+    public ArrayList<Vehicle> getVehicles()
+    {
+        return this.vehicleList;
+    }
     
     
     
