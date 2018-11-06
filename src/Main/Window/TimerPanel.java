@@ -28,9 +28,6 @@ public class TimerPanel extends JPanel
 {   
     
     private int intFastForward;
-    
-    private Clock clock;
-    
     private boolean isOn;
     
     

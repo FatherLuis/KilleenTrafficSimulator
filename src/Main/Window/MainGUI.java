@@ -72,6 +72,15 @@ public class MainGUI
     ***************************************************************************/ 
     private static void init() throws InterruptedException
     {
+        LoadingFrame lf = new LoadingFrame();
+        lf.start();
+        
+        
+        
+        
+        
+       
+        
         //CREATE THE WINDOW WITH NAME
         JFrame window = new JFrame("Traffic");
         //SET DEAULT CLOSURE OF FORM
@@ -125,6 +134,8 @@ public class MainGUI
         window.pack();
         
         
+        while(lf.isActive()){}
+        
         //MAKE WINDOW VISIBLE
         window.setVisible(true);    
     
@@ -172,11 +183,11 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 100; i++)
+        for(int i=0; i < 2500; i++)
         {
             ins = new Instructions3(RoadList, PHT);
             
-            if(num > 10)
+            if(num > 20)
             {
                 vehicle = new PersonalCar(ins);
             }

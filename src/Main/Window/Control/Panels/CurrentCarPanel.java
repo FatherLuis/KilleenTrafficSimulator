@@ -232,7 +232,7 @@ public class CurrentCarPanel extends JPanel
     {
         if(currentCar != - 1)
         {
-          this.setCarID("1");
+          this.setCarID(String.valueOf(vehicleList.get(this.currentCar).getID()));
           this.setCarLon(String.valueOf(vehicleList.get(this.currentCar).getCorX()));
           this.setCarLat(String.valueOf(vehicleList.get(this.currentCar).getCorY()));
           this.setCarSpeed("30");

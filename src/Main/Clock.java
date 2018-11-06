@@ -1,4 +1,7 @@
 package Main;
+
+import java.util.Random;
+
 /*******************************************************************************
 ***CLASS NAME: Clock
 ***CLASS AUTHOR: LUIS E VARGAS TAMAYO
@@ -35,10 +38,13 @@ public class Clock
     ***************************************************************************/    
     public Clock()
     {
-        day = 0;
-        seconds = 30;
-        minutes = 36;
-        hours = 13;
+        Random rand = new Random();
+        
+        day = rand.nextInt(7);
+        hours = rand.nextInt(24);
+        minutes = rand.nextInt(60);
+        seconds = rand.nextInt(60);
+        
     }
     
     /***************************************************************************
@@ -77,8 +83,8 @@ public class Clock
     ***************************************************************************/      
     private void changeMinutes()
     {  
-        this.minutes ++;
-        this.seconds -= 60;
+        this.minutes += this.seconds / 60;
+        this.seconds %= 60;
         
         if(this.minutes >= 60)
         {
@@ -100,8 +106,8 @@ public class Clock
     ***************************************************************************/  
     private void changeHours()
     {
-        this.hours++;
-        this.minutes -= 60;
+        this.hours += this.minutes / 60;
+        this.minutes %= 60;
         
         if(this.hours >= 24)
         {
@@ -123,11 +129,11 @@ public class Clock
     private void changeDay()
     {
         this.day ++;
-        this.hours-= 24;
+        this.hours%= 24;
         
         if(this.day >= 6)
         {
-            this.day =0 ;
+            this.day = 0 ;
         }
     }
       

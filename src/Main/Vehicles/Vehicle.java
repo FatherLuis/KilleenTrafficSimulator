@@ -27,7 +27,10 @@ public class Vehicle
     protected Instructions3 GPS;
     protected int speed;
     
+    protected int vehicleID;
     protected boolean trackable;
+    
+    private static int vehicleCount;
     
 
 
@@ -44,10 +47,17 @@ public class Vehicle
     ***************************************************************************/  
     public Vehicle(Instructions3 GPS)
     {        
+        vehicleID = vehicleCount;
         this.GPS = GPS;   
         trackable = false;
+        
+        vehicleCount++;
     }
     
+    public int getID()
+    {
+        return vehicleID;
+    }
     
     public Point getPoint(){return GPS.getPoint();}
     public void setPoint(Point p){GPS.setPoint(p);}

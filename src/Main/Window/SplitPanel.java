@@ -61,6 +61,7 @@ public class SplitPanel extends JSplitPane implements Runnable
         
         this.CP = CP;
         this.TP = SP.getTP();
+        
         clock = new Clock();
     }
     
