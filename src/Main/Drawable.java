@@ -5,6 +5,7 @@
  */
 package Main;
 
+import Main.Building.School;
 import Main.Vehicles.Vehicle;
 import Main.Init.Road;
 import Main.Init.Point;
@@ -21,6 +22,7 @@ import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*******************************************************************************
 ***CLASS NAME: Drawable
@@ -43,6 +45,7 @@ public class Drawable
     private ArrayList<Road> RoadList;
     
     private ArrayList<Vehicle> vehicleList;
+    private ArrayList<School> schoolList;
     
     private Normalization normCalcX;
     private Normalization normCalcY;
@@ -291,6 +294,47 @@ public class Drawable
     }
     
     
+    public void DrawSchools(Graphics g)
+    {       
+        Random rand = new Random();
+        
+        normalizeZone();
+        Graphics2D g3 = (Graphics2D) g.create();
+    
+        double x1;
+        double y1;
+        int d;
+        int r;
+        
+        Ellipse2D.Double shape;
+        
+        for(int i = 0; i < this.schoolList.size(); i++)
+        {
+            g3.setColor(Color.RED);
+            
+            x1 = normCalcX.Normalize(this.schoolList.get(i).getLongitude());
+            //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
+            y1 = OperationY(normCalcY.Normalize(this.schoolList.get(i).getLatitude()));
+
+
+            //subtract the x and y by the radius
+            //since there is a scalar, we'll gonna be to figure out something
+            
+            d = 6 * (this.scaler)* rand.nextInt(2)+1;
+            r = d/2;
+//            
+//            
+            shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
+
+            //g3.setColor(this.vehicleList.get(i).getColor());
+            g3.draw(shape);
+            //this.schoolList.get(i).draw(g3, x1-r, y1-r, d, d);
+
+
+        }
+    }
+    
+    
     public void updateVehicles(int rate)
     {
         for(int i = 0; i < this.vehicleList.size(); i++)
@@ -326,7 +370,10 @@ public class Drawable
     
       public void setVehicleList(ArrayList v){this.vehicleList = v;}
     
-    
+    public void setSchoolList(ArrayList<School> schoolList)
+    {
+        this.schoolList = schoolList;
+    }
     
     
      /***************************************************************************

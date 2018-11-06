@@ -1,5 +1,6 @@
 package Main.Init;
 
+import Main.Building.School;
 import Main.z.DELETED.FixRoad;
 import Main.z.DELETED.PointThread;
 import Main.z.DELETED.CSVReader;
@@ -35,6 +36,8 @@ public class File_IO
     private ArrayList<Road> AllRoads; 
     private double[] bounds;
     private PointHashTable PHT;
+    
+    private ArrayList<School> schoolList;
 
     
     /***************************************************************************
@@ -54,6 +57,7 @@ public class File_IO
         this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
         AllRoads = new ArrayList();
         PHT = new PointHashTable();       
+        schoolList = new ArrayList();
     }
   
     
@@ -322,6 +326,17 @@ public class File_IO
     {     
         NodeList listOfNodes = xmlDoc.getElementsByTagName("node");
         
+        String name = "";
+        String attrK;
+        String attrV;
+        
+        School school;
+        
+        boolean isAcceptable = false;
+        
+        
+        
+        
                 
         int length = listOfNodes.getLength();
         
@@ -338,6 +353,9 @@ public class File_IO
         
         for(int i=0; i < copy.length; i++ )
         {
+            name="";
+            isAcceptable = false;
+            
             //System.out.println(i);
 
             //USED AS A REFERENCE VARIBALE FOR A GIVEN NODE IN THE NODELIST
@@ -357,8 +375,68 @@ public class File_IO
             //SET LONGITITUDE
             curPoint.setLongitude(Double.parseDouble(curNode.getAttributes().getNamedItem("lon").getNodeValue()));
 
+                                   
             //ADD POINT TO THE HASHTABLE
-            PHT.put(curPoint);
+                
+
+
+        /////////////////////////////////////////////////////////////////////////      
+            //CAST NODE AS A ELEMENT OBJECT
+            Element curElement = (Element) curNode;
+            //GETS NODELIST OF ONLY TAGS WITH THE WORD 'TAG'
+            NodeList refList2 = curElement.getElementsByTagName("tag");
+
+            //ITERATES BY THE SIZE OF THE NODELIST WITH TAG NAME 'TAG'
+            for(int j = 0; j < refList2.getLength(); j++)
+            {
+                Node refList2Element = refList2.item(j);
+                          
+                //STORE ITERATING ATTRIBUTE
+                attrK = refList2Element.getAttributes().getNamedItem("k").getNodeValue();
+                attrV = refList2Element.getAttributes().getNamedItem("v").getNodeValue();
+                
+                if(!refList2Element.getAttributes().getNamedItem("v").getNodeValue().equals("school"))
+                {
+                    
+                    switch(attrK)
+                    {
+                        case("name"):                                
+                            name = attrV;
+                            break;
+                        default:     
+                            break;
+                        
+                            
+                    }
+                }
+                else
+                {
+                    isAcceptable = true;
+                
+                }
+            }
+            
+            if(isAcceptable)
+            {
+                school = new School(curPoint);
+                schoolList.add(school);
+                PHT.put(school);
+            
+            }
+            else
+            {
+                PHT.put(curPoint); 
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
         }
         
         
@@ -610,6 +688,11 @@ public class File_IO
     public PointHashTable gethashTable()
     {
         return this.PHT;
+    }
+    
+    public ArrayList<School> getSchoolList()
+    {
+        return this.schoolList;
     }
     
   

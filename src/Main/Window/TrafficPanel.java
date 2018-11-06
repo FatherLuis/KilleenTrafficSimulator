@@ -169,6 +169,7 @@ public class TrafficPanel extends JPanel
         super.paintComponent(g);
         Painter.DrawRoad(g);
         Painter.DrawCar(g);
+        Painter.DrawSchools(g);
     
     }
     

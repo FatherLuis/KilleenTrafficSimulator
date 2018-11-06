@@ -16,13 +16,16 @@ import java.time.LocalTime;
 /*
     In the XML file, the schools have a key of "amenity" and a value of "school"
 */
-public class School extends Point{
+public class School extends Point
+{
     
     private String name;
 
-    public School(String nodeID) {
-        super(nodeID);
-        
+    public School(Point p) 
+    {
+        super(p.getID()); 
+        this.latitude = p.getLatitude();
+        this.longitude = p.getLongitude();
     }
     
     public void SetName(String name)
@@ -53,13 +56,18 @@ public class School extends Point{
         
         return 
         (
-            (theCurrentTime.isAfter(LocalTime.parse("06:44:59")) && theCurrentTime.isBefore(LocalTime.parse("09:01:00"))) 
+            (theCurrentTime.isAfter(LocalTime.parse("07:00:00")) && theCurrentTime.isBefore(LocalTime.parse("09:00:00"))) 
                 
                 ||
                 
-            (theCurrentTime.isAfter(LocalTime.parse("02:29:59")) && theCurrentTime.isBefore(LocalTime.parse("04:31:00")))
+            (theCurrentTime.isAfter(LocalTime.parse("14:30:00")) && theCurrentTime.isBefore(LocalTime.parse("16:30:00")))
                 
         );
 
     }
+    
+    
+    
+    
+    
 }

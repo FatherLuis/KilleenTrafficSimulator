@@ -1,5 +1,6 @@
 package Main.Window;
 
+import Main.Building.School;
 import Main.Drawable;
 import Main.Init.File_IO;
 import Main.Window.SplitPanel;
@@ -40,6 +41,7 @@ public class MainGUI
     private static double[] bounds;
     private static PointHashTable PHT;
     private static Drawable Painter;
+    private static ArrayList<School> schoolList;
     
     private static ArrayList<Vehicle> vehicleList;
    
@@ -99,6 +101,7 @@ public class MainGUI
         Painter.setAllRoads(RoadList);
         Painter.setMaxMinBounds(bounds);
         Painter.setHashTable(PHT);
+        Painter.setSchoolList(schoolList);
         
         CreateVehicles();
         
@@ -165,6 +168,8 @@ public class MainGUI
         bounds = Doc.getBounds();
         //GET HASHTABLE
         PHT = Doc.gethashTable();
+        
+        schoolList = Doc.getSchoolList();
     
     
     }
