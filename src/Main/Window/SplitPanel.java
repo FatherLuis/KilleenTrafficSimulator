@@ -70,6 +70,7 @@ public class SplitPanel extends JSplitPane implements Runnable
     {
         super.addNotify();
         animator = new Thread(this);
+        animator.setName("ANIMATION THREAD");
         animator.start();
         
     

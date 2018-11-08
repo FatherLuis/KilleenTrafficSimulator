@@ -91,7 +91,7 @@ public class Tracker
     {
         
         //System.out.println(Math.sqrt(Math.pow(y2-y1,2) + Math.pow(x2-x1,2)) );
-        return Math.sqrt(Math.pow(y2-y1,2) + Math.pow(x2-x1,2)) < 1.0*Math.pow(10,-4);
+        return Math.sqrt(Math.pow(y2-y1,2) + Math.pow(x2-x1,2)) < 1.5*Math.pow(10,-4);
     
     
     

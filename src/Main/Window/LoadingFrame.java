@@ -19,8 +19,10 @@ package Main.Window;
 ***SPECIAL NOTES: NONE
 *** 
 *******************************************************************************/
-public class LoadingFrame extends javax.swing.JFrame 
+public class LoadingFrame extends javax.swing.JFrame implements Runnable
 {
+    
+    Thread load;
 
     /***************************************************************************
     ***METHOD NAME: 
@@ -151,4 +153,28 @@ public class LoadingFrame extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel lbl;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void addNotify()
+    {
+        super.addNotify();
+        load = new Thread(this);
+        load.setName("LOAD THREAD");
+        load.start();
+        
+    
+    }
+    
+    @Override
+    public void run() 
+    {     
+        while(true)
+        {
+            
+            start();
+            break;
+
+        
+        }
+    }
 }

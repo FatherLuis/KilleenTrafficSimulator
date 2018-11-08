@@ -320,8 +320,8 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
                     int deltaY = origin.y - e.getY();
 
                     Rectangle view = viewPort.getViewRect();
-                    view.x += deltaX*0.1;
-                    view.y += deltaY*0.1;
+                    view.x += deltaX*0.2;
+                    view.y += deltaY*0.2;
 
                     TP.scrollRectToVisible(view);
                 }

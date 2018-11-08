@@ -75,7 +75,6 @@ public class MainGUI
     private static void init() throws InterruptedException
     {
         LoadingFrame lf = new LoadingFrame();
-        lf.start();
         
         
         
