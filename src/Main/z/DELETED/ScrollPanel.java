@@ -1,9 +1,10 @@
-package Main.Window;
+package Main.z.DELETED;
 
 import Main.Normalization;
 import Main.Vehicles.Instructions.Tracker;
 import Main.Vehicles.Vehicle;
 import Main.Window.Control.Panels.CurrentCarPanel;
+import Main.Window.TrafficPanel;
 import Main.Window.TrafficPanel;
 import com.sun.glass.ui.Cursor;
 import java.awt.Dimension;
@@ -39,7 +40,7 @@ public class ScrollPanel extends JScrollPane implements MouseListener, MouseWhee
     
     private TrafficPanel TP;
     
-    private int scale;
+    private double scale;
     
     private Tracker tracker;
     

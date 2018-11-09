@@ -54,10 +54,12 @@ public class Drawable
     private int HEIGHT = 500;
     
     private PointHashTable PHT;
-    private int scaler = 1;
+    private double scaler = 1;
+    double shiftX;
+    double shiftY;
+    double dx;
+    double dy;
     
-    TrafficPanel TP;
-    private Graphics g;
     
     
     /***************************************************************************
@@ -194,15 +196,15 @@ public class Drawable
                     
                     
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    x1 = normCalcX.Normalize(p.getLongitude());
+                    x1 = shiftX(normCalcX.Normalize(p.getLongitude()));
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    y1 = OperationY(normCalcY.Normalize(p.getLatitude()));
+                    y1 = shiftY(OperationY(normCalcY.Normalize(p.getLatitude())));
 
 
                     //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    x2 = normCalcX.Normalize(p2.getLongitude());
+                    x2 = shiftX(normCalcX.Normalize(p2.getLongitude()));
                     //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    y2 = OperationY(normCalcY.Normalize(p2.getLatitude()));
+                    y2 = shiftY(OperationY(normCalcY.Normalize(p2.getLatitude())));
 
                     
                     ////////////////////////////////////////////////
@@ -261,8 +263,8 @@ public class Drawable
         
         double x1;
         double y1;
-        int d;
-        int r;
+        double d;
+        double r;
         
         Ellipse2D.Double shape;
         
@@ -270,9 +272,9 @@ public class Drawable
         {
             g3.setColor(this.vehicleList.get(i).getColor());
             
-            x1 = normCalcX.Normalize(this.vehicleList.get(i).getCorX());
+            x1 = shiftX(normCalcX.Normalize(this.vehicleList.get(i).getCorX()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = OperationY(normCalcY.Normalize(this.vehicleList.get(i).getCorY()));
+            y1 = shiftY(OperationY(normCalcY.Normalize(this.vehicleList.get(i).getCorY())));
 
 
             //subtract the x and y by the radius
@@ -303,8 +305,8 @@ public class Drawable
     
         double x1;
         double y1;
-        int d;
-        int r;
+        double d;
+        double r;
         
         Ellipse2D.Double shape;
         
@@ -312,9 +314,9 @@ public class Drawable
         {
             g3.setColor(Color.RED);
             
-            x1 = normCalcX.Normalize(this.schoolList.get(i).getLongitude());
+            x1 = shiftX(normCalcX.Normalize(this.schoolList.get(i).getLongitude()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = OperationY(normCalcY.Normalize(this.schoolList.get(i).getLatitude()));
+            y1 = shiftY(OperationY(normCalcY.Normalize(this.schoolList.get(i).getLatitude())));
 
 
             //subtract the x and y by the radius
@@ -345,7 +347,17 @@ public class Drawable
     
     
     
+    private double shiftX(double x)
+    {
+        return (x + shiftX + dx)*this.scaler;
     
+    }
+    
+    
+    private double shiftY(double y)
+    {
+        return (y + shiftY + dy)*this.scaler;
+    }
     
     
     public double[] getBounds()
@@ -368,7 +380,7 @@ public class Drawable
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////    
     
-      public void setVehicleList(ArrayList v){this.vehicleList = v;}
+    public void setVehicleList(ArrayList v){this.vehicleList = v;}
     
     public void setSchoolList(ArrayList<School> schoolList)
     {
@@ -456,7 +468,23 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public void setScalar(int scale){this.scaler = scale;}    
+    public void setScalar(double scale){this.scaler = scale;}    
+    
+    
+    
+    public void setShiftXY(double shiftX, double shiftY)
+    {
+        this.shiftX = shiftX*0.6;
+        this.shiftY = shiftY*0.6;
+    }
+    
+    public void setDeltaXY(double dx, double dy)
+    {
+        this.dx = dx;
+        this.dy = dy;
+    
+    
+    }
     
     
 }   

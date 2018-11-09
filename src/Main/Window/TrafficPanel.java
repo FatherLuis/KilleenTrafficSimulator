@@ -1,17 +1,23 @@
 package Main.Window;
 
 import Main.Drawable;
+import Main.Normalization;
 import Main.Vehicles.Instructions.Tracker;
 import Main.Vehicles.Vehicle;
+import Main.Window.Control.Panels.CurrentCarPanel;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /*******************************************************************************
 ***CLASS NAME: TrafficPanel
@@ -35,16 +41,16 @@ public class TrafficPanel extends JPanel
     public static  int WIDTH= 1000;
     public static  int HEIGHT = 1000;
     
-    private BufferedImage image;
+    private CurrentCarPanel CCP;
     private Drawable Painter;  
 
-    private int scalar = 1;
+    private double scalar = 1;
     
+    private double[] Bounds;
     private Tracker tracker;
     
-    //private Thread ani;
-    
-    //private Thread animator;
+    private Normalization normCalcX;
+    private Normalization normCalcY;
      
     /***************************************************************************
     ***METHOD NAME: TrafficPanel()
@@ -67,14 +73,18 @@ public class TrafficPanel extends JPanel
         this.Painter = painter;
         Cursor hand = new Cursor(Cursor.HAND_CURSOR);
         this.setCursor(hand);
-        
-        //this.addMouseListener(this);
-        
-        this.tracker = new Tracker(this.getVehicles(),this.getBoundList(),WIDTH, HEIGHT);
+
+        this.tracker = new Tracker(getVehicles(),getBoundList(),WIDTH, HEIGHT);
        
-        //this.addMouseListener(this);
+        this.Bounds = getBoundList();
         
-        //this.parent = parent;
+        MouseHandler mouseHandler = new MouseHandler();
+        this.addMouseListener(mouseHandler);
+        this.addMouseMotionListener(mouseHandler);
+        this.addMouseWheelListener(mouseHandler);
+        
+        
+        
     }
     
     /***************************************************************************
@@ -93,45 +103,6 @@ public class TrafficPanel extends JPanel
         this.Painter = p;
     }
     
-    
-//        @Override
-//    public void addNotify()
-//    {
-//        super.addNotify();
-//               
-//        ani = new Thread(this);
-//        ani.start();
-//    }
-//    
-//            @Override
-//    public void run() 
-//    {
-//        long beforeTime, timeDiff, sleep;
-//        
-//        beforeTime = System.currentTimeMillis();
-//        
-//        while(true)
-//        {
-//            repaint();
-//            
-//            timeDiff = System.currentTimeMillis() - beforeTime;
-//            sleep = 125 - timeDiff;
-//            
-//            if(sleep < 0)
-//            {
-//                sleep = 2;
-//            }
-//            
-//            try{Thread.sleep(sleep);}catch(Exception ex){}
-//            
-//            beforeTime = System.currentTimeMillis();
-//        
-//        }
-//    }
-    
-    
-   
-    
     public double[] getBoundList()
     {
         return this.Painter.getBounds();
@@ -145,9 +116,55 @@ public class TrafficPanel extends JPanel
 
     
     
-    
+    public void setCCP(CurrentCarPanel CCP){this.CCP = CCP;}
 
  
+    private void normalizeZone(double width, double height)
+    {
+        //FIRST PARAMATER IS THE MAX LONGITUDE
+        //SECOND PARAMETER IS THE MIN LONGITUDE
+        //THIRD PARAMETER IS THE MAX X COORDINATE
+        //FOURTH PARAMETER IS THE MIN X COORDINATE
+        normCalcX = new Normalization(this.Bounds[3],this.Bounds[1], width, 0 );
+                
+        //FIRST PARAMATER IS THE MAX LATITUDE
+        //SECOND PARAMETER IS THE MIN LATITUDE
+        //THIRD PARAMETER IS THE MAX X LATITUDE
+        //FOURTH PARAMETER IS THE MIN X LATITUDE
+        normCalcY = new Normalization(this.Bounds[2],this.Bounds[0],height, 0 );
+    }   
+    
+    
+    private double OperationY(double y)
+    {
+        //NEGATIVE VALUE
+        //double newY = -y;
+        //ADD THE HEIGHT OF WINDOW
+        return -y + this.getHeight();
+    }    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /***************************************************************************
     ***METHOD NAME: paintComponent()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -165,6 +182,8 @@ public class TrafficPanel extends JPanel
         Painter.setWidth(this.getWidth());
         Painter.setHeight(this.getHeight());
         Painter.setScalar(scalar);
+        Painter.setShiftXY(shiftX, shiftY);
+        Painter.setDeltaXY(dx, dy);
         
         super.paintComponent(g);
         Painter.DrawRoad(g);
@@ -182,14 +201,125 @@ public class TrafficPanel extends JPanel
     
     }
     
-    public int getScalar(){return scalar;}
+    public double getScalar(){return scalar;}
     public void setScalar(int s){this.scalar = s;}
     
     
+  
     
+    
+    
+    
+    double shiftX;
+    double shiftY;
 
+    double dx;
+    double dy;
     
     
+    private class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener
+    {
+        
+        int dummyX = 0;
+        int dummyY =0;
+        
+        @Override
+        public void mouseClicked(MouseEvent e) 
+        {
+            if(e.getButton() == MouseEvent.BUTTON1) 
+            {
+                tracker.setHeight(getHeight());
+                tracker.setWidth(getWidth());
+                normalizeZone(getWidth(),getHeight());
+
+
+
+                Point p = e.getPoint();
+
+                int carIndex = tracker.find(normCalcX.DeNormalize(p.x), normCalcY.DeNormalize(OperationY(p.y)));
+
+                System.out.println(carIndex);
+                
+                CCP.setCurrentIndex(carIndex);
+
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) 
+        {
+            
+            //System.out.println("\n\n");
+            dummyX = e.getX();
+            dummyY = e.getY();
+            
+            //System.out.println("dummyX " + dummyX + "    dummyY " + dummyY);
+
+        }
+
+
+        @Override
+        public void mouseReleased(MouseEvent e) 
+        {                 
+        }
+
+
+        public void mouseEntered(MouseEvent e) 
+        {
+        }
+
+
+        public void mouseExited(MouseEvent e) 
+        {
+        }
+
+
+        @Override
+        public void mouseDragged(MouseEvent e) 
+        {
+            
+            dx = (e.getX() - dummyX)*0.5;
+            dy = (e.getY() - dummyY)*0.5;
+            
+            shiftX += dx;
+            shiftY += dy;
+            repaint();
+                 
+        }
+
+        public void mouseMoved(MouseEvent e) 
+        {   
+        }
+
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) 
+        {
+            int wheelRot=e.getWheelRotation();
+            
+            //System.out.println("WHEEL: " + wheelRot);
+
+            if(wheelRot < 0)
+            {
+                scalar += 0.5;
+                //System.out.println("scalar" + scalar);
+            }
+            else if(wheelRot > 0)
+            {
+                scalar -= 0.5;
+                
+                if(scalar <= 0)
+                {
+                    scalar = 0.5;
+                    
+                }
+            }
+                            
+            repaint();           
+        }
+    }
+        
     
+     
 
 }

@@ -43,24 +43,24 @@ public class SplitPanel extends JSplitPane implements Runnable
     ****************************************************************************
     ***DATE: OCTOBER 7, 2018
     ***************************************************************************/     
-    public SplitPanel(ScrollPanel SP, ControlPanel CP) 
+    public SplitPanel(TrafficPanel TP, ControlPanel CP) 
     {
         super(JSplitPane.HORIZONTAL_SPLIT);
-        this.setLeftComponent(SP);
+        this.setLeftComponent(TP);
         this.setRightComponent(CP);
         this.setResizeWeight(1.0);
         this.setDividerLocation(0.9);
         
-        this.CCP = new CurrentCarPanel(SP.getTP().getVehicles());
+        this.CCP = new CurrentCarPanel(TP.getVehicles());
         
         
-        SP.setCCP(this.CCP);
+        TP.setCCP(this.CCP);
         CP.setCCP(this.CCP);
         
         CP.init();
         
         this.CP = CP;
-        this.TP = SP.getTP();
+        this.TP = TP;
         
         clock = new Clock();
     }

@@ -1,5 +1,6 @@
 package Main.Window;
 
+import Main.z.DELETED.ScrollPanel;
 import Main.Building.School;
 import Main.Drawable;
 import Main.Init.File_IO;
@@ -74,7 +75,7 @@ public class MainGUI
     ***************************************************************************/ 
     private static void init() throws InterruptedException
     {
-        LoadingFrame lf = new LoadingFrame();
+        //LoadingFrame lf = new LoadingFrame();
         
         
         
@@ -127,7 +128,7 @@ public class MainGUI
         //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
         ControlPanel CP = new ControlPanel();
      
-        SplitPanel SplitP = new SplitPanel(SP,CP);
+        SplitPanel SplitP = new SplitPanel(mainPanel,CP);
        
         //LAYOUT FOR THE FRAME 
         window.setLayout(new BorderLayout());
@@ -136,7 +137,7 @@ public class MainGUI
         window.pack();
         
         
-        while(lf.isActive()){}
+       // while(lf.isActive()){}
         
         //MAKE WINDOW VISIBLE
         window.setVisible(true);    
