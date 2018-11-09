@@ -288,7 +288,7 @@ public class Drawable
 //
 //            //g3.setColor(this.vehicleList.get(i).getColor());
 //            g3.draw(shape);
-            this.vehicleList.get(i).draw(g3, x1-r, y1-r, d, d);
+            this.vehicleList.get(i).draw(g3, x1-r, y1-r, d, d,scaler);
 
 
         }
@@ -349,14 +349,14 @@ public class Drawable
     
     private double shiftX(double x)
     {
-        return (x + shiftX + dx)*this.scaler;
+        return (x + shiftX)*this.scaler;
     
     }
     
     
     private double shiftY(double y)
     {
-        return (y + shiftY + dy)*this.scaler;
+        return (y + shiftY)*this.scaler;
     }
     
     
@@ -474,8 +474,8 @@ public class Drawable
     
     public void setShiftXY(double shiftX, double shiftY)
     {
-        this.shiftX = shiftX*0.6;
-        this.shiftY = shiftY*0.6;
+        this.shiftX = shiftX;
+        this.shiftY = shiftY;
     }
     
     public void setDeltaXY(double dx, double dy)

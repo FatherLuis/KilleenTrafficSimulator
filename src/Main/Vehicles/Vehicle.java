@@ -99,7 +99,7 @@ public class Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/    
-    public void draw(Graphics2D g,double x1,double y1, double d1,double d2){}
+    public void draw(Graphics2D g,double x1,double y1, double d1,double d2,double scalar){}
     
 
 }

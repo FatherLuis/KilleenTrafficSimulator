@@ -77,11 +77,11 @@ public class Bus extends Vehicle
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
     @Override
-    public void draw(Graphics2D g,double x1,double y1, double d1,double d2)
+    public void draw(Graphics2D g,double x1,double y1, double d1,double d2,double scalar)
     {
         if(trackable)
         {
-             g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 20,20 ));
+             g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 20*scalar,20*scalar ));
         
         }
         

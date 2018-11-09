@@ -20,7 +20,7 @@ import java.text.NumberFormat;
 public class PointHashTable 
 {
     private LinkList[] Table;
-    private NumberFormat NF;
+
 
             
     
@@ -192,23 +192,7 @@ public class PointHashTable
     {
         //NUMERIC STRING IS CAST TO LONG AND 
         //THEN A MODULAR OF 10000 IS CALCULATED
-        NF = NumberFormat.getInstance();
-        try
-        {
-            //System.out.println(NF.parse(curPointID).longValue() % 10000);
-            return NF.parse(curPointID).longValue() % 10000;
-        }
-        catch(Exception ex)
-        {
-            System.out.println("\n\n mmmmmmhm BROKEN\n\n");
-        }
-        
-        return (long)0;
-            
-            
-            
-
-        //return Long.parseLong(curPointID) % 10000;
+        return Long.parseLong(curPointID) % 10000;
     }
       
 }
