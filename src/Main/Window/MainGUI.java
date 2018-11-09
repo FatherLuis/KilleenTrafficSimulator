@@ -75,7 +75,7 @@ public class MainGUI
     ***************************************************************************/ 
     private static void init() throws InterruptedException
     {
-        //LoadingFrame lf = new LoadingFrame();
+        LoadingFrame lf = new LoadingFrame();
         
         
         
@@ -137,7 +137,7 @@ public class MainGUI
         window.pack();
         
         
-       // while(lf.isActive()){}
+        while(lf.isActive()){}
         
         //MAKE WINDOW VISIBLE
         window.setVisible(true);    
@@ -188,7 +188,7 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 10000; i++)
+        for(int i=0; i < 5000; i++)
         {
             ins = new Instructions3(RoadList, PHT);
             

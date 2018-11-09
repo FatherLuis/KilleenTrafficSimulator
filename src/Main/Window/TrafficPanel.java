@@ -238,7 +238,7 @@ public class TrafficPanel extends JPanel
 
                 int carIndex = tracker.find(normCalcX.DeNormalize((p.x/scalar) - shiftX), normCalcY.DeNormalize(OperationY((p.y/scalar) - shiftY)));
 
-                System.out.println(carIndex);
+                //System.out.println(carIndex);
                 
                 CCP.setCurrentIndex(carIndex);
 
@@ -281,8 +281,8 @@ public class TrafficPanel extends JPanel
             dx = (e.getX() - dummyX)*0.5;
             dy = (e.getY() - dummyY)*0.5;
             
-            shiftX += dx*0.1;
-            shiftY += dy*0.1;
+            shiftX += dx*0.15;
+            shiftY += dy*0.15;
             repaint();
                  
         }
