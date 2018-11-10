@@ -5,12 +5,10 @@
  */
 package Main.Vehicles.Instructions;
 
-import Main.z.DELETED.ObstacleSeer;
+import Main.Database;
 import Main.Init.Point;
-import Main.Init.PointHashTable;
 import Main.Init.Road;
 import Main.Operators.StopSign;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -20,8 +18,7 @@ import java.util.Random;
 public class Instructions3 
 {
  
-    ArrayList<Road> RoadList;
-    PointHashTable PHT;   
+    private Database database;
     
     private Road curRoad;
     private Point curPoint;   
@@ -38,8 +35,6 @@ public class Instructions3
     
     private double speed;
         
-    protected ObstacleSeer seer;
-        
     private int wait = 0; 
     
     public double x;
@@ -47,10 +42,9 @@ public class Instructions3
     
     
 
-    public Instructions3(ArrayList<Road> RoadList, PointHashTable PHT)
+    public Instructions3(Database database)
     {
-        this.RoadList = RoadList;
-        this.PHT = PHT;
+        this.database = database;
         this.route = new Route();
         this.setUpLocation();
     }
@@ -58,15 +52,15 @@ public class Instructions3
     
     private void setUpLocation()
     {
-        RoadIndex = rand.nextInt(this.RoadList.size());
+        RoadIndex = rand.nextInt(database.getRoadListSize());
 
-        curRoad = this.RoadList.get(RoadIndex);
+        curRoad = database.getRoad(RoadIndex);
 
         NodeIndex = rand.nextInt(curRoad.getRef().size());
 
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
-        curPoint = PHT.getPoint(ID);
+        curPoint = database.getPoint(ID);
         
         this.speed = curRoad.getSpeed();
 
@@ -88,9 +82,6 @@ public class Instructions3
 
     }
     
-    
-    public void setRoadList(ArrayList arr){this.RoadList = arr;}
-    public void setPointHashTable(PointHashTable PHT){this.PHT = PHT;}
     
     public Point getPoint(){return curPoint;}
     public void setPoint(Point p){this.curPoint = p;}
@@ -126,7 +117,7 @@ public class Instructions3
             {
                 
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                Point p1 = PHT.getPoint(ID);
+                Point p1 = database.getPoint(ID);
 
                 if((curPoint instanceof StopSign && this.curRoad.getType().equals("residential")))
                 {
@@ -138,7 +129,7 @@ public class Instructions3
                 //System.out.println("FL   old: " + NodeIndex + " new: " + (NodeIndex+1));
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = PHT.getPoint(ID);
+                curPoint = database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                            
@@ -189,7 +180,7 @@ public class Instructions3
             if(NodeIndex > 0)
             {
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                Point p1 = PHT.getPoint(ID);
+                Point p1 = database.getPoint(ID);
 
                 //System.out.println("RL   old: " + NodeIndex + " new: " + (NodeIndex-1));
 
@@ -201,7 +192,7 @@ public class Instructions3
                 
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = PHT.getPoint(ID);
+                curPoint = database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                          
@@ -350,27 +341,29 @@ public class Instructions3
          
     private void cornerRoad()
     {
-        randNum = rand.nextInt(100);
         
-        if(randNum >= 20)
-        {
-            
-            if(NodeIndex == 0)
-            {
-                position = "FL"; 
-            }
-            else if(NodeIndex == curRoad.getRef().size() - 1 )
-            {
-                position = "RL";  
-            } 
-            
-            basicMove();
-        }
-        else
-        {
-            //System.out.println("I'm Stuck");
-            setUpLocation();    
-        }
+        setUpLocation();
+//        randNum = rand.nextInt(100);
+//        
+//        if(randNum >= 20)
+//        {
+//            
+//            if(NodeIndex == 0)
+//            {
+//                position = "FL"; 
+//            }
+//            else if(NodeIndex == curRoad.getRef().size() - 1 )
+//            {
+//                position = "RL";  
+//            } 
+//            
+//            basicMove();
+//        }
+//        else
+//        {
+//            //System.out.println("I'm Stuck");
+//            setUpLocation();    
+//        }
     }
     
     private void possibleRelocate()

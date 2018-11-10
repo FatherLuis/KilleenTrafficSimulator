@@ -41,11 +41,7 @@ import java.util.Random;
 public class Drawable 
 {
     
-    private double[] Bounds;
-    private ArrayList<Road> RoadList;
-    
-    private ArrayList<Vehicle> vehicleList;
-    private ArrayList<School> schoolList;
+    private Database database;
     
     private Normalization normCalcX;
     private Normalization normCalcY;
@@ -53,12 +49,10 @@ public class Drawable
     private int WIDTH = 500;
     private int HEIGHT = 500;
     
-    private PointHashTable PHT;
     private double scaler = 1;
     double shiftX;
     double shiftY;
-    double dx;
-    double dy;
+
     
     
     
@@ -73,8 +67,9 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public Drawable()
+    public Drawable(Database database)
     {
+        this.database = database;
         //g = TP.getGraphics();
     }
 
@@ -96,13 +91,16 @@ public class Drawable
         //SECOND PARAMETER IS THE MIN LONGITUDE
         //THIRD PARAMETER IS THE MAX X COORDINATE
         //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(this.Bounds[3],this.Bounds[1], this.WIDTH, 0 );
+        //normCalcX = new Normalization( this.Bounds[3],this.Bounds[1], this.WIDTH, 0 );
+        
+        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), this.WIDTH, 0);
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(this.Bounds[2],this.Bounds[0], this.HEIGHT, 0 );
+        //normCalcY = new Normalization(this.Bounds[2],this.Bounds[0], this.HEIGHT, 0 );
+        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0), this.HEIGHT, 0);
     }
 
 
@@ -171,19 +169,19 @@ public class Drawable
         ArrayList<String> curRoadPoints;
         
         //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
-        for(int i = 0; i < this.RoadList.size() ; i++)
+        for(int i = 0; i < database.getRoadListSize() ; i++)
         {
             //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
-            curRoadPoints = this.RoadList.get(i).getRef();
+            curRoadPoints = database.getRoad(i).getRef();
             
             //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
             for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
             {
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    p =this.PHT.getPoint(curRoadPoints.get(j));
+                    p =database.getPoint(curRoadPoints.get(j));
                     
                     //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    p2 =this.PHT.getPoint(curRoadPoints.get(j+1));
+                    p2 =database.getPoint(curRoadPoints.get(j+1));
                     
                     if(p == null)
                     {
@@ -268,13 +266,13 @@ public class Drawable
         
         Ellipse2D.Double shape;
         
-        for(int i = 0; i < this.vehicleList.size(); i++)
+        for(int i = 0; i < database.getVehicleListSize(); i++)
         {
-            g3.setColor(this.vehicleList.get(i).getColor());
+            g3.setColor(database.getVehicle(i).getColor());
             
-            x1 = shiftX(normCalcX.Normalize(this.vehicleList.get(i).getCorX()));
+            x1 = shiftX(normCalcX.Normalize(database.getVehicle(i).getCorX()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = shiftY(OperationY(normCalcY.Normalize(this.vehicleList.get(i).getCorY())));
+            y1 = shiftY(OperationY(normCalcY.Normalize(database.getVehicle(i).getCorY())));
 
 
             //subtract the x and y by the radius
@@ -288,7 +286,7 @@ public class Drawable
 //
 //            //g3.setColor(this.vehicleList.get(i).getColor());
 //            g3.draw(shape);
-            this.vehicleList.get(i).draw(g3, x1-r, y1-r, d, d,scaler);
+            database.getVehicle(i).draw(g3, x1-r, y1-r, d, d,scaler);
 
 
         }
@@ -310,13 +308,13 @@ public class Drawable
         
         Ellipse2D.Double shape;
         
-        for(int i = 0; i < this.schoolList.size(); i++)
+        for(int i = 0; i < database.getSchoolListSize(); i++)
         {
             g3.setColor(Color.RED);
             
-            x1 = shiftX(normCalcX.Normalize(this.schoolList.get(i).getLongitude()));
+            x1 = shiftX(normCalcX.Normalize(database.getSchool(i).getLongitude()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = shiftY(OperationY(normCalcY.Normalize(this.schoolList.get(i).getLatitude())));
+            y1 = shiftY(OperationY(normCalcY.Normalize(database.getSchool(i).getLatitude())));
 
 
             //subtract the x and y by the radius
@@ -339,9 +337,9 @@ public class Drawable
     
     public void updateVehicles(int rate)
     {
-        for(int i = 0; i < this.vehicleList.size(); i++)
+        for(int i = 0; i < database.getVehicleListSize(); i++)
         {
-            this.vehicleList.get(i).move(rate);
+            database.getVehicle(i).move(rate);
         }
     }
     
@@ -360,17 +358,17 @@ public class Drawable
     }
     
     
-    public double[] getBounds()
-    {
-        return this.Bounds;
-    
-    
-    }
-    
-    public ArrayList<Vehicle> getVehicles()
-    {
-        return this.vehicleList;
-    }
+//    public double[] getBounds()
+//    {
+//        return this.Bounds;
+//    
+//    
+//    }
+//    
+//    public ArrayList<Vehicle> getVehicles()
+//    {
+//        return this.vehicleList;
+//    }
     
     
     
@@ -380,54 +378,54 @@ public class Drawable
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////    
     
-    public void setVehicleList(ArrayList v){this.vehicleList = v;}
+//    public void setVehicleList(ArrayList v){this.vehicleList = v;}
+//    
+//    public void setSchoolList(ArrayList<School> schoolList)
+//    {
+//        this.schoolList = schoolList;
+//    }
+//    
     
-    public void setSchoolList(ArrayList<School> schoolList)
-    {
-        this.schoolList = schoolList;
-    }
-    
-    
-     /***************************************************************************
-    ***METHOD NAME: setAllRoads()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: STORE ARRAY OF TYPE ROADS
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: ARRAYLIST
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5 , 2018
-    ***************************************************************************/   
-    public void setAllRoads(ArrayList roads){ this.RoadList = roads;}
-    
-    
-    /***************************************************************************
-    ***METHOD NAME: setMaxMinBounds() 
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: SET THE BOUNDARY INFORMATION IN VARIABLE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: DOUBLE[]
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5 , 2018
-    ***************************************************************************/
-    public void setMaxMinBounds(double[] arr){this.Bounds = arr; }
-     
-    
-    /***************************************************************************
-    ***METHOD NAME: setHashTable
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: SET THE HASHTABLE THAT CONTAINS ALL POINTS
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: POINT HASH TABLE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: OCTUBER 5 , 2018
-    ***************************************************************************/
-    public void setHashTable(PointHashTable pht){this.PHT = pht;}
+//     /***************************************************************************
+//    ***METHOD NAME: setAllRoads()
+//    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+//    ****************************************************************************
+//    ***PURPOSE OF THE METHOD: STORE ARRAY OF TYPE ROADS
+//    ***METHOD USED: NONE
+//    ***METHOD PARAMETERS: ARRAYLIST
+//    ***RETURN VALUE: NONE
+//    ****************************************************************************
+//    ***DATE: OCTUBER 5 , 2018
+//    ***************************************************************************/   
+//    public void setAllRoads(ArrayList roads){ this.RoadList = roads;}
+//    
+//    
+//    /***************************************************************************
+//    ***METHOD NAME: setMaxMinBounds() 
+//    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+//    ****************************************************************************
+//    ***PURPOSE OF THE METHOD: SET THE BOUNDARY INFORMATION IN VARIABLE
+//    ***METHOD USED: NONE
+//    ***METHOD PARAMETERS: DOUBLE[]
+//    ***RETURN VALUE: NONE
+//    ****************************************************************************
+//    ***DATE: OCTUBER 5 , 2018
+//    ***************************************************************************/
+//    public void setMaxMinBounds(double[] arr){this.Bounds = arr; }
+//     
+//    
+//    /***************************************************************************
+//    ***METHOD NAME: setHashTable
+//    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
+//    ****************************************************************************
+//    ***PURPOSE OF THE METHOD: SET THE HASHTABLE THAT CONTAINS ALL POINTS
+//    ***METHOD USED: NONE
+//    ***METHOD PARAMETERS: POINT HASH TABLE
+//    ***RETURN VALUE: NONE
+//    ****************************************************************************
+//    ***DATE: OCTUBER 5 , 2018
+//    ***************************************************************************/
+//    public void setHashTable(PointHashTable pht){this.PHT = pht;}
     
     /***************************************************************************
     ***METHOD NAME: setWidth()
@@ -478,13 +476,7 @@ public class Drawable
         this.shiftY = shiftY;
     }
     
-    public void setDeltaXY(double dx, double dy)
-    {
-        this.dx = dx;
-        this.dy = dy;
-    
-    
-    }
+
     
     
 }   

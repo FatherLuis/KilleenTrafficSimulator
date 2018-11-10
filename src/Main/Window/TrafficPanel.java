@@ -1,9 +1,9 @@
 package Main.Window;
 
+import Main.Database;
 import Main.Drawable;
 import Main.Normalization;
 import Main.Vehicles.Instructions.Tracker;
-import Main.Vehicles.Vehicle;
 import Main.Window.Control.Panels.CurrentCarPanel;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -14,10 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /*******************************************************************************
 ***CLASS NAME: TrafficPanel
@@ -46,7 +43,7 @@ public class TrafficPanel extends JPanel
 
     private double scalar = 1;
     
-    private double[] Bounds;
+    private Database database;
     private Tracker tracker;
     
     private Normalization normCalcX;
@@ -63,7 +60,7 @@ public class TrafficPanel extends JPanel
     ****************************************************************************
     ***DATE: OCT0BER 5, 2018
     ***************************************************************************/ 
-    public TrafficPanel(Drawable painter)
+    public TrafficPanel(Drawable painter, Database database)
     {
         super();
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
@@ -74,9 +71,9 @@ public class TrafficPanel extends JPanel
         Cursor hand = new Cursor(Cursor.HAND_CURSOR);
         this.setCursor(hand);
 
-        this.tracker = new Tracker(getVehicles(),getBoundList(),WIDTH, HEIGHT);
+        this.tracker = new Tracker(database,WIDTH, HEIGHT);
        
-        this.Bounds = getBoundList();
+        this.database = database;
         
         MouseHandler mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
@@ -102,17 +99,6 @@ public class TrafficPanel extends JPanel
     {
         this.Painter = p;
     }
-    
-    public double[] getBoundList()
-    {
-        return this.Painter.getBounds();
-    
-    }
-    
-    public ArrayList<Vehicle> getVehicles()
-    {
-        return this.Painter.getVehicles();
-    }
 
     
     
@@ -125,13 +111,13 @@ public class TrafficPanel extends JPanel
         //SECOND PARAMETER IS THE MIN LONGITUDE
         //THIRD PARAMETER IS THE MAX X COORDINATE
         //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(this.Bounds[3],this.Bounds[1], width, 0 );
+        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), width, 0 );
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(this.Bounds[2],this.Bounds[0],height, 0 );
+        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),height, 0 );
     }   
     
     
@@ -146,24 +132,7 @@ public class TrafficPanel extends JPanel
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     /***************************************************************************
     ***METHOD NAME: paintComponent()
@@ -183,7 +152,6 @@ public class TrafficPanel extends JPanel
         Painter.setHeight(this.getHeight());
         Painter.setScalar(scalar);
         Painter.setShiftXY(shiftX, shiftY);
-        Painter.setDeltaXY(dx, dy);
         
         super.paintComponent(g);
         Painter.DrawRoad(g);

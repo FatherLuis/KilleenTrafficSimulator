@@ -5,9 +5,8 @@
  */
 package Main.Vehicles.Instructions;
 
+import Main.Database;
 import Main.Normalization;
-import Main.Vehicles.Vehicle;
-import java.util.ArrayList;
 
 /**
  *
@@ -16,8 +15,7 @@ import java.util.ArrayList;
 public class Tracker 
 {
     
-    private ArrayList<Vehicle> vehicleList;
-    private double[] Bounds;
+    private Database database;
     
     private double width;
     private double height;
@@ -25,10 +23,9 @@ public class Tracker
     private Normalization normCalcX;
     private Normalization normCalcY;
     
-    public Tracker(ArrayList<Vehicle> vehicleList, double[] bounds, double width, double height)
+    public Tracker(Database database, double width, double height)
     {
-        this.vehicleList = vehicleList;
-        this.Bounds = bounds;
+        this.database = database;
         
         this.width = width;
         this.height = height;
@@ -46,22 +43,22 @@ public class Tracker
         
         int k = 0;
         //System.out.println("LON:  " + lon + "  LAT: " + lat);
-        for(int i=0; i < vehicleList.size();i++)
+        for(int i=0; i < database.getVehicleListSize();i++)
         {
             //System.out.println(" \nV LON:  " + vehicleList.get(i).getCorX() + "  V LAT: " + vehicleList.get(i).getCorY());
             
         
-            if(distance(lon,lat,vehicleList.get(i).getCorX(),vehicleList.get(i).getCorY()))
+            if(distance(lon,lat,database.getVehicle(i).getCorX(),database.getVehicle(i).getCorY()))
             {
                 if(!isFound)
                 {
                     k = i;
-                    vehicleList.get(i).setTrackable(true);
+                    database.getVehicle(i).setTrackable(true);
                     isFound = true;
                 }
                 else
                 {
-                    vehicleList.get(i).setTrackable(false);
+                    database.getVehicle(i).setTrackable(false);
                 }
 
                 
@@ -69,7 +66,7 @@ public class Tracker
             }
             else
             {
-                vehicleList.get(i).setTrackable(false);
+                database.getVehicle(i).setTrackable(false);
             }
         }
         
@@ -103,13 +100,13 @@ public class Tracker
         //SECOND PARAMETER IS THE MIN LONGITUDE
         //THIRD PARAMETER IS THE MAX X COORDINATE
         //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(this.Bounds[3],this.Bounds[1], this.width, 0 );
+        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), width, 0 );
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(this.Bounds[2],this.Bounds[0], this.height, 0 );
+        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),height, 0 );
     }    
     
     

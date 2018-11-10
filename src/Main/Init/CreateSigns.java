@@ -5,6 +5,7 @@
  */
 package Main.Init;
 
+import Main.Database;
 import Main.Operators.StopSign;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 *******************************************************************************/
 public class CreateSigns 
 {   
-    private PointHashTable PHT;
+    private Database database;
     
     /***************************************************************************
     ***METHOD NAME: CreateSigns
@@ -37,9 +38,9 @@ public class CreateSigns
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public CreateSigns (PointHashTable PHT)
+    public CreateSigns (Database database)
     {   
-        this.PHT = PHT;
+        this.database = database;
     }
     
     /***************************************************************************
@@ -66,7 +67,7 @@ public class CreateSigns
 
             for(int i = 0; i < curRef.size(); i++)
             {
-                p1 = PHT.getPoint((String)curRef.get(i));
+                p1 = database.getPoint((String)curRef.get(i));
                 
                 if(p1 == null)
                 {
@@ -77,7 +78,7 @@ public class CreateSigns
                 if(p1.hasParents())
                 {             
                     ss = new StopSign(p1);
-                    PHT.put(ss);   
+                    database.addPoint(ss);   
                 }   
             }  
         }

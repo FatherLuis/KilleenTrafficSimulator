@@ -1,12 +1,8 @@
 package Main.Init;
 
 import Main.Building.School;
-import Main.z.DELETED.FixRoad;
-import Main.z.DELETED.PointThread;
-import Main.z.DELETED.CSVReader;
+import Main.Database;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -33,11 +29,7 @@ import org.xml.sax.*;
 public class File_IO 
 {
     private Document xmlDoc;
-    private ArrayList<Road> AllRoads; 
-    private double[] bounds;
-    private PointHashTable PHT;
-    
-    private ArrayList<School> schoolList;
+    private Database database;
 
     
     /***************************************************************************
@@ -55,9 +47,7 @@ public class File_IO
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
         this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
-        AllRoads = new ArrayList();
-        PHT = new PointHashTable();       
-        schoolList = new ArrayList();
+        database = new Database();
     }
   
     
@@ -113,17 +103,14 @@ public class File_IO
         //LET THE FIRST NODE BE STORED
         Node bound =  listOfBounds.item(0);
         
-        //INITIALIZE ARRAY WITH FOUR SLOTS
-        bounds = new double[4];
-        
         //STORE THE MINLAT 
-        bounds[0] = Double.parseDouble(bound.getAttributes().getNamedItem("minlat").getNodeValue());
+        database.setBounds(0, Double.parseDouble(bound.getAttributes().getNamedItem("minlat").getNodeValue()));
         //STORE THE MINLON
-        bounds[1] = Double.parseDouble(bound.getAttributes().getNamedItem("minlon").getNodeValue());
+        database.setBounds(1,Double.parseDouble(bound.getAttributes().getNamedItem("minlon").getNodeValue()));
         //STORE THE MAXLAT
-        bounds[2] = Double.parseDouble(bound.getAttributes().getNamedItem("maxlat").getNodeValue());
+        database.setBounds(2,Double.parseDouble(bound.getAttributes().getNamedItem("maxlat").getNodeValue()));
         //STORE THE MAXLON 
-        bounds[3] = Double.parseDouble(bound.getAttributes().getNamedItem("maxlon").getNodeValue()); 
+        database.setBounds(3,Double.parseDouble(bound.getAttributes().getNamedItem("maxlon").getNodeValue())); 
         
     }
   
@@ -298,7 +285,7 @@ public class File_IO
                     Calle.setOneway(oneway);
                     
                     //ADD ROAD TO THE ALLROADS
-                    this.AllRoads.add(Calle);  
+                    database.addRoad(Calle);  
                 }  
                 
             }
@@ -419,13 +406,14 @@ public class File_IO
             if(isAcceptable)
             {
                 school = new School(curPoint);
-                schoolList.add(school);
-                PHT.put(school);
+                database.addSchool(school);
+                database.addPoint(school);
             
             }
             else
             {
-                PHT.put(curPoint); 
+                database.addPoint(curPoint);
+                
             }
             
             
@@ -554,18 +542,18 @@ public class File_IO
         Point p;
         
         //ITERATE BY THE NUMBER OF ROADS
-        for(int i = 0; i < this.AllRoads.size(); i++)
+        for(int i = 0; i < database.getRoadListSize(); i++)
         {
             //USED AS A REFERENCE
-            refID = this.AllRoads.get(i).getRef();
+            refID = database.getRoad(i).getRef();
             
             //ITERATE BY THE SIZE OF THE REFARR
             for(int j = 0 ; j < refID.size(); j++)
             {
                 //GET POINT FROM HASHTABLE
-                p = this.PHT.getPoint(refID.get(j));
+                p = database.getPoint(refID.get(j));
                 //LET POINT KNOW WHO IT'S PARENT IS
-                p.addParent(this.AllRoads.get(i));            
+                p.addParent(database.getRoad(i));            
             }
         }
     }
@@ -583,11 +571,11 @@ public class File_IO
     ***************************************************************************/     
     private void CreateSigns()
     {
-        CreateSigns CS = new CreateSigns(this.PHT);
+        CreateSigns CS = new CreateSigns(database);
     
-        for(int i = 0; i < this.AllRoads.size(); i++)
+        for(int i = 0; i < database.getRoadListSize(); i++)
         {
-            CS.createStopSigns(this.AllRoads.get(i));          
+            CS.createStopSigns(database.getRoad(i));          
         }
     }
     
@@ -604,7 +592,7 @@ public class File_IO
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/         
-    public void MainCalculation() throws InterruptedException
+    public void MainCalculation() 
     {
         Long start;
         Long end;
@@ -641,59 +629,10 @@ public class File_IO
         
     }
     
-
-    /***************************************************************************
-    ***METHOD NAME: getRoads()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: RETURN ROAD ARRAYLIST
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28 2018
-    ***************************************************************************/  
-    public ArrayList getRoads()
-    {
-        return this.AllRoads;
-    }
-  
-    /***************************************************************************
-    ***METHOD NAME: getBounds()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: RETURN BOUND ARRAYLIST
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28 2018
-    ***************************************************************************/     
-    public double[] getBounds() 
-    {
-        return this.bounds;
-    }
-  
-    /***************************************************************************
-    ***METHOD NAME: gethashTable()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: RETURN HASHTABLE
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28, 2018
-    ***************************************************************************/     
-    public PointHashTable gethashTable()
-    {
-        return this.PHT;
-    }
+    public Database getDatabase(){return this.database;} 
     
-    public ArrayList<School> getSchoolList()
-    {
-        return this.schoolList;
-    }
+
+
     
   
     

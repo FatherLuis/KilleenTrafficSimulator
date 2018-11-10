@@ -1,6 +1,7 @@
 package Main.Window;
 
 import Main.Clock;
+import Main.Database;
 import Main.Window.Control.Panels.CurrentCarPanel;
 import Main.Window.ControlPanel;
 import javax.swing.JSplitPane;
@@ -43,7 +44,7 @@ public class SplitPanel extends JSplitPane implements Runnable
     ****************************************************************************
     ***DATE: OCTOBER 7, 2018
     ***************************************************************************/     
-    public SplitPanel(TrafficPanel TP, ControlPanel CP) 
+    public SplitPanel(TrafficPanel TP, ControlPanel CP, Database database) 
     {
         super(JSplitPane.HORIZONTAL_SPLIT);
         this.setLeftComponent(TP);
@@ -51,7 +52,7 @@ public class SplitPanel extends JSplitPane implements Runnable
         this.setResizeWeight(1.0);
         this.setDividerLocation(0.9);
         
-        this.CCP = new CurrentCarPanel(TP.getVehicles());
+        this.CCP = new CurrentCarPanel(database.getVehicleList());
         
         
         TP.setCCP(this.CCP);
