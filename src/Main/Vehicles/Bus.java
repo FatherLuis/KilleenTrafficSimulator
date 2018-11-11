@@ -81,7 +81,7 @@ public class Bus extends Vehicle
     {
         if(trackable)
         {
-             g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 20*scalar,20*scalar ));
+             g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 3*d1, 3*d1 ));
         
         }
         

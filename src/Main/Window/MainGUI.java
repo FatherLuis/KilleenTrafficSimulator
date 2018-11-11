@@ -68,7 +68,6 @@ public class MainGUI
         JFrame window = new JFrame("Traffic");
         //SET DEAULT CLOSURE OF FORM
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         
@@ -77,33 +76,28 @@ public class MainGUI
         readFile();
         
         CreateVehicles();
-        
-        
+          
         //GIVES INFORMATION TO THE PAINTERS
         Painter = new Drawable(database);
         
         
-        
-        
-        
-
-        
-        
-        //THE PAINTER IS SENT TO THE MAINPANEL
-        //mainPanel.setPainter(Painter);
-        
         //SETS THE PANEL WHERE THE MAP IS GOING TO BE DRAWN
-        TrafficPanel mainPanel = new TrafficPanel(Painter,database);
-        
-        
-        
-        mainPanel.setBackground(Color.BLACK);
+        TrafficPanel TP = new TrafficPanel(Painter,database);
         
         //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
         ControlPanel CP = new ControlPanel();
      
-        SplitPanel SplitP = new SplitPanel(mainPanel,CP, database);
+        
+        
+        
+        
+        SplitPanel SplitP = new SplitPanel(TP,CP, database);
        
+        
+        
+        
+        
+        
         //LAYOUT FOR THE FRAME 
         window.setLayout(new BorderLayout());
         window.add(SplitP, BorderLayout.CENTER);
@@ -113,9 +107,10 @@ public class MainGUI
         
         while(lf.isActive()){}
         
+        
+        
         //MAKE WINDOW VISIBLE
         window.setVisible(true);    
-    
     }
     
     /***************************************************************************
@@ -154,7 +149,7 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 5000; i++)
+        for(int i=0; i < 20000; i++)
         {
             ins = new Instructions3(database);
             

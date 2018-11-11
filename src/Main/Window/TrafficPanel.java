@@ -5,6 +5,7 @@ import Main.Drawable;
 import Main.Normalization;
 import Main.Vehicles.Instructions.Tracker;
 import Main.Window.Control.Panels.CurrentCarPanel;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,13 +36,13 @@ import javax.swing.JPanel;
 public class TrafficPanel extends JPanel 
 {    
     
-    public static  int WIDTH= 1000;
-    public static  int HEIGHT = 1000;
+    public int WIDTH= 10000;
+    public int HEIGHT = 9000;
     
     private CurrentCarPanel CCP;
     private Drawable Painter;  
 
-    private double scalar = 1;
+    private double scalar = 0.50;
     
     private Database database;
     private Tracker tracker;
@@ -63,13 +64,14 @@ public class TrafficPanel extends JPanel
     public TrafficPanel(Drawable painter, Database database)
     {
         super();
-        this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        this.setPreferredSize(new Dimension(500,500));
         this.setFocusable(true);
         requestFocus();
         
         this.Painter = painter;
         Cursor hand = new Cursor(Cursor.HAND_CURSOR);
         this.setCursor(hand);
+        this.setBackground(Color.BLACK);
 
         this.tracker = new Tracker(database,WIDTH, HEIGHT);
        
@@ -126,7 +128,7 @@ public class TrafficPanel extends JPanel
         //NEGATIVE VALUE
         //double newY = -y;
         //ADD THE HEIGHT OF WINDOW
-        return -y + this.getHeight();
+        return -y + HEIGHT;
     }    
     
     
@@ -148,8 +150,8 @@ public class TrafficPanel extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
-        Painter.setWidth(this.getWidth());
-        Painter.setHeight(this.getHeight());
+        Painter.setWidth(WIDTH);
+        Painter.setHeight(HEIGHT);
         Painter.setScalar(scalar);
         Painter.setShiftXY(shiftX, shiftY);
         
@@ -196,9 +198,9 @@ public class TrafficPanel extends JPanel
         {
             if(e.getButton() == MouseEvent.BUTTON1) 
             {
-                tracker.setHeight(getHeight());
-                tracker.setWidth(getWidth());
-                normalizeZone(getWidth(),getHeight());
+                tracker.setHeight(HEIGHT);
+                tracker.setWidth(WIDTH);
+                normalizeZone(WIDTH,HEIGHT);
 
 
 
@@ -246,11 +248,11 @@ public class TrafficPanel extends JPanel
         public void mouseDragged(MouseEvent e) 
         {
             
-            dx = (e.getX() - dummyX)*0.5;
-            dy = (e.getY() - dummyY)*0.5;
+            dx = (e.getX() - dummyX);
+            dy = (e.getY() - dummyY);
             
-            shiftX += dx*0.15;
-            shiftY += dy*0.15;
+            shiftX += dx*0.2;
+            shiftY += dy*0.2;
             repaint();
                  
         }
@@ -269,16 +271,16 @@ public class TrafficPanel extends JPanel
 
             if(wheelRot < 0)
             {
-                scalar += 0.5;
+                scalar += 0.25;
                 //System.out.println("scalar" + scalar);
             }
             else if(wheelRot > 0)
             {
-                scalar -= 0.5;
+                scalar -= 0.25;
                 
                 if(scalar <= 0)
                 {
-                    scalar = 0.5;
+                    scalar = 0.25;
                     
                 }
             }

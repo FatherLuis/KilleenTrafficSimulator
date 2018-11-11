@@ -46,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
+        this.xmlDoc = getDocument("src\\Maps\\BellCounty.xml");
         database = new Database();
     }
   
@@ -207,7 +207,7 @@ public class File_IO
                                 }
                                 break;
                             case("highway"):
-                                if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian") || attrV.equals("paved") ))
+                                if(!(attrV.equals("service") || attrV.equals("footway") || attrV.equals("track") || attrV.equals("pedestrian") || attrV.equals("paved") || attrV.equals("path")))
                                 {
                                     if(roadName.isEmpty()){roadName = "NO NAME";}
                                     
