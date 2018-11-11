@@ -51,7 +51,7 @@ public class CurrentCarPanel extends JPanel
         
         
         this.setSize(new Dimension(400,400));
-        this.setBackground(Color.GRAY);
+        this.setBackground(Color.lightGray);
         this.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         
         this.setLayout(new GridBagLayout());

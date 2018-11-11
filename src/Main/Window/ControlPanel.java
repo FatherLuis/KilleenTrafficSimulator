@@ -71,7 +71,7 @@ public class ControlPanel extends JPanel
     public void init()
     {  
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        this.setBackground(Color.GRAY);  
+        this.setBackground(Color.LIGHT_GRAY);  
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
@@ -100,7 +100,7 @@ public class ControlPanel extends JPanel
         
         this.panel = new JPanel(new CardLayout());
         JPanel p1 = new JPanel();
-        p1.setBackground(Color.GRAY);
+        p1.setBackground(Color.LIGHT_GRAY);
         
         this.panel.add(p1,"Overview");
         this.panel.add(CCP,"Current Car");

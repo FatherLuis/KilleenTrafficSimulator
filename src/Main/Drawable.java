@@ -155,7 +155,7 @@ public class Drawable
         pen.setStroke(new BasicStroke(1));
         //MAKE THE LINES NICER (?)
         pen.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        pen.setColor(Color.LIGHT_GRAY);
+        pen.setColor(Color.DARK_GRAY);
         /////////////////////////////////////////////////
         
         Point p ;

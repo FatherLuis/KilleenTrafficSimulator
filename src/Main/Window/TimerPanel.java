@@ -44,7 +44,7 @@ public class TimerPanel extends JPanel
     private void init()
     {
         this.setPreferredSize(new Dimension(400,200));
-        this.setBackground(Color.GRAY); 
+        this.setBackground(Color.LIGHT_GRAY); 
         //this.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         this.setLayout(new GridBagLayout());
     

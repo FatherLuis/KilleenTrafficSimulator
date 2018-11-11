@@ -72,7 +72,7 @@ public class TrafficPanel extends JPanel
         Cursor hand = new Cursor(Cursor.HAND_CURSOR);
         //Cursor hand = new Cursor(Cursor.MOVE_CURSOR);
         this.setCursor(hand);
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.GRAY);
 
         this.tracker = new Tracker(database,WIDTH, HEIGHT);
        
