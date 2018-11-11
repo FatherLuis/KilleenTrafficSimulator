@@ -151,7 +151,7 @@ public class ControlPanel extends JPanel
         public void itemStateChanged(ItemEvent ie) 
         {
             CardLayout cl = (CardLayout)(panel.getLayout());
-            System.out.println(ie.getItem());
+            //System.out.println(ie.getItem());
             cl.show(panel, (String)ie.getItem());
         }
     }    

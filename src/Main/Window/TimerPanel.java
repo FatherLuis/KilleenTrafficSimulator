@@ -49,33 +49,35 @@ public class TimerPanel extends JPanel
         this.setLayout(new GridBagLayout());
     
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(10,10,10,10);
+        c.insets = new Insets(10,10,20,0);
         
         ListenForButton ActionForButton = new ListenForButton();
 
        
         this.lblClock = new JLabel(" 00 : 00 : 00 ");  
-        this.lblClock.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        this.lblClock.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        this.lblClock.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblClock.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         c.gridx = 0;  
         c.gridy = 0;
-        c.gridwidth = 2;
+        c.gridwidth = 6;
         c.gridheight = 2;
-        //c.weighty = 0.20;
-        c.ipadx = 30;
+        c.weightx = 0.60;
+        c.ipadx = 40;
         c.ipady = 40;
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.EAST;
         this.add(this.lblClock,c);
         
-        this.btnChangeTime = new JButton("Change Time...");
-        c.gridx = 3;  
+        this.btnChangeTime = new JButton("Change Time ...");
+        this.btnChangeTime.setHorizontalAlignment(SwingConstants.CENTER);
+        c.gridx = 6;  
         c.gridy = 0;  
-        c.gridwidth = 2;
+        c.gridwidth = 3;
         c.gridheight = 2;
         //c.weighty = .05;
-        c.ipadx = 0;
-        c.ipady = 0;
+        c.ipadx = 10;
+        c.ipady = 10;
         c.fill = GridBagConstraints.WEST;
         this.add(this.btnChangeTime,c);
         
@@ -87,9 +89,9 @@ public class TimerPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         //c.weighty = .05;
-        c.ipadx = 0;
-        c.ipady = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 10;
+        c.ipady = 10;
+        c.fill = GridBagConstraints.NONE;
         this.btnPause.addActionListener(ActionForButton);
         this.add(this.btnPause,c);
         
@@ -100,9 +102,9 @@ public class TimerPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         //c.weighty = .05;
-        c.ipadx = 0;
-        c.ipady = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;    
+        c.ipadx = 10;
+        c.ipady = 10;
+        c.fill = GridBagConstraints.NONE;
         this.btnNormalForward.addActionListener(ActionForButton);
         this.add(this.btnNormalForward,c);
         
@@ -114,9 +116,9 @@ public class TimerPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         //c.weighty = .05;
-        c.ipadx = 0;
-        c.ipady = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 10;
+        c.ipady = 10;
+        c.fill = GridBagConstraints.NONE;
         this.btnFastForward.addActionListener(ActionForButton);
         this.add(this.btnFastForward,c);    
     
@@ -155,6 +157,7 @@ public class TimerPanel extends JPanel
     
     private class ListenForButton implements ActionListener
     {
+        @Override
         public void actionPerformed(ActionEvent evt)
         {
             

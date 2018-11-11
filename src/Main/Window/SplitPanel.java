@@ -49,8 +49,9 @@ public class SplitPanel extends JSplitPane implements Runnable
         super(JSplitPane.HORIZONTAL_SPLIT);
         this.setLeftComponent(TP);
         this.setRightComponent(CP);
-        this.setResizeWeight(1.0);
+        this.setResizeWeight(0.95);
         this.setDividerLocation(0.9);
+        this.setDividerSize(0);
         
         this.CCP = new CurrentCarPanel(database.getVehicleList());
         

@@ -62,7 +62,7 @@ public class MainGUI
     ***************************************************************************/ 
     private static void init() 
     {
-        LoadingFrame lf = new LoadingFrame();
+        //LoadingFrame lf = new LoadingFrame();
                
         //CREATE THE WINDOW WITH NAME
         JFrame window = new JFrame("Traffic");
@@ -105,7 +105,7 @@ public class MainGUI
         window.pack();
         
         
-        while(lf.isActive()){}
+        //while(lf.isActive()){}
         
         
         

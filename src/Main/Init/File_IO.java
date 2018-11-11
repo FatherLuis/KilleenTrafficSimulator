@@ -46,7 +46,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\BellCounty.xml");
+        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
         database = new Database();
     }
   
@@ -213,26 +213,27 @@ public class File_IO
                                     
                                     type = attrV;
                                     
-//                                    if(type.equals("primary"))
-//                                    {
-//                                        speed = 60;
-//                                    }
-//                                    else if(type.equals("secondary"))
-//                                    {
-//                                        speed = 50;
-//                                    }
-//                                    else if(type.equals("tertiary"))
-//                                    {
-//                                        speed = 40;
-//                                    }
-//                                    else if(type.equals("residential"))
-//                                    {
-//                                        speed = 30;
-//                                    }
-//                                    else
-//                                    {
-//                                        speed = 30;
-//                                    }
+                                    if(type.equals("primary") || type.equals("motorway") )
+                                    {
+                                        speed = 60;
+                                    }
+                                    else if(type.equals("secondary") || type.equals("trunk") || type.equals("unclassified"))
+                                    {
+                                        speed = 50;
+                                    }
+                                    else if(type.equals("tertiary") || type.equals("road") )
+                                    {
+                                        speed = 40;
+                                    }
+                                    else if(type.equals("residential"))
+                                    {
+                                        speed = 30;
+                                    }
+                                    else
+                                    {
+                                        speed = 30;
+                                    }
+
                                     
                                     
                                     roadID = NodeID;
@@ -281,7 +282,7 @@ public class File_IO
                     //SET ROAD TYPE
                     Calle.setType(type);
                     
-//                    Calle.setSpeed(speed);
+                    Calle.setSpeed(speed);
                     Calle.setOneway(oneway);
                     
                     //ADD ROAD TO THE ALLROADS

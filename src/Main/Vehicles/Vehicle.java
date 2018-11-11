@@ -25,12 +25,14 @@ public class Vehicle
 {
     protected Color color;
     protected Instructions3 GPS;
-    protected int speed;
+    protected double speed;
     
     protected int vehicleID;
     protected boolean trackable;
     
     private static int vehicleCount;
+    
+    protected int count;
     
 
 
@@ -67,6 +69,24 @@ public class Vehicle
     
     
     public Road getRoad(){return GPS.getRoad();}
+    
+    public double getSpeed(){return GPS.getSpeed();}
+    
+    public void setInAccident(boolean inAccident)
+    { 
+        GPS.setInAccident(inAccident);
+        
+        if(inAccident)
+        {
+            GPS.setIsMovable(false);
+        }
+        else
+        {
+            GPS.setIsMovable(true);
+        }
+    
+    }
+    public boolean getInAccident(){ return GPS.getInAccident();}
     
 
     /***************************************************************************

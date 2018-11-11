@@ -30,6 +30,7 @@ public class PersonalCar extends Vehicle
 {
     private Ellipse2D.Double shape;
     
+    
     /***************************************************************************
     ***METHOD NAME: PersonalCar
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -63,7 +64,8 @@ public class PersonalCar extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*300);
+        GPS.move(rate*speed*200);
+        speed = GPS.getSpeed();
     }     
     
     /***************************************************************************
@@ -85,6 +87,22 @@ public class PersonalCar extends Vehicle
              g.draw(new Rectangle2D.Double(x1 - (d1), y1-(d1), 3*d1, 3*d1 ));
         
         }
+        
+        if(GPS.getInAccident())
+        {
+            g.setColor(Color.RED);
+            
+            if(count == 0)
+            {
+                g.draw(new Ellipse2D.Double(x1 - (d1), y1-(d1), d2*3, d2*3));
+                count++;
+            }
+            else
+            {
+                count--;
+            }
+        }
+        
                     
         //COVERS AREA OF THE SHAPE
         Area a1 = new Area(new Ellipse2D.Double(x1,y1,d1,d2)); 

@@ -147,15 +147,16 @@ public class Drawable
         //g3.setStroke(dashed); 
         //g3.setColor(Color.yellow);
         
-        Graphics2D g2 = (Graphics2D) g.create();
         
-        g2.setStroke(new BasicStroke(1));
+        
+        
+        /////////////////////////////////////////////////
+        Graphics2D pen = (Graphics2D) g.create();
+        pen.setStroke(new BasicStroke(1));
         //MAKE THE LINES NICER (?)
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        
-        g2.setColor(Color.WHITE);
-
+        pen.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        pen.setColor(Color.LIGHT_GRAY);
+        /////////////////////////////////////////////////
         
         Point p ;
         double x1;
@@ -171,66 +172,62 @@ public class Drawable
         //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
         for(int i = 0; i < database.getRoadListSize() ; i++)
         {
-            //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
-            curRoadPoints = database.getRoad(i).getRef();
+//            if(scaler <= 1 && database.getRoad(i).getType().equals("Residential"))
+//            {
             
-            //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
-            for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
-            {
-                    //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    p =database.getPoint(curRoadPoints.get(j));
-                    
-                    //GETS THE OBJECT POINT FROM THE HASHTABLE
-                    p2 =database.getPoint(curRoadPoints.get(j+1));
-                    
-                    if(p == null)
-                    {
-                            System.out.println("p NULL");
-                    }
-                    if(p2 == null)
-                    {
-                            System.out.println("p2 NULL");
-                    }                    
-                    
-                    
-                    //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    x1 = shiftX(normCalcX.Normalize(p.getLongitude()));
-                    //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    y1 = shiftY(OperationY(normCalcY.Normalize(p.getLatitude())));
+            
+                //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
+                curRoadPoints = database.getRoad(i).getRef();
+
+                //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
+                for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
+                {
+                        //GETS THE OBJECT POINT FROM THE HASHTABLE
+                        p =database.getPoint(curRoadPoints.get(j));
+
+                        //GETS THE OBJECT POINT FROM THE HASHTABLE
+                        p2 =database.getPoint(curRoadPoints.get(j+1));
+
+                        if(p == null)
+                        {
+                                System.out.println("p NULL");
+                        }
+                        if(p2 == null)
+                        {
+                                System.out.println("p2 NULL");
+                        }                    
 
 
-                    //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
-                    x2 = shiftX(normCalcX.Normalize(p2.getLongitude()));
-                    //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-                    y2 = shiftY(OperationY(normCalcY.Normalize(p2.getLatitude())));
+                        //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
+                        x1 = shiftX(normCalcX.Normalize(p.getLongitude()));
+                        //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
+                        y1 = shiftY(OperationY(normCalcY.Normalize(p.getLatitude())));
 
-                    
-                    ////////////////////////////////////////////////
-                    
-                    //ANGELICA, THIS IS THE METHOD YOU'LL BE WORKING ON
-                    // ABOVE ARE THE POINTS THAT ARE GETTING READY FOR YOU
-                    //WHAT YOU NEED TO FIGURE OUT IS......
-                    //HOW TO DRAW A ROAD. 
-                    ////////////////////////////////////////////////
-                    
-                    
-                    //DRAW A LINE FROM P1 TO P2
-                    g2.draw(new Line2D.Double(x1,y1,x2,y2)); 
-                    //g3.draw(new Line2D.Double(x1,y1,x2,y2));
-                    
-                               
-                    //Ellipse2D.Double shape = new Ellipse2D.Double((int)x1-5,(int)y1-5,10,10);
 
-                    //g3.setColor(this.vehicleList.get(i).getColor());
-                    //g2.draw(shape);
-                    
-                    //shape = new Ellipse2D.Double((int)x2-5,(int)y2-5,10,10);
+                        //CONVERT THE POINT'S LONGITUDE TO X COORDINATE
+                        x2 = shiftX(normCalcX.Normalize(p2.getLongitude()));
+                        //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
+                        y2 = shiftY(OperationY(normCalcY.Normalize(p2.getLatitude())));
 
-                    //g3.setColor(this.vehicleList.get(i).getColor());
-                    //g2.draw(shape);                    
-                    
-                                              
-            }
+
+                        //DRAW A LINE FROM P1 TO P2
+                        pen.draw(new Line2D.Double(x1,y1,x2,y2)); 
+                        //g3.draw(new Line2D.Double(x1,y1,x2,y2));
+
+
+                        //Ellipse2D.Double shape = new Ellipse2D.Double((int)x1-5,(int)y1-5,10,10);
+
+                        //g3.setColor(this.vehicleList.get(i).getColor());
+                        //pen.draw(shape);
+
+                        //shape = new Ellipse2D.Double((int)x2-5,(int)y2-5,10,10);
+
+                        //g3.setColor(this.vehicleList.get(i).getColor());
+                        //pen.draw(shape);   
+                }                 
+
+
+//            }
         }    
     
     }
@@ -310,7 +307,7 @@ public class Drawable
         
         for(int i = 0; i < database.getSchoolListSize(); i++)
         {
-            g3.setColor(Color.RED);
+            g3.setColor(Color.cyan);
             
             x1 = shiftX(normCalcX.Normalize(database.getSchool(i).getLongitude()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE

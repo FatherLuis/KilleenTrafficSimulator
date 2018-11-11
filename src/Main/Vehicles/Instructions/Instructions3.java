@@ -19,6 +19,8 @@ public class Instructions3
 {
  
     private Database database;
+    private Route route;
+    
     
     private Road curRoad;
     private Point curPoint;   
@@ -26,10 +28,15 @@ public class Instructions3
     private int RoadIndex;
     private int NodeIndex;  
     private Random rand = new Random();
+    
+    
     private boolean isMoveable = true; 
+    private boolean inAccident = false;
+    
+    
     private int randNum;
     
-    private Route route;
+    
     
     private double rate = 1;
     
@@ -85,8 +92,15 @@ public class Instructions3
     
     public Point getPoint(){return curPoint;}
     public void setPoint(Point p){this.curPoint = p;}
-    
+    public double getSpeed(){return speed;}
     public Road getRoad(){return curRoad;}  
+    
+    public void setInAccident(boolean inAccident){ this.inAccident = inAccident;}
+    public boolean getInAccident(){ return this.inAccident;}
+    
+    public void setIsMovable(boolean isMove){ this.isMoveable = isMove;}
+    
+    
     
     public String getDirection()
     {
@@ -280,9 +294,12 @@ public class Instructions3
         {
             //System.out.println("WAITING");
             
-            wait--;
+            if(!inAccident)
+            {
+                wait--;
 
-            if(wait ==0){isMoveable = true;}
+                if(wait ==0){isMoveable = true;}
+            }
         }
 
 
@@ -303,7 +320,8 @@ public class Instructions3
         }while(curRoad.getID().equals(tempRoad.getID()));
 
         curRoad = tempRoad; 
-        //this.speed = curRoad.getSpeed();
+        
+        this.speed = curRoad.getSpeed();
         
         for(int i=0; i < curRoad.getRef().size(); i++)
         {
@@ -383,7 +401,7 @@ public class Instructions3
                 
                 
                 curRoad = tempRoad; 
-                //this.speed = curRoad.getSpeed();
+                this.speed = curRoad.getSpeed();
 
                 for(int i=0; i < curRoad.getRef().size(); i++)
                 {

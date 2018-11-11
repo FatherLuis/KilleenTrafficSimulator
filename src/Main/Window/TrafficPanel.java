@@ -42,7 +42,7 @@ public class TrafficPanel extends JPanel
     private CurrentCarPanel CCP;
     private Drawable Painter;  
 
-    private double scalar = 0.50;
+    private double scalar = 0.25;
     
     private Database database;
     private Tracker tracker;
@@ -70,6 +70,7 @@ public class TrafficPanel extends JPanel
         
         this.Painter = painter;
         Cursor hand = new Cursor(Cursor.HAND_CURSOR);
+        //Cursor hand = new Cursor(Cursor.MOVE_CURSOR);
         this.setCursor(hand);
         this.setBackground(Color.BLACK);
 
