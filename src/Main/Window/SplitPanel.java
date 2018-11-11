@@ -3,6 +3,7 @@ package Main.Window;
 import Main.Clock;
 import Main.Database;
 import Main.Window.Control.Panels.CurrentCarPanel;
+import Main.Window.Control.Panels.OverviewPanel;
 import Main.Window.ControlPanel;
 import javax.swing.JSplitPane;
 
@@ -32,6 +33,7 @@ public class SplitPanel extends JSplitPane implements Runnable
     
     
     private CurrentCarPanel CCP;
+    private OverviewPanel OP;
     
     /***************************************************************************
     ***METHOD NAME:  SplitPanel()
@@ -54,10 +56,13 @@ public class SplitPanel extends JSplitPane implements Runnable
         this.setDividerSize(0);
         
         this.CCP = new CurrentCarPanel(database.getVehicleList());
+        this.OP = new OverviewPanel(database);
         
         
         TP.setCCP(this.CCP);
+        TP.setOP(this.OP);
         CP.setCCP(this.CCP);
+        CP.setOP(this.OP);
         
         CP.init();
         
@@ -87,6 +92,8 @@ public class SplitPanel extends JSplitPane implements Runnable
         
         while(true)
         {
+            TP.repaint();
+            
             if(CP.isOn())
             {
                 CCP.update();
@@ -95,14 +102,14 @@ public class SplitPanel extends JSplitPane implements Runnable
                 CP.setClock(clock.tick(CP.getIntFastForward()));
             }
             
-            TP.repaint();
+            
             
             timeDiff = System.currentTimeMillis() - beforeTime;
             sleep = 125 - timeDiff;
             
             if(sleep < 0)
             {
-                sleep = 3;
+                sleep = 2;
             }
             
             try{Thread.sleep(sleep);}catch(Exception ex){}

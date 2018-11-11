@@ -85,7 +85,7 @@ public class MainGUI
         TrafficPanel TP = new TrafficPanel(Painter,database);
         
         //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
-        ControlPanel CP = new ControlPanel();
+        ControlPanel CP = new ControlPanel(database);
      
         
         
@@ -149,7 +149,7 @@ public class MainGUI
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 20000; i++)
+        for(int i=0; i < 5000; i++)
         {
             ins = new Instructions3(database);
             

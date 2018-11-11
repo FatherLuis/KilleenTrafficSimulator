@@ -5,6 +5,7 @@ import Main.Drawable;
 import Main.Normalization;
 import Main.Vehicles.Instructions.Tracker;
 import Main.Window.Control.Panels.CurrentCarPanel;
+import Main.Window.Control.Panels.OverviewPanel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -49,6 +50,8 @@ public class TrafficPanel extends JPanel
     
     private Normalization normCalcX;
     private Normalization normCalcY;
+    
+    OverviewPanel OP;
      
     /***************************************************************************
     ***METHOD NAME: TrafficPanel()
@@ -74,7 +77,7 @@ public class TrafficPanel extends JPanel
         this.setCursor(hand);
         this.setBackground(Color.GRAY);
 
-        this.tracker = new Tracker(database,WIDTH, HEIGHT);
+        this.tracker = new Tracker(database);
        
         this.database = database;
         
@@ -82,6 +85,8 @@ public class TrafficPanel extends JPanel
         this.addMouseListener(mouseHandler);
         this.addMouseMotionListener(mouseHandler);
         this.addMouseWheelListener(mouseHandler);
+        
+        normalizeZone();
         
         
         
@@ -101,26 +106,29 @@ public class TrafficPanel extends JPanel
     public void setPainter(Drawable p)
     {
         this.Painter = p;
+
+        
     }
 
     
     
     public void setCCP(CurrentCarPanel CCP){this.CCP = CCP;}
+    public void setOP(OverviewPanel OP){this.OP = OP;}
 
  
-    private void normalizeZone(double width, double height)
+    private void normalizeZone()
     {
         //FIRST PARAMATER IS THE MAX LONGITUDE
         //SECOND PARAMETER IS THE MIN LONGITUDE
         //THIRD PARAMETER IS THE MAX X COORDINATE
         //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), width, 0 );
+        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), WIDTH, 0 );
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),height, 0 );
+        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),HEIGHT, 0 );
     }   
     
     
@@ -151,8 +159,6 @@ public class TrafficPanel extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
-        Painter.setWidth(WIDTH);
-        Painter.setHeight(HEIGHT);
         Painter.setScalar(scalar);
         Painter.setShiftXY(shiftX, shiftY);
         
@@ -169,6 +175,7 @@ public class TrafficPanel extends JPanel
     public void update(int rate)
     {
         Painter.updateVehicles(rate);
+        OP.update();
     
     }
     
@@ -199,12 +206,6 @@ public class TrafficPanel extends JPanel
         {
             if(e.getButton() == MouseEvent.BUTTON1) 
             {
-                tracker.setHeight(HEIGHT);
-                tracker.setWidth(WIDTH);
-                normalizeZone(WIDTH,HEIGHT);
-
-
-
                 Point p = e.getPoint();
 
                 int carIndex = tracker.find(normCalcX.DeNormalize((p.x/scalar) - shiftX), normCalcY.DeNormalize(OperationY((p.y/scalar) - shiftY)));
@@ -212,6 +213,7 @@ public class TrafficPanel extends JPanel
                 //System.out.println(carIndex);
                 
                 CCP.setCurrentIndex(carIndex);
+                
 
             }
         }
@@ -252,8 +254,19 @@ public class TrafficPanel extends JPanel
             dx = (e.getX() - dummyX);
             dy = (e.getY() - dummyY);
             
-            shiftX += dx*0.2;
-            shiftY += dy*0.2;
+            
+            if(scalar >= 1)
+            {
+                shiftX += dx*0.2;
+                shiftY += dy*0.2;
+            }else
+            {
+                shiftX += dx*0.4;
+                shiftY += dy*0.4;
+            }
+            
+            
+            
             repaint();
                  
         }

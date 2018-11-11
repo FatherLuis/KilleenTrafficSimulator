@@ -16,19 +16,10 @@ public class Tracker
 {
     
     private Database database;
-    
-    private double width;
-    private double height;
-    
-    private Normalization normCalcX;
-    private Normalization normCalcY;
-    
-    public Tracker(Database database, double width, double height)
+
+    public Tracker(Database database)
     {
         this.database = database;
-        
-        this.width = width;
-        this.height = height;
         
     }    
     
@@ -92,34 +83,7 @@ public class Tracker
     
     
     
-    }
-    
-    private void normalizeZone()
-    {
-        //FIRST PARAMATER IS THE MAX LONGITUDE
-        //SECOND PARAMETER IS THE MIN LONGITUDE
-        //THIRD PARAMETER IS THE MAX X COORDINATE
-        //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), width, 0 );
-                
-        //FIRST PARAMATER IS THE MAX LATITUDE
-        //SECOND PARAMETER IS THE MIN LATITUDE
-        //THIRD PARAMETER IS THE MAX X LATITUDE
-        //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),height, 0 );
-    }    
-    
-    
-    
-    public void setWidth(double width)
-    {
-        this.width = width;
-    }
-    
-    public void setHeight(double height)
-    {   
-        this.height = height;
-    }
+    } 
     
     
     

@@ -200,7 +200,7 @@ public class CurrentCarPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         c.weighty = 0.10;
-        c.ipadx = 40;
+        c.ipadx = 20;
         c.ipady = 0;
         //c.fill = GridBagConstraints.EAST;
         this.add(this.lblCarCurrentRoad,c);    
@@ -212,7 +212,7 @@ public class CurrentCarPanel extends JPanel
         c.gridwidth = 2;
         c.gridheight = 1;
         c.weighty = 0.10;
-        c.ipadx = 40;
+        c.ipadx = 20;
         c.ipady = 0;
         //c.fill = GridBagConstraints.EAST;
         this.add(this.lblAccident,c);         

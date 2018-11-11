@@ -46,8 +46,8 @@ public class Drawable
     private Normalization normCalcX;
     private Normalization normCalcY;
     
-    private int WIDTH = 500;
-    private int HEIGHT = 500;
+    private int WIDTH = 10000;
+    private int HEIGHT = 9000;
     
     private double scaler = 1;
     double shiftX;
@@ -71,6 +71,7 @@ public class Drawable
     {
         this.database = database;
         //g = TP.getGraphics();
+        normalizeZone();
     }
 
 
@@ -138,8 +139,7 @@ public class Drawable
     ***************************************************************************/    
     public void DrawRoad(Graphics g)
     {
-        //NORMALIZE THE BOUNDARIES SO I CAN CONVERT FROM (LON,LAT) TO (X,Y)
-        normalizeZone();
+
         //DRAWING IN A 2D FIELD
         
         //Graphics2D g3 = (Graphics2D) g.create();
@@ -248,8 +248,6 @@ public class Drawable
     ***************************************************************************/   
     public void DrawCar(Graphics g)
     {
-
-        normalizeZone();
         Graphics2D g3 = (Graphics2D) g.create();
         g3.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
@@ -295,7 +293,6 @@ public class Drawable
     {       
         Random rand = new Random();
         
-        normalizeZone();
         Graphics2D g3 = (Graphics2D) g.create();
     
         double x1;

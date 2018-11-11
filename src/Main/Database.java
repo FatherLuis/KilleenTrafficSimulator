@@ -24,6 +24,8 @@ public class Database
     private static ArrayList<School> schoolList;   
     private static PointHashTable PHT;
     
+    private static int numAccidents;
+    
     
     public Database()
     {
@@ -32,9 +34,17 @@ public class Database
         schoolList = new ArrayList();
         boundList = new double[4];
         PHT = new PointHashTable();
+        numAccidents = 0; 
         
     }
      
+    
+    
+    public void addAccident(){numAccidents++;}
+    public void subAccident(){numAccidents--;}
+    public int getNumAccident(){return numAccidents;}
+    
+    
     public ArrayList<Vehicle> getVehicleList(){ return vehicleList;} 
     public ArrayList<Road> getRoadList(){return roadList;}   
     public ArrayList<School> getSchoolList(){return schoolList;}

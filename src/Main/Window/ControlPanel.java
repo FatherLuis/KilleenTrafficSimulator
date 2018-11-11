@@ -1,7 +1,9 @@
 package Main.Window;
 
 import Main.Clock;
+import Main.Database;
 import Main.Window.Control.Panels.CurrentCarPanel;
+import Main.Window.Control.Panels.OverviewPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,9 +43,11 @@ public class ControlPanel extends JPanel
     public int WIDTH= 400;
     public int HEIGHT = 500; 
     
-
+    private Database database;
+    
     private TimerPanel Timer;
     private CurrentCarPanel CCP;
+    private OverviewPanel OP;
     
     /***************************************************************************
     ***METHOD NAME: ControlPanel()
@@ -56,9 +60,11 @@ public class ControlPanel extends JPanel
     ****************************************************************************
     ***DATE: OCTOBER 7, 2018
     ***************************************************************************/     
-    public ControlPanel()
+    public ControlPanel(Database database)
     {
         super();
+        
+        this.database = database;
 
         //init();
         //setUpPanels();
@@ -67,6 +73,7 @@ public class ControlPanel extends JPanel
     }    
     
     public void setCCP(CurrentCarPanel CCP){this.CCP = CCP;}
+    public void setOP(OverviewPanel OP){this.OP = OP;}
     
     public void init()
     {  
@@ -99,10 +106,9 @@ public class ControlPanel extends JPanel
         this.add(this.cmbPanelChoice,c);
         
         this.panel = new JPanel(new CardLayout());
-        JPanel p1 = new JPanel();
-        p1.setBackground(Color.LIGHT_GRAY);
+        OP.setBackground(Color.LIGHT_GRAY);
         
-        this.panel.add(p1,"Overview");
+        this.panel.add(OP,"Overview");
         this.panel.add(CCP,"Current Car");
         c.gridx = 0;  
         c.gridy = 2;

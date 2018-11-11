@@ -21,7 +21,6 @@ public class Instructions3
     private Database database;
     private Route route;
     
-    
     private Road curRoad;
     private Point curPoint;   
     private String position;  
@@ -70,6 +69,17 @@ public class Instructions3
         curPoint = database.getPoint(ID);
         
         this.speed = curRoad.getSpeed();
+        
+        x = curPoint.getLongitude();
+        y = curPoint.getLatitude();
+        
+        if(rand.nextInt(101) > 99 && rand.nextInt(101) > 99)
+        {
+            inAccident = true;
+            isMoveable = false;
+            database.addAccident();
+        
+        }
 
 
         randNum = rand.nextInt(100);
@@ -95,7 +105,12 @@ public class Instructions3
     public double getSpeed(){return speed;}
     public Road getRoad(){return curRoad;}  
     
-    public void setInAccident(boolean inAccident){ this.inAccident = inAccident;}
+    public void setInAccident(boolean inAccident)
+    { 
+        this.inAccident = inAccident;
+        
+        if(inAccident == true){database.addAccident();}else{database.subAccident();}
+    }
     public boolean getInAccident(){ return this.inAccident;}
     
     public void setIsMovable(boolean isMove){ this.isMoveable = isMove;}
