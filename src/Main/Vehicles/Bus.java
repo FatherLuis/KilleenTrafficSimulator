@@ -5,7 +5,6 @@
  */
 package Main.Vehicles;
 
-import Main.Vehicles.Instructions.Instructions3;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
@@ -40,10 +39,9 @@ public class Bus extends Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/     
-    public Bus(Instructions3 GPS) 
+    public Bus() 
     {
-        super(GPS);
-        this.GPS = GPS; 
+        super();
         color = Color.YELLOW;
         speed = 25;
     }
@@ -62,8 +60,7 @@ public class Bus extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*200);
-        speed = GPS.getSpeed();
+        super.move(rate*speed*200);
     }
     
     /***************************************************************************

@@ -67,9 +67,8 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public Drawable(Database database)
+    public Drawable()
     {
-        this.database = database;
         //g = TP.getGraphics();
         normalizeZone();
     }

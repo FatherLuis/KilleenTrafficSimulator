@@ -15,12 +15,8 @@ import Main.Normalization;
 public class Tracker 
 {
     
-    private Database database;
-
-    public Tracker(Database database)
+    public Tracker()
     {
-        this.database = database;
-        
     }    
     
 
@@ -34,22 +30,22 @@ public class Tracker
         
         int k = 0;
         //System.out.println("LON:  " + lon + "  LAT: " + lat);
-        for(int i=0; i < database.getVehicleListSize();i++)
+        for(int i=0; i < Database.getVehicleListSize();i++)
         {
             //System.out.println(" \nV LON:  " + vehicleList.get(i).getCorX() + "  V LAT: " + vehicleList.get(i).getCorY());
             
         
-            if(distance(lon,lat,database.getVehicle(i).getCorX(),database.getVehicle(i).getCorY()))
+            if(distance(lon,lat,Database.getVehicle(i).getCorX(),Database.getVehicle(i).getCorY()))
             {
                 if(!isFound)
                 {
                     k = i;
-                    database.getVehicle(i).setTrackable(true);
+                    Database.getVehicle(i).setTrackable(true);
                     isFound = true;
                 }
                 else
                 {
-                    database.getVehicle(i).setTrackable(false);
+                    Database.getVehicle(i).setTrackable(false);
                 }
 
                 
@@ -57,7 +53,7 @@ public class Tracker
             }
             else
             {
-                database.getVehicle(i).setTrackable(false);
+                Database.getVehicle(i).setTrackable(false);
             }
         }
         

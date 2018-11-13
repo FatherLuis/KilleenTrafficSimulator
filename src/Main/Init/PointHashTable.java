@@ -1,5 +1,6 @@
 package Main.Init;
 
+import Main.Operators.Intersection;
 import java.text.NumberFormat;
 
 /*******************************************************************************
@@ -122,7 +123,7 @@ public class PointHashTable
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/  
-    public Point getPoint(String PointID)
+    public Intersection getPoint(String PointID)
     {
         //System.out.println("Coming in " +PointID);
         Point point = null;
@@ -171,7 +172,7 @@ public class PointHashTable
         }catch(Exception ex){ System.out.println("\n  "  +PointID+"  me? BROKEN\n\n");}
         
         //RETURN THE OBJECT
-        return point;
+        return (Intersection)point;
         
 
     }

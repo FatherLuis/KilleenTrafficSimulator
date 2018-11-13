@@ -5,6 +5,7 @@
  */
 package Main.Window.Control.Panels;
 
+import Main.Database;
 import Main.Vehicles.Vehicle;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,16 +31,13 @@ import javax.swing.SwingConstants;
  */
 public class CurrentCarPanel extends JPanel
 {
-    private ArrayList<Vehicle> vehicleList;
     
     private int currentCar = -1;
     
     
-    public CurrentCarPanel(ArrayList<Vehicle> vehicleList)
+    public CurrentCarPanel()
     {
         super();
-        
-        this.vehicleList = vehicleList;
         
         init();
     }
@@ -332,12 +330,12 @@ public class CurrentCarPanel extends JPanel
     {
         if(currentCar >=0)
         {
-          this.setCarID(String.valueOf(vehicleList.get(this.currentCar).getID()));
-          this.setCarLon(String.valueOf(vehicleList.get(this.currentCar).getCorX()));
-          this.setCarLat(String.valueOf(vehicleList.get(this.currentCar).getCorY()));
-          this.setCarSpeed(String.valueOf(vehicleList.get(this.currentCar).getSpeed()));
-          this.setCarCurrentRoad(vehicleList.get(this.currentCar).getRoad().getName());
-          this.setInAccident(vehicleList.get(this.currentCar).getInAccident());
+          this.setCarID(String.valueOf(Database.getVehicle(this.currentCar).getID()));
+          this.setCarLon(String.valueOf(Database.getVehicle(this.currentCar).getCorX()));
+          this.setCarLat(String.valueOf(Database.getVehicle(this.currentCar).getCorY()));
+          this.setCarSpeed(String.valueOf(Database.getVehicle(this.currentCar).getSpeed()));
+          this.setCarCurrentRoad(Database.getVehicle(this.currentCar).getRoad().getName());
+          this.setInAccident(Database.getVehicle(this.currentCar).getInAccident());
           
           
         }
@@ -375,11 +373,11 @@ public class CurrentCarPanel extends JPanel
             {
                 if(e.getSource()==rbYes)
                 {
-                    vehicleList.get(currentCar).setInAccident(true);
+                    Database.getVehicle(currentCar).setInAccident(true);
                 }
                 if(e.getSource()==rbNo )
                 {
-                    vehicleList.get(currentCar).setInAccident(false);
+                    Database.getVehicle(currentCar).setInAccident(false);
                 }
             }
         }

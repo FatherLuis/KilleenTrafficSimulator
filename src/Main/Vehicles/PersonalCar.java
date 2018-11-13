@@ -5,8 +5,6 @@
  */
 package Main.Vehicles;
 
-import Main.Vehicles.Instructions.Instructions3;
-import Main.Init.Point;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
@@ -42,10 +40,9 @@ public class PersonalCar extends Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/  
-    public PersonalCar(Instructions3 GPS) 
+    public PersonalCar() 
     {
-        super(GPS);
-        this.GPS = GPS; 
+        super();
         color = Color.GREEN;
         speed = 40;
     }
@@ -64,8 +61,7 @@ public class PersonalCar extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*200);
-        speed = GPS.getSpeed();
+        super.move(rate*speed*200);
     }     
     
     /***************************************************************************

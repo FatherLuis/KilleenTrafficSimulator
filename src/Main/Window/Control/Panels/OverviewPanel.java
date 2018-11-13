@@ -22,14 +22,11 @@ import javax.swing.SwingConstants;
  */
 public class OverviewPanel extends JPanel
 {
-    private Database database;
     
-    public OverviewPanel(Database database)
+    public OverviewPanel()
     {
-        this.database = database;
         
         init();
-    
     }
     
     
@@ -92,7 +89,7 @@ public class OverviewPanel extends JPanel
         
         
         this.lblShowNumVehicles = new JLabel();  
-        this.lblShowNumVehicles.setText(String.valueOf(database.getVehicleListSize()));
+        this.lblShowNumVehicles.setText(String.valueOf(Database.getVehicleListSize()));
         
         this.lblShowNumVehicles.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblShowNumVehicles.setBorder(javax.swing.BorderFactory.createEtchedBorder(null,Color.GRAY));
@@ -106,7 +103,7 @@ public class OverviewPanel extends JPanel
         //c.fill = GridBagConstraints.EAST;
         this.add(this.lblShowNumVehicles,c);  
         
-        this.lblShowNumAccidents = new JLabel(String.valueOf(database.getNumAccident()));  
+        this.lblShowNumAccidents = new JLabel(String.valueOf(Database.getNumAccident()));  
         this.lblShowNumAccidents.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblShowNumAccidents.setBorder(javax.swing.BorderFactory.createEtchedBorder(null,Color.GRAY));
         c.gridx = 2;  
@@ -135,7 +132,7 @@ public class OverviewPanel extends JPanel
     
     public void update()
     {
-        this.lblShowNumAccidents.setText(String.valueOf(database.getNumAccident())); 
+        this.lblShowNumAccidents.setText(String.valueOf(Database.getNumAccident())); 
     }
     
     

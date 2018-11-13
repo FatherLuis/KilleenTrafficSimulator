@@ -6,6 +6,8 @@
 package Main.Operators;
 
 import Main.Init.Point;
+import Main.Vehicles.Vehicle;
+import java.util.ArrayList;
 
 /*******************************************************************************
 ***CLASS NAME: StopSign
@@ -21,8 +23,12 @@ import Main.Init.Point;
 *** 
 ***
 *******************************************************************************/
-public class StopSign extends Point
+public class StopSign extends Intersection
 {  
+    
+    ArrayList<Vehicle> queueVehicles;
+
+    
     /***************************************************************************
     ***METHOD NAME: StopSign()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
@@ -36,10 +42,28 @@ public class StopSign extends Point
     ***************************************************************************/
     public StopSign(Point p) 
     {
-        super(p.getID()); 
-        this.latitude = p.getLatitude();
-        this.longitude = p.getLongitude();
-        this.parentList = p.getParentList();
+        super(p); 
+        //queueVehicles = new ArrayList();
     }
+    
+    
+    public void addToQueue(Vehicle vehicle)
+    {
+        queueVehicles.add(vehicle);
+        
+    
+    }
+    
+    public void updateQueue()
+    {
+        
+        
+    
+    
+    }
+    
+    
+    
+    
     
 }
