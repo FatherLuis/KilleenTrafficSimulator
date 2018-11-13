@@ -29,7 +29,6 @@ import org.xml.sax.*;
 public class File_IO 
 {
     private Document xmlDoc;
-    private Database database;
 
     
     /***************************************************************************
@@ -47,7 +46,6 @@ public class File_IO
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
         this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
-        database = new Database();
     }
   
     
@@ -104,13 +102,13 @@ public class File_IO
         Node bound =  listOfBounds.item(0);
         
         //STORE THE MINLAT 
-        database.setBounds(0, Double.parseDouble(bound.getAttributes().getNamedItem("minlat").getNodeValue()));
+        Database.setBounds(0, Double.parseDouble(bound.getAttributes().getNamedItem("minlat").getNodeValue()));
         //STORE THE MINLON
-        database.setBounds(1,Double.parseDouble(bound.getAttributes().getNamedItem("minlon").getNodeValue()));
+        Database.setBounds(1,Double.parseDouble(bound.getAttributes().getNamedItem("minlon").getNodeValue()));
         //STORE THE MAXLAT
-        database.setBounds(2,Double.parseDouble(bound.getAttributes().getNamedItem("maxlat").getNodeValue()));
+        Database.setBounds(2,Double.parseDouble(bound.getAttributes().getNamedItem("maxlat").getNodeValue()));
         //STORE THE MAXLON 
-        database.setBounds(3,Double.parseDouble(bound.getAttributes().getNamedItem("maxlon").getNodeValue())); 
+        Database.setBounds(3,Double.parseDouble(bound.getAttributes().getNamedItem("maxlon").getNodeValue())); 
         
     }
   
@@ -286,7 +284,7 @@ public class File_IO
                     Calle.setOneway(oneway);
                     
                     //ADD ROAD TO THE ALLROADS
-                    database.addRoad(Calle);  
+                    Database.addRoad(Calle);  
                 }  
                 
             }
@@ -407,13 +405,13 @@ public class File_IO
             if(isAcceptable)
             {
                 school = new School(curPoint);
-                database.addSchool(school);
-                database.addPoint(school);
+                Database.addSchool(school);
+                Database.addPoint(school);
             
             }
             else
             {
-                database.addPoint(curPoint);
+                Database.addPoint(curPoint);
                 
             }
             
@@ -543,18 +541,18 @@ public class File_IO
         Point p;
         
         //ITERATE BY THE NUMBER OF ROADS
-        for(int i = 0; i < database.getRoadListSize(); i++)
+        for(int i = 0; i < Database.getRoadListSize(); i++)
         {
             //USED AS A REFERENCE
-            refID = database.getRoad(i).getRef();
+            refID = Database.getRoad(i).getRef();
             
             //ITERATE BY THE SIZE OF THE REFARR
             for(int j = 0 ; j < refID.size(); j++)
             {
                 //GET POINT FROM HASHTABLE
-                p = database.getPoint(refID.get(j));
+                p = Database.getPoint(refID.get(j));
                 //LET POINT KNOW WHO IT'S PARENT IS
-                p.addParent(database.getRoad(i));            
+                p.addParent(Database.getRoad(i));            
             }
         }
     }
@@ -572,11 +570,11 @@ public class File_IO
     ***************************************************************************/     
     private void CreateSigns()
     {
-        CreateSigns CS = new CreateSigns(database);
+        CreateSigns CS = new CreateSigns();
     
-        for(int i = 0; i < database.getRoadListSize(); i++)
+        for(int i = 0; i < Database.getRoadListSize(); i++)
         {
-            CS.createStopSigns(database.getRoad(i));          
+            CS.createStopSigns(Database.getRoad(i));          
         }
     }
     
@@ -628,9 +626,7 @@ public class File_IO
             
             
         
-    }
-    
-    public Database getDatabase(){return this.database;} 
+    } 
     
 
 

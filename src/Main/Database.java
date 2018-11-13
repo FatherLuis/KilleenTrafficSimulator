@@ -27,7 +27,7 @@ public class Database
     private static int numAccidents;
     
     
-    public Database()
+    static
     {
         vehicleList = new ArrayList();
         roadList = new ArrayList();
@@ -40,34 +40,34 @@ public class Database
      
     
     
-    public void addAccident(){numAccidents++;}
-    public void subAccident(){numAccidents--;}
-    public int getNumAccident(){return numAccidents;}
+    public static void addAccident(){numAccidents++;}
+    public static void subAccident(){numAccidents--;}
+    public static int getNumAccident(){return numAccidents;}
     
     
-    public ArrayList<Vehicle> getVehicleList(){ return vehicleList;} 
-    public ArrayList<Road> getRoadList(){return roadList;}   
-    public ArrayList<School> getSchoolList(){return schoolList;}
-    public PointHashTable getPHT(){return PHT;}
+    public static ArrayList<Vehicle> getVehicleList(){ return vehicleList;} 
+    public static ArrayList<Road> getRoadList(){return roadList;}   
+    public static ArrayList<School> getSchoolList(){return schoolList;}
+    public static PointHashTable getPHT(){return PHT;}
     
-    public int getVehicleListSize(){return vehicleList.size();}
-    public int getRoadListSize(){return roadList.size();}
-    public int getSchoolListSize(){return schoolList.size();}
-    
-    
-    
-    public void addVehicle(Vehicle vehicle){vehicleList.add(vehicle);}
-    public void addRoad(Road road){roadList.add(road);}
-    public void addPoint(Point point){ PHT.put(point);}
-    public void addSchool(School school){ schoolList.add(school);}
-    public void setBounds( int index, double bound ){ boundList[index] = bound;}
+    public static int getVehicleListSize(){return vehicleList.size();}
+    public static int getRoadListSize(){return roadList.size();}
+    public static int getSchoolListSize(){return schoolList.size();}
     
     
-    public Road getRoad(int index){return roadList.get(index);}
-    public Vehicle getVehicle(int index){return vehicleList.get(index);}
-    public School getSchool(int index){return schoolList.get(index);}
-    public double getBounds(int index){return boundList[index];}
-    public Point getPoint(String pointID){ return PHT.getPoint(pointID);}
+    
+    public static void addVehicle(Vehicle vehicle){vehicleList.add(vehicle);}
+    public static void addRoad(Road road){roadList.add(road);}
+    public static void addPoint(Point point){ PHT.put(point);}
+    public static void addSchool(School school){ schoolList.add(school);}
+    public static void setBounds( int index, double bound ){ boundList[index] = bound;}
+    
+    
+    public static Road getRoad(int index){return roadList.get(index);}
+    public static Vehicle getVehicle(int index){return vehicleList.get(index);}
+    public static School getSchool(int index){return schoolList.get(index);}
+    public static double getBounds(int index){return boundList[index];}
+    public static Point getPoint(String pointID){ return PHT.getPoint(pointID);}
     
     
     

@@ -30,7 +30,6 @@ import javax.swing.JFrame;
 public class MainGUI 
 {
     private static Drawable Painter;
-    private static Database database;
     
    
     /***************************************************************************
@@ -78,20 +77,20 @@ public class MainGUI
         CreateVehicles();
           
         //GIVES INFORMATION TO THE PAINTERS
-        Painter = new Drawable(database);
+        Painter = new Drawable();
         
         
         //SETS THE PANEL WHERE THE MAP IS GOING TO BE DRAWN
-        TrafficPanel TP = new TrafficPanel(Painter,database);
+        TrafficPanel TP = new TrafficPanel(Painter);
         
         //THIS PANEL WILL BE USED FOR THE TRAFFIC CONTROLS
-        ControlPanel CP = new ControlPanel(database);
+        ControlPanel CP = new ControlPanel();
      
         
         
         
         
-        SplitPanel SplitP = new SplitPanel(TP,CP, database);
+        SplitPanel SplitP = new SplitPanel(TP,CP);
        
         
         
@@ -131,10 +130,6 @@ public class MainGUI
         File_IO Doc = new File_IO();
         //DOES NEEDED METHODS
         Doc.MainCalculation();
-        
-        database = Doc.getDatabase();
-    
-    
     }
     
     
@@ -151,7 +146,7 @@ public class MainGUI
         
         for(int i=0; i < 5000; i++)
         {
-            ins = new Instructions3(database);
+            ins = new Instructions3();
             
             if(num > 20)
             {
@@ -163,7 +158,7 @@ public class MainGUI
             }
             
             
-            database.addVehicle(vehicle);
+            Database.addVehicle(vehicle);
             
             num = rand.nextInt(100);
         

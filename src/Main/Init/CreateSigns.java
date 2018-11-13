@@ -25,7 +25,6 @@ import java.util.ArrayList;
 *******************************************************************************/
 public class CreateSigns 
 {   
-    private Database database;
     
     /***************************************************************************
     ***METHOD NAME: CreateSigns
@@ -38,9 +37,8 @@ public class CreateSigns
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public CreateSigns (Database database)
+    public CreateSigns ()
     {   
-        this.database = database;
     }
     
     /***************************************************************************
@@ -67,7 +65,7 @@ public class CreateSigns
 
             for(int i = 0; i < curRef.size(); i++)
             {
-                p1 = database.getPoint((String)curRef.get(i));
+                p1 = Database.getPoint((String)curRef.get(i));
                 
                 if(p1 == null)
                 {
@@ -78,7 +76,7 @@ public class CreateSigns
                 if(p1.hasParents())
                 {             
                     ss = new StopSign(p1);
-                    database.addPoint(ss);   
+                    Database.addPoint(ss);   
                 }   
             }  
         }

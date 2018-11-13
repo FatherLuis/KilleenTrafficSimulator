@@ -17,8 +17,6 @@ import java.util.Random;
  */
 public class Instructions3 
 {
- 
-    private Database database;
     private Route route;
     
     private Road curRoad;
@@ -48,9 +46,8 @@ public class Instructions3
     
     
 
-    public Instructions3(Database database)
+    public Instructions3()
     {
-        this.database = database;
         this.route = new Route();
         this.setUpLocation();
     }
@@ -58,15 +55,15 @@ public class Instructions3
     
     private void setUpLocation()
     {
-        RoadIndex = rand.nextInt(database.getRoadListSize());
+        RoadIndex = rand.nextInt(Database.getRoadListSize());
 
-        curRoad = database.getRoad(RoadIndex);
+        curRoad = Database.getRoad(RoadIndex);
 
         NodeIndex = rand.nextInt(curRoad.getRef().size());
 
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
-        curPoint = database.getPoint(ID);
+        curPoint = Database.getPoint(ID);
         
         this.speed = curRoad.getSpeed();
         
@@ -77,7 +74,7 @@ public class Instructions3
         {
             inAccident = true;
             isMoveable = false;
-            database.addAccident();
+            Database.addAccident();
         
         }
 
@@ -109,7 +106,7 @@ public class Instructions3
     { 
         this.inAccident = inAccident;
         
-        if(inAccident == true){database.addAccident();}else{database.subAccident();}
+        if(inAccident == true){Database.addAccident();}else{Database.subAccident();}
     }
     public boolean getInAccident(){ return this.inAccident;}
     
@@ -146,7 +143,7 @@ public class Instructions3
             {
                 
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                Point p1 = database.getPoint(ID);
+                Point p1 = Database.getPoint(ID);
 
                 if((curPoint instanceof StopSign && this.curRoad.getType().equals("residential")))
                 {
@@ -158,7 +155,7 @@ public class Instructions3
                 //System.out.println("FL   old: " + NodeIndex + " new: " + (NodeIndex+1));
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = database.getPoint(ID);
+                curPoint = Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                            
@@ -209,7 +206,7 @@ public class Instructions3
             if(NodeIndex > 0)
             {
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                Point p1 = database.getPoint(ID);
+                Point p1 = Database.getPoint(ID);
 
                 //System.out.println("RL   old: " + NodeIndex + " new: " + (NodeIndex-1));
 
@@ -221,7 +218,7 @@ public class Instructions3
                 
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = database.getPoint(ID);
+                curPoint = Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                          

@@ -44,8 +44,6 @@ public class TrafficPanel extends JPanel
     private Drawable Painter;  
 
     private double scalar = 0.25;
-    
-    private Database database;
     private Tracker tracker;
     
     private Normalization normCalcX;
@@ -64,7 +62,7 @@ public class TrafficPanel extends JPanel
     ****************************************************************************
     ***DATE: OCT0BER 5, 2018
     ***************************************************************************/ 
-    public TrafficPanel(Drawable painter, Database database)
+    public TrafficPanel(Drawable painter)
     {
         super();
         this.setPreferredSize(new Dimension(500,500));
@@ -77,9 +75,7 @@ public class TrafficPanel extends JPanel
         this.setCursor(hand);
         this.setBackground(Color.GRAY);
 
-        this.tracker = new Tracker(database);
-       
-        this.database = database;
+        this.tracker = new Tracker();
         
         MouseHandler mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
@@ -122,13 +118,13 @@ public class TrafficPanel extends JPanel
         //SECOND PARAMETER IS THE MIN LONGITUDE
         //THIRD PARAMETER IS THE MAX X COORDINATE
         //FOURTH PARAMETER IS THE MIN X COORDINATE
-        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), WIDTH, 0 );
+        normCalcX = new Normalization(Database.getBounds(3), Database.getBounds(1), WIDTH, 0 );
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
-        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0),HEIGHT, 0 );
+        normCalcY = new Normalization(Database.getBounds(2), Database.getBounds(0),HEIGHT, 0 );
     }   
     
     

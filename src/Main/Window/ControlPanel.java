@@ -43,8 +43,6 @@ public class ControlPanel extends JPanel
     public int WIDTH= 400;
     public int HEIGHT = 500; 
     
-    private Database database;
-    
     private TimerPanel Timer;
     private CurrentCarPanel CCP;
     private OverviewPanel OP;
@@ -60,12 +58,9 @@ public class ControlPanel extends JPanel
     ****************************************************************************
     ***DATE: OCTOBER 7, 2018
     ***************************************************************************/     
-    public ControlPanel(Database database)
+    public ControlPanel()
     {
         super();
-        
-        this.database = database;
-
         //init();
         //setUpPanels();
         

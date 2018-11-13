@@ -40,8 +40,7 @@ import java.util.Random;
 *******************************************************************************/
 public class Drawable 
 {
-    
-    private Database database;
+
     
     private Normalization normCalcX;
     private Normalization normCalcY;
@@ -67,9 +66,8 @@ public class Drawable
     ****************************************************************************
     ***DATE: OCTUBER 5 , 2018
     ***************************************************************************/    
-    public Drawable(Database database)
+    public Drawable()
     {
-        this.database = database;
         //g = TP.getGraphics();
         normalizeZone();
     }
@@ -94,14 +92,14 @@ public class Drawable
         //FOURTH PARAMETER IS THE MIN X COORDINATE
         //normCalcX = new Normalization( this.Bounds[3],this.Bounds[1], this.WIDTH, 0 );
         
-        normCalcX = new Normalization(database.getBounds(3), database.getBounds(1), this.WIDTH, 0);
+        normCalcX = new Normalization(Database.getBounds(3), Database.getBounds(1), this.WIDTH, 0);
                 
         //FIRST PARAMATER IS THE MAX LATITUDE
         //SECOND PARAMETER IS THE MIN LATITUDE
         //THIRD PARAMETER IS THE MAX X LATITUDE
         //FOURTH PARAMETER IS THE MIN X LATITUDE
         //normCalcY = new Normalization(this.Bounds[2],this.Bounds[0], this.HEIGHT, 0 );
-        normCalcY = new Normalization(database.getBounds(2), database.getBounds(0), this.HEIGHT, 0);
+        normCalcY = new Normalization(Database.getBounds(2), Database.getBounds(0), this.HEIGHT, 0);
     }
 
 
@@ -170,23 +168,23 @@ public class Drawable
         ArrayList<String> curRoadPoints;
         
         //ITERATE BY THE NUMBER OF ROADS ON THE ARRAYLIST
-        for(int i = 0; i < database.getRoadListSize() ; i++)
+        for(int i = 0; i < Database.getRoadListSize() ; i++)
         {
-//            if(scaler <= 1 && database.getRoad(i).getType().equals("Residential"))
+//            if(scaler <= 1 && Database.getRoad(i).getType().equals("Residential"))
 //            {
             
             
                 //USE AS A REFERNCE TO THE CURRENT ROAD REF ARRAYLIST
-                curRoadPoints = database.getRoad(i).getRef();
+                curRoadPoints = Database.getRoad(i).getRef();
 
                 //ITERATES BY THE SIZE OF THE CURRENT ROAD REF ARRAYLIST
                 for(int j = 0 ; j < curRoadPoints.size() - 1 ; j++)
                 {
                         //GETS THE OBJECT POINT FROM THE HASHTABLE
-                        p =database.getPoint(curRoadPoints.get(j));
+                        p =Database.getPoint(curRoadPoints.get(j));
 
                         //GETS THE OBJECT POINT FROM THE HASHTABLE
-                        p2 =database.getPoint(curRoadPoints.get(j+1));
+                        p2 =Database.getPoint(curRoadPoints.get(j+1));
 
                         if(p == null)
                         {
@@ -261,13 +259,13 @@ public class Drawable
         
         Ellipse2D.Double shape;
         
-        for(int i = 0; i < database.getVehicleListSize(); i++)
+        for(int i = 0; i < Database.getVehicleListSize(); i++)
         {
-            g3.setColor(database.getVehicle(i).getColor());
+            g3.setColor(Database.getVehicle(i).getColor());
             
-            x1 = shiftX(normCalcX.Normalize(database.getVehicle(i).getCorX()));
+            x1 = shiftX(normCalcX.Normalize(Database.getVehicle(i).getCorX()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = shiftY(OperationY(normCalcY.Normalize(database.getVehicle(i).getCorY())));
+            y1 = shiftY(OperationY(normCalcY.Normalize(Database.getVehicle(i).getCorY())));
 
 
             //subtract the x and y by the radius
@@ -281,7 +279,7 @@ public class Drawable
 //
 //            //g3.setColor(this.vehicleList.get(i).getColor());
 //            g3.draw(shape);
-            database.getVehicle(i).draw(g3, x1-r, y1-r, d, d,scaler);
+            Database.getVehicle(i).draw(g3, x1-r, y1-r, d, d,scaler);
 
 
         }
@@ -302,13 +300,13 @@ public class Drawable
         
         Ellipse2D.Double shape;
         
-        for(int i = 0; i < database.getSchoolListSize(); i++)
+        for(int i = 0; i < Database.getSchoolListSize(); i++)
         {
             g3.setColor(Color.cyan);
             
-            x1 = shiftX(normCalcX.Normalize(database.getSchool(i).getLongitude()));
+            x1 = shiftX(normCalcX.Normalize(Database.getSchool(i).getLongitude()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
-            y1 = shiftY(OperationY(normCalcY.Normalize(database.getSchool(i).getLatitude())));
+            y1 = shiftY(OperationY(normCalcY.Normalize(Database.getSchool(i).getLatitude())));
 
 
             //subtract the x and y by the radius
@@ -331,9 +329,9 @@ public class Drawable
     
     public void updateVehicles(int rate)
     {
-        for(int i = 0; i < database.getVehicleListSize(); i++)
+        for(int i = 0; i < Database.getVehicleListSize(); i++)
         {
-            database.getVehicle(i).move(rate);
+            Database.getVehicle(i).move(rate);
         }
     }
     
