@@ -2,6 +2,7 @@ package Main.Init;
 
 import Main.Building.School;
 import Main.Database;
+import Main.Operators.Intersection;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -538,7 +539,7 @@ public class File_IO
     private void AssignParents()
     {
         ArrayList<String> refID;
-        Point p;
+        Intersection p;
         
         //ITERATE BY THE NUMBER OF ROADS
         for(int i = 0; i < Database.getRoadListSize(); i++)
@@ -550,11 +551,29 @@ public class File_IO
             for(int j = 0 ; j < refID.size(); j++)
             {
                 //GET POINT FROM HASHTABLE
-                p = Database.getPoint(refID.get(j));
+                p = new Intersection(Database.getPoint(refID.get(j)));
+                Database.addPoint(p);
+            }  
+        }
+        
+        
+         
+        for(int i = 0; i < Database.getRoadListSize(); i++)
+        {
+            //USED AS A REFERENCE
+            refID = Database.getRoad(i).getRef();
+            
+            //ITERATE BY THE SIZE OF THE REFARR
+            for(int j = 0 ; j < refID.size(); j++)
+            {
+                //GET POINT FROM HASHTABLE
+                p = (Intersection)Database.getPoint(refID.get(j));
                 //LET POINT KNOW WHO IT'S PARENT IS
                 p.addParent(Database.getRoad(i));            
-            }
-        }
+            }  
+        }       
+        
+        
     }
     
     /***************************************************************************

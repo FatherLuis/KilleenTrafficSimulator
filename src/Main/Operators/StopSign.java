@@ -21,7 +21,7 @@ import Main.Init.Point;
 *** 
 ***
 *******************************************************************************/
-public class StopSign extends Point
+public class StopSign extends Intersection
 {  
     /***************************************************************************
     ***METHOD NAME: StopSign()
@@ -36,10 +36,8 @@ public class StopSign extends Point
     ***************************************************************************/
     public StopSign(Point p) 
     {
-        super(p.getID()); 
-        this.latitude = p.getLatitude();
-        this.longitude = p.getLongitude();
-        this.parentList = p.getParentList();
+        super(p); 
+        this.parentList = p.getParentList(); 
     }
     
 }

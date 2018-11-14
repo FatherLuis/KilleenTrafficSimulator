@@ -8,6 +8,7 @@ package Main.Vehicles.Instructions;
 import Main.Database;
 import Main.Init.Point;
 import Main.Init.Road;
+import Main.Operators.Intersection;
 import Main.Operators.StopSign;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class Instructions3
     private Route route;
     
     private Road curRoad;
-    private Point curPoint;   
+    private Intersection curPoint;   
     private String position;  
     private int RoadIndex;
     private int NodeIndex;  
@@ -63,7 +64,7 @@ public class Instructions3
 
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
-        curPoint = Database.getPoint(ID);
+        curPoint = (Intersection)Database.getPoint(ID);
         
         this.speed = curRoad.getSpeed();
         
@@ -98,7 +99,7 @@ public class Instructions3
     
     
     public Point getPoint(){return curPoint;}
-    public void setPoint(Point p){this.curPoint = p;}
+    public void setPoint(Point p){this.curPoint = (Intersection)p;}
     public double getSpeed(){return speed;}
     public Road getRoad(){return curRoad;}  
     
@@ -155,7 +156,7 @@ public class Instructions3
                 //System.out.println("FL   old: " + NodeIndex + " new: " + (NodeIndex+1));
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = Database.getPoint(ID);
+                curPoint = (Intersection)Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                            
@@ -218,7 +219,7 @@ public class Instructions3
                 
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = Database.getPoint(ID);
+                curPoint = (Intersection)Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                          
