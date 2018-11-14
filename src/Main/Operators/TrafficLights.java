@@ -21,7 +21,7 @@ import Main.Init.Point;
 *** 
 ***
 *******************************************************************************/
-public class TrafficLights extends Point
+public class TrafficLights extends Intersection
 {
     /***************************************************************************
     ***METHOD NAME: TrafficLights()
@@ -34,11 +34,9 @@ public class TrafficLights extends Point
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public TrafficLights(Point p) 
+    public TrafficLights(Intersection p) 
     {
-        super(p.getID()); 
-        this.latitude = p.getLatitude();
-        this.longitude = p.getLongitude();
+        super(p); 
         this.parentList = p.getParentList();
     }
     

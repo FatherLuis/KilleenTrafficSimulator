@@ -5,7 +5,6 @@
  */
 package Main.Operators;
 
-import Main.Init.Point;
 import Main.Init.Road;
 import java.util.ArrayList;
 
@@ -13,19 +12,17 @@ import java.util.ArrayList;
  *
  * @author fathe
  */
-public class Intersection extends Point
+public class Intersection extends RoadNode
 {    
     protected ArrayList<Road> parentList;
     
-    protected ArrayList incomingVehicles;
+
     
-    public Intersection(Point p) 
+    public Intersection(RoadNode p) 
     {
-        super(p.getID());
-        latitude = p.getLatitude();
-        longitude = p.getLongitude();
+        super(p);
         this.parentList = new ArrayList();
-        this.incomingVehicles = new ArrayList();
+
     }
     
       /***************************************************************************
@@ -39,36 +36,45 @@ public class Intersection extends Point
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/
-    public ArrayList<Road> getParentList() {
+    public ArrayList<Road> getParentList() 
+    {
         return this.parentList;
     }
-
-    /***************************************************************************
-    ***METHOD NAME: setParentList()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: SET THE ParentList
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: String
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28, 2018
-    ***************************************************************************/
-    public void addParent(Road parentID) 
+    
+    
+    public void addParent(Road road)
     {
+        boolean pass = true;
+        
+        //System.out.println("\n\nCOMING IN:  " + road.getName() + "   " +road.getID());
+        
         if(!this.parentList.isEmpty())
         {
-            if(!this.parentList.contains(parentID))
+            
+            for(int i=0; i < parentList.size(); i++)
             {
-                this.parentList.add(parentID);
+                //System.out.print("Already Here:  " + this.parentList.get(i).getID() + ",  ");
+                
+                if(this.parentList.get(i).getID().equals(road.getID()))
+                {
+                    pass = false;
+                }
+
             }
+            
+            if(pass)
+            {
+                
+                this.parentList.add(road);
+            }
+            
         }
         else
         {
-            this.parentList.add(parentID);
+            this.parentList.add(road);
+        
         }
-            
-    } 
+    }
     
     public boolean hasParents()
     {
@@ -76,20 +82,6 @@ public class Intersection extends Point
     }   
     
     
-    public void addVehicle(String vehicleID)
-    {
-        
-        this.incomingVehicles.add(vehicleID);
-    
-    }
-    
-    public void removeVehicle(String vehicleID)
-    {
-        this.incomingVehicles.remove(vehicleID);
-    }
-    
-    public ArrayList getIncomingVehicles(){return this.incomingVehicles;}
-    
-    
+
     
 }

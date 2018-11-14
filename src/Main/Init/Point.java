@@ -22,8 +22,6 @@ public class Point
     String nodeID;
     protected double longitude;
     protected double latitude;
-    
-    protected ArrayList<Road> parentList;
  
     
     /***************************************************************************
@@ -40,7 +38,6 @@ public class Point
     public Point(String nodeID)
     {
         this.nodeID = nodeID;
-        parentList = new ArrayList();
     }
     
     
@@ -119,52 +116,5 @@ public class Point
     {
         this.latitude = latitude;
     }    
-    
-     /***************************************************************************
-    ***METHOD NAME: getParentList()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: RETURN ParentList
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: NONE
-    ***RETURN VALUE: ArrayList
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28, 2018
-    ***************************************************************************/
-    public ArrayList<Road> getParentList() {
-        return this.parentList;
-    }
-
-    /***************************************************************************
-    ***METHOD NAME: setParentList()
-    ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
-    ****************************************************************************
-    ***PURPOSE OF THE METHOD: SET THE ParentList
-    ***METHOD USED: NONE
-    ***METHOD PARAMETERS: String
-    ***RETURN VALUE: NONE
-    ****************************************************************************
-    ***DATE: SEPTEMBER 28, 2018
-    ***************************************************************************/
-    public void addParent(Road parentID) 
-    {
-        if(!this.parentList.isEmpty())
-        {
-            if(!this.parentList.contains(parentID))
-            {
-                this.parentList.add(parentID);
-            }
-        }
-        else
-        {
-            this.parentList.add(parentID);
-        }
-            
-    } 
-    
-    public boolean hasParents()
-    {
-        return this.parentList.size() > 1;
-    }
-    
+  
 }

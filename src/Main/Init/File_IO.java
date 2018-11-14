@@ -3,7 +3,12 @@ package Main.Init;
 import Main.Building.School;
 import Main.Database;
 import Main.Operators.Intersection;
+import Main.Operators.RoadNode;
+import Main.Vehicles.Bus;
+import Main.Vehicles.PersonalCar;
+import Main.Vehicles.Vehicle;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -46,7 +51,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
+        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
     }
   
     
@@ -539,6 +544,9 @@ public class File_IO
     private void AssignParents()
     {
         ArrayList<String> refID;
+        
+        Point curPoint;
+        RoadNode rn;
         Intersection p;
         
         //ITERATE BY THE NUMBER OF ROADS
@@ -547,33 +555,37 @@ public class File_IO
             //USED AS A REFERENCE
             refID = Database.getRoad(i).getRef();
             
-            //ITERATE BY THE SIZE OF THE REFARR
             for(int j = 0 ; j < refID.size(); j++)
             {
-                //GET POINT FROM HASHTABLE
-                p = new Intersection(Database.getPoint(refID.get(j)));
-                Database.addPoint(p);
-            }  
-        }
-        
-        
-         
-        for(int i = 0; i < Database.getRoadListSize(); i++)
-        {
-            //USED AS A REFERENCE
-            refID = Database.getRoad(i).getRef();
-            
-            //ITERATE BY THE SIZE OF THE REFARR
-            for(int j = 0 ; j < refID.size(); j++)
-            {
-                //GET POINT FROM HASHTABLE
-                p = (Intersection)Database.getPoint(refID.get(j));
-                //LET POINT KNOW WHO IT'S PARENT IS
-                p.addParent(Database.getRoad(i));            
-            }  
-        }       
-        
-        
+                curPoint = Database.getPoint(refID.get(j));
+                
+                if(curPoint instanceof Intersection)
+                {
+                    p = (Intersection)curPoint;
+                    p.addParent(Database.getRoad(i));  
+                    
+                }
+                else if(curPoint instanceof RoadNode)
+                {        
+                    p = new Intersection((RoadNode)curPoint);
+                    p.addParent(((RoadNode)curPoint).getRoad());
+                    
+                    p.addParent(Database.getRoad(i)); 
+                    Database.addPoint(p);
+                }
+                else if(curPoint instanceof Point)
+                {
+                    rn = new RoadNode(curPoint);
+                    rn.setRoad(Database.getRoad(i));
+                    Database.addPoint(rn);
+                
+                }
+                else
+                {
+                    System.out.println("FAILED");
+                }
+            }              
+        }         
     }
     
     /***************************************************************************
@@ -638,17 +650,44 @@ public class File_IO
             end = System.currentTimeMillis();
             System.out.println("CreateSigns Time: "+(double)(end - start)/1000+ " Seconds");
             
-            
-            
-        //CSVReader reader = new CSVReader(PHT);
-        //reader.ReadFile();
+        CreateVehicles();    
+
             
             
         
     } 
     
 
-
+    private void CreateVehicles()
+    {          
+        //System.out.println("///////////////////////////////////////////// \n\n");
+        
+        Vehicle vehicle;
+        
+        Random rand = new Random();
+        
+        int num = rand.nextInt(100);
+        
+        for(int i=0; i < 50; i++)
+        {
+            
+            if(num > 20)
+            {
+                vehicle = new PersonalCar();
+            }
+            else
+            {
+                vehicle = new Bus();
+            }
+            
+            
+            Database.addVehicle(vehicle);
+            
+            num = rand.nextInt(100);
+        
+        
+        }
+    }
     
   
     

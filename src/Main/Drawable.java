@@ -271,7 +271,7 @@ public class Drawable
             //subtract the x and y by the radius
             //since there is a scalar, we'll gonna be to figure out something
             
-            d = 4*scaler; 
+            d = 10*scaler; 
             r = d/2;
 //            
 //            

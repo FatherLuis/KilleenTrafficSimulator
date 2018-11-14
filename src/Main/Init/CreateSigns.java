@@ -6,6 +6,7 @@
 package Main.Init;
 
 import Main.Database;
+import Main.Operators.Intersection;
 import Main.Operators.StopSign;
 import java.util.ArrayList;
 
@@ -66,17 +67,11 @@ public class CreateSigns
             for(int i = 0; i < curRef.size(); i++)
             {
                 p1 = Database.getPoint((String)curRef.get(i));
-                
-                if(p1 == null)
-                {
-                    System.out.println("CSS Point was NUll");
-                }
-                
-                
-                if(p1.hasParents())
-                {             
-                    ss = new StopSign(p1);
-                    Database.addPoint(ss);   
+               
+                if(p1 instanceof Intersection)
+                {        
+                    ss = new StopSign((Intersection)p1);
+                    Database.addPoint(ss); 
                 }   
             }  
         }

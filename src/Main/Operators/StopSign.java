@@ -34,7 +34,7 @@ public class StopSign extends Intersection
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public StopSign(Point p) 
+    public StopSign(Intersection p) 
     {
         super(p); 
         this.parentList = p.getParentList(); 

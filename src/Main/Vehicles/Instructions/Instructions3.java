@@ -9,6 +9,7 @@ import Main.Database;
 import Main.Init.Point;
 import Main.Init.Road;
 import Main.Operators.Intersection;
+import Main.Operators.RoadNode;
 import Main.Operators.StopSign;
 import java.util.Random;
 
@@ -21,7 +22,9 @@ public class Instructions3
     private Route route;
     
     private Road curRoad;
-    private Intersection curPoint;   
+    
+    private RoadNode curPoint;   
+    
     private String position;  
     private int RoadIndex;
     private int NodeIndex;  
@@ -64,7 +67,7 @@ public class Instructions3
 
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
-        curPoint = (Intersection)Database.getPoint(ID);
+        curPoint = (RoadNode)Database.getPoint(ID);
         
         this.speed = curRoad.getSpeed();
         
@@ -156,7 +159,8 @@ public class Instructions3
                 //System.out.println("FL   old: " + NodeIndex + " new: " + (NodeIndex+1));
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = (Intersection)Database.getPoint(ID);
+                
+                curPoint = (RoadNode)Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                            
@@ -219,7 +223,7 @@ public class Instructions3
                 
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
-                curPoint = (Intersection)Database.getPoint(ID);
+                curPoint = (RoadNode)Database.getPoint(ID);
 
                 route.newRoute(p1, curPoint);
                          
@@ -276,13 +280,20 @@ public class Instructions3
             {      
                 if(NodeIndex == 0 || NodeIndex == curRoad.getRef().size() - 1)
                 { 
-                    if(curPoint.hasParents())
+                    if(curPoint instanceof Intersection )
                     {
-                        //System.out.println("\n1REL?");
-                        relocate();
-                        //System.out.println("2REL?");
+                        if(((Intersection)curPoint).hasParents())
+                        {
+                            //System.out.println("\n1REL?");
+                            relocate();
+                            //System.out.println("2REL?");
 
-                        basicMove();
+                            basicMove();
+                        }
+                        else
+                        {
+                            cornerRoad(); 
+                        }
                     }
                     else
                     {
@@ -322,15 +333,21 @@ public class Instructions3
     private void relocate()
     {
         Road tempRoad;
-
+        Intersection p = (Intersection) curPoint;
+        
         do
         {        
-            randNum = rand.nextInt(curPoint.getParentList().size());
-            tempRoad = (Road) curPoint.getParentList().get(randNum);
+            randNum = rand.nextInt(p.getParentList().size());
+            tempRoad = (Road) p.getParentList().get(randNum);
+            
+            
+            //System.out.print("LOOP  ");
 
                 
 
         }while(curRoad.getID().equals(tempRoad.getID()));
+        
+        //System.out.println();
 
         curRoad = tempRoad; 
         
@@ -399,13 +416,14 @@ public class Instructions3
     
     private void possibleRelocate()
     {
-        
+        Intersection p;
         randNum = rand.nextInt(100);
  
-        if(curPoint.hasParents() && randNum > 70)
+        if(curPoint instanceof Intersection && randNum > 70)
         {
-            randNum = rand.nextInt(curPoint.getParentList().size());
-            Road tempRoad = (Road) curPoint.getParentList().get(randNum);
+            p = (Intersection) curPoint;
+            randNum = rand.nextInt(p.getParentList().size());
+            Road tempRoad = (Road) p.getParentList().get(randNum);
 
             if(!(curRoad.getID().equals(tempRoad.getID())))
             {
