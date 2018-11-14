@@ -42,10 +42,9 @@ public class PersonalCar extends Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/  
-    public PersonalCar(Instructions3 GPS) 
+    public PersonalCar() 
     {
-        super(GPS);
-        this.GPS = GPS; 
+        super();
         color = Color.GREEN;
         speed = 40;
     }
