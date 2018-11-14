@@ -51,7 +51,7 @@ public class File_IO
     public File_IO()
     {
         //YOU CAN CHANGE THE FILE PATH TO A DIFFERENT XML FILE
-        this.xmlDoc = getDocument("src\\Maps\\TEST3.xml");
+        this.xmlDoc = getDocument("src\\Maps\\FinalMap.xml");
     }
   
     
@@ -668,7 +668,7 @@ public class File_IO
         
         int num = rand.nextInt(100);
         
-        for(int i=0; i < 50; i++)
+        for(int i=0; i < 5000; i++)
         {
             
             if(num > 20)

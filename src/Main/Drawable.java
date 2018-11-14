@@ -45,14 +45,16 @@ public class Drawable
     private Normalization normCalcX;
     private Normalization normCalcY;
     
-    private int WIDTH = 10000;
-    private int HEIGHT = 9000;
+    private int WIDTH= 6000;
+    private int HEIGHT = 5000;
     
     private double scaler = 1;
     double shiftX;
     double shiftY;
 
-    
+    Graphics2D roadPen;
+    Graphics2D vehiclePen;
+    Graphics2D schoolPen;
     
     
     /***************************************************************************
@@ -149,11 +151,11 @@ public class Drawable
         
         
         /////////////////////////////////////////////////
-        Graphics2D pen = (Graphics2D) g.create();
-        pen.setStroke(new BasicStroke(1));
+        roadPen = (Graphics2D) g.create();
+        roadPen.setStroke(new BasicStroke(1));
         //MAKE THE LINES NICER (?)
-        pen.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        pen.setColor(Color.DARK_GRAY);
+        roadPen.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        roadPen.setColor(Color.DARK_GRAY);
         /////////////////////////////////////////////////
         
         Point p ;
@@ -209,7 +211,7 @@ public class Drawable
 
 
                         //DRAW A LINE FROM P1 TO P2
-                        pen.draw(new Line2D.Double(x1,y1,x2,y2)); 
+                        roadPen.draw(new Line2D.Double(x1,y1,x2,y2)); 
                         //g3.draw(new Line2D.Double(x1,y1,x2,y2));
 
 
@@ -246,9 +248,9 @@ public class Drawable
     ***************************************************************************/   
     public void DrawCar(Graphics g)
     {
-        Graphics2D g3 = (Graphics2D) g.create();
-        g3.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g3.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+        vehiclePen = (Graphics2D) g.create();
+        vehiclePen.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        vehiclePen.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         //g3.setColor(Color.BLUE);
 
         
@@ -261,25 +263,30 @@ public class Drawable
         
         for(int i = 0; i < Database.getVehicleListSize(); i++)
         {
-            g3.setColor(Database.getVehicle(i).getColor());
+            vehiclePen.setColor(Database.getVehicle(i).getColor());
             
             x1 = shiftX(normCalcX.Normalize(Database.getVehicle(i).getCorX()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
             y1 = shiftY(OperationY(normCalcY.Normalize(Database.getVehicle(i).getCorY())));
 
-
-            //subtract the x and y by the radius
-            //since there is a scalar, we'll gonna be to figure out something
             
-            d = 10*scaler; 
+            
+            d = 6*scaler; 
             r = d/2;
-//            
-//            
-//            shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
-//
-//            //g3.setColor(this.vehicleList.get(i).getColor());
-//            g3.draw(shape);
-            Database.getVehicle(i).draw(g3, x1-r, y1-r, d, d,scaler);
+            
+            if(scaler <= 1.50)
+            {     
+                d = 6*scaler; 
+                r = d/2;
+            }
+            else 
+            {  
+                d = 6*1.5; 
+                r = d/2;
+            }
+
+
+            Database.getVehicle(i).draw(vehiclePen, x1-r, y1-r, d, d,scaler);
 
 
         }
@@ -291,7 +298,7 @@ public class Drawable
     {       
         Random rand = new Random();
         
-        Graphics2D g3 = (Graphics2D) g.create();
+        schoolPen = (Graphics2D) g.create();
     
         double x1;
         double y1;
@@ -302,7 +309,7 @@ public class Drawable
         
         for(int i = 0; i < Database.getSchoolListSize(); i++)
         {
-            g3.setColor(Color.cyan);
+            schoolPen.setColor(Color.cyan);
             
             x1 = shiftX(normCalcX.Normalize(Database.getSchool(i).getLongitude()));
             //CONVERT THE POINT'S LATITUDE TO Y COORDINATE
@@ -319,7 +326,7 @@ public class Drawable
             shape = new Ellipse2D.Double(x1-r,y1-r,d,d);
 
             //g3.setColor(this.vehicleList.get(i).getColor());
-            g3.draw(shape);
+            schoolPen.draw(shape);
             //this.schoolList.get(i).draw(g3, x1-r, y1-r, d, d);
 
 

@@ -61,7 +61,7 @@ public class Bus extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*200);
+        GPS.move(rate*speed*500);
         speed = GPS.getSpeed();
     }
     

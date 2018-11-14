@@ -37,8 +37,8 @@ import javax.swing.JPanel;
 public class TrafficPanel extends JPanel 
 {    
     
-    public int WIDTH= 10000;
-    public int HEIGHT = 9000;
+    public int WIDTH= 6000;
+    public int HEIGHT = 5000;
     
     private CurrentCarPanel CCP;
     private Drawable Painter;  

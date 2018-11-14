@@ -50,10 +50,13 @@ public class Instructions3
     
     
 
-    public Instructions3()
+    private String vehicleID;
+    public Instructions3(int vehicleID)
     {
         this.route = new Route();
         this.setUpLocation();
+        
+        this.vehicleID = String.valueOf(vehicleID);
     }
     
     
@@ -94,6 +97,8 @@ public class Instructions3
             position = "RL";
 
         }
+        
+        if(curRoad.isOneWay()){position = "FL";}
         
         
         
@@ -160,7 +165,9 @@ public class Instructions3
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
                 
+                //curPoint.removeVehicle(vehicleID);
                 curPoint = (RoadNode)Database.getPoint(ID);
+                //curPoint.addVehicle(vehicleID);
 
                 route.newRoute(p1, curPoint);
                            
@@ -223,7 +230,10 @@ public class Instructions3
                 
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
+                
+                //curPoint.removeVehicle(vehicleID);
                 curPoint = (RoadNode)Database.getPoint(ID);
+                //curPoint.addVehicle(vehicleID);
 
                 route.newRoute(p1, curPoint);
                          
@@ -268,11 +278,7 @@ public class Instructions3
     {
         this.rate = rate;
         
-        if(curRoad.isOneWay())
-        {
-            //System.out.println("curRoad: "  + curRoad.getName() + "    " + curRoad.isOneWay());
-            position = "FL";
-        }
+
 
         if(isMoveable)
         {
@@ -380,6 +386,8 @@ public class Instructions3
                         position = "RL";
                     }
                 }
+                
+                if(curRoad.isOneWay()){position = "FL";}
                          
  
                 break;              

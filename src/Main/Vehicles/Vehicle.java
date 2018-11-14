@@ -50,7 +50,7 @@ public class Vehicle
     public Vehicle()
     {        
         vehicleID = vehicleCount;
-        GPS = new Instructions3();   
+        GPS = new Instructions3(vehicleID);   
         trackable = false;
         
         vehicleCount++;
