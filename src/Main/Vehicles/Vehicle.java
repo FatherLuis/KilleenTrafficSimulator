@@ -47,10 +47,10 @@ public class Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/  
-    public Vehicle(Instructions3 GPS)
+    public Vehicle()
     {        
         vehicleID = vehicleCount;
-        this.GPS = GPS;   
+        GPS = new Instructions3();   
         trackable = false;
         
         vehicleCount++;

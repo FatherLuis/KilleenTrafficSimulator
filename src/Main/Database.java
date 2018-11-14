@@ -9,8 +9,11 @@ import Main.Building.School;
 import Main.Init.Point;
 import Main.Init.PointHashTable;
 import Main.Init.Road;
+import Main.Vehicles.Bus;
+import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -73,9 +76,7 @@ public class Database
     
     
     
-    
-    
-    
+ 
     
     
 }

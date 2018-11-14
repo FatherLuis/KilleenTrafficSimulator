@@ -40,10 +40,9 @@ public class Bus extends Vehicle
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/     
-    public Bus(Instructions3 GPS) 
+    public Bus() 
     {
-        super(GPS);
-        this.GPS = GPS; 
+        super(); 
         color = Color.YELLOW;
         speed = 25;
     }

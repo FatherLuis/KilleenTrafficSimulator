@@ -74,8 +74,6 @@ public class MainGUI
         //GETS INFORMATION FROM XML FILE AND OTHER
         readFile();
         
-        CreateVehicles();
-          
         //GIVES INFORMATION TO THE PAINTERS
         Painter = new Drawable();
         
@@ -133,38 +131,7 @@ public class MainGUI
     }
     
     
-    private static void CreateVehicles()
-    {          
-        //System.out.println("///////////////////////////////////////////// \n\n");
-        
-        Instructions3 ins ;
-        Vehicle vehicle;
-        
-        Random rand = new Random();
-        
-        int num = rand.nextInt(100);
-        
-        for(int i=0; i < 5000; i++)
-        {
-            ins = new Instructions3();
-            
-            if(num > 20)
-            {
-                vehicle = new PersonalCar(ins);
-            }
-            else
-            {
-                vehicle = new Bus(ins);
-            }
-            
-            
-            Database.addVehicle(vehicle);
-            
-            num = rand.nextInt(100);
-        
-        
-        }
-    }
+
     
     
     

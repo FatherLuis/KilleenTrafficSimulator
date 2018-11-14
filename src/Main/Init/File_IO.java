@@ -2,7 +2,11 @@ package Main.Init;
 
 import Main.Building.School;
 import Main.Database;
+import Main.Vehicles.Bus;
+import Main.Vehicles.PersonalCar;
+import Main.Vehicles.Vehicle;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -619,7 +623,7 @@ public class File_IO
             end = System.currentTimeMillis();
             System.out.println("CreateSigns Time: "+(double)(end - start)/1000+ " Seconds");
             
-            
+        CreateVehicles();    
             
         //CSVReader reader = new CSVReader(PHT);
         //reader.ReadFile();
@@ -628,7 +632,35 @@ public class File_IO
         
     } 
     
-
+    private void CreateVehicles()
+    {          
+        Vehicle vehicle;
+        
+        Random rand = new Random();
+        
+        int num = rand.nextInt(100);
+        
+        for(int i=0; i < 5000; i++)
+        {
+            if(num > 20)
+            {
+                vehicle = new PersonalCar();
+            }
+            else
+            {
+                vehicle = new Bus();
+            }
+            
+            
+            Database.addVehicle(vehicle);
+            
+            num = rand.nextInt(100);
+        
+        
+        }
+    }    
+    
+   
 
     
   
