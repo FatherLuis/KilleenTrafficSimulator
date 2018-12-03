@@ -18,7 +18,7 @@ import Main.Init.Point;
 public class Route 
 {
     
-    private final double standardInc = 5.0 * Math.pow(10,-9);
+    private final double standardInc = 2.0 * Math.pow(10,-6);
     
     private double increments;
     
@@ -34,6 +34,7 @@ public class Route
     private boolean isMoving;
     
     private Point finalP;
+    private double distanceFromPoint;
     
     private boolean isUsable;
     
@@ -198,8 +199,29 @@ public class Route
             isMoving = false;
         }  
         
+        this.distanceFromPoint = distance(newX, newY, this.finalP.getLongitude(), finalP.getLatitude());
+        
         
     }
+    
+        
+    private double distance(double x1, double y1, double x2, double y2)
+    {
+        
+        return Math.sqrt( Math.pow((x2 - x1),2) + Math.pow((y2-y1),2)) ;   
+    }
+    
+    
+    
+    
+    
+    public double getDistanceFromPoint(){return this.distanceFromPoint;}
+    
+    
+    
+    
+    
+    
     
     /***************************************************************************
     ***METHOD NAME:  increments()

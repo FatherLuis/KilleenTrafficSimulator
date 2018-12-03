@@ -6,8 +6,8 @@
 package Main.Init;
 
 import Main.Database;
-import Main.Operators.Intersection;
-import Main.Operators.StopSign;
+import Main.MapBuilder.Intersection;
+import Main.MapBuilder.StopSign;
 import java.util.ArrayList;
 
 /*******************************************************************************

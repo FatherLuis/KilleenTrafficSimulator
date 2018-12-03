@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Operators;
+package Main.MapBuilder;
 
 import Main.Init.Point;
 
 /*******************************************************************************
-***CLASS NAME: StopSign
+***CLASS NAME: TrafficLights
 ***CLASS AUTHOR: LUIS E VARGAS TAMAYO
 ********************************************************************************
-***PURPOSE OF CLASS: TAKE A POINT OBJECT AND CONVERT TO STOP SIGN OBJECT
+***PURPOSE OF CLASS: TAKE A POINT OBJECT AND CONVERT TO TRAFFIC SIGN OBJECT
 ********************************************************************************
 ***DATE: OCTOBER 28, 2018
 ********************************************************************************
 ***LIST OF CHANGES WITH DATES: NONE
 ********************************************************************************
-***SPECIAL NOTES: NONE
+***SPECIAL NOTES:  NONE
 *** 
 ***
 *******************************************************************************/
-public class StopSign extends Intersection
-{  
+public class TrafficLights extends Intersection
+{
     /***************************************************************************
-    ***METHOD NAME: StopSign()
+    ***METHOD NAME: TrafficLights()
     ***METHOD AUTHOR: LUIS E VARGAS TAMAYO
     ****************************************************************************
     ***PURPOSE OF THE METHOD: CONSTRUCTOR
@@ -34,10 +34,10 @@ public class StopSign extends Intersection
     ****************************************************************************
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
-    public StopSign(Intersection p) 
+    public TrafficLights(Intersection p) 
     {
         super(p); 
-        this.parentList = p.getParentList(); 
+        this.parentList = p.getParentList();
     }
     
 }

@@ -6,6 +6,7 @@
 package Main.Window;
 
 import Main.Clock;
+import Main.Window.Control.Panels.ChangeTime;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -79,6 +80,7 @@ public class TimerPanel extends JPanel
         c.ipadx = 10;
         c.ipady = 10;
         c.fill = GridBagConstraints.WEST;
+        this.btnChangeTime.addActionListener(ActionForButton);
         this.add(this.btnChangeTime,c);
         
         
@@ -160,6 +162,12 @@ public class TimerPanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent evt)
         {
+            if(evt.getSource() == btnChangeTime)
+            {
+                ChangeTime CT = new ChangeTime();
+                CT.setVisible(true);
+            
+            }
             
             if(evt.getSource() == btnPause)
             {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Operators;
+package Main.MapBuilder;
 
 import Main.Init.Road;
 import java.util.ArrayList;

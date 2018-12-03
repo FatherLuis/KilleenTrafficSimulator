@@ -5,7 +5,7 @@
  */
 package Main.Vehicles;
 
-import Main.Vehicles.Instructions.Instructions3;
+import Main.Vehicles.Instructions.Instructions;
 import Main.Init.Point;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -63,7 +63,7 @@ public class PersonalCar extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*500);
+        GPS.move(rate*speed);
         speed = GPS.getSpeed();
     }     
     

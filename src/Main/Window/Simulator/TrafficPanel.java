@@ -1,9 +1,8 @@
-package Main.Window;
+package Main.Window.Simulator;
 
 import Main.Database;
 import Main.Drawable;
 import Main.Normalization;
-import Main.Vehicles.Instructions.Tracker;
 import Main.Window.Control.Panels.CurrentCarPanel;
 import Main.Window.Control.Panels.OverviewPanel;
 import java.awt.Color;

@@ -1,17 +1,9 @@
 package Main.Window;
 
-import Main.Database;
+import Main.Window.Simulator.TrafficPanel;
 import Main.Drawable;
 import Main.Init.File_IO;
-import Main.Window.SplitPanel;
-import Main.Window.ControlPanel;
-import Main.Vehicles.Bus;
-import Main.Vehicles.Instructions.Instructions3;
-import Main.Vehicles.PersonalCar;
-import Main.Vehicles.Vehicle;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.util.Random;
 import javax.swing.JFrame;
 /*******************************************************************************
 ***CLASS NAME:MAINGUI 
@@ -43,7 +35,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
-    public static void main(String[] args) 
+    public MainGUI()
     {
         init();
     }
@@ -59,7 +51,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/ 
-    private static void init() 
+    private void init() 
     {
         //LoadingFrame lf = new LoadingFrame();
                
@@ -121,7 +113,7 @@ public class MainGUI
     ****************************************************************************
     ***DATE: SEPTEMBER 28, 2018
     ***************************************************************************/     
-    private static void readFile() 
+    private void readFile() 
     {
         
         //BEGIN READING XML FILE

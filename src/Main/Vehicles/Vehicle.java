@@ -1,6 +1,6 @@
 package Main.Vehicles;
 
-import Main.Vehicles.Instructions.Instructions3;
+import Main.Vehicles.Instructions.Instructions;
 import Main.Init.Point;
 import Main.Init.Road;
 import java.awt.Color;
@@ -24,7 +24,7 @@ import java.awt.Graphics2D;
 public class Vehicle 
 {
     protected Color color;
-    protected Instructions3 GPS;
+    protected Instructions GPS;
     protected double speed;
     
     protected int vehicleID;
@@ -50,7 +50,7 @@ public class Vehicle
     public Vehicle()
     {        
         vehicleID = vehicleCount;
-        GPS = new Instructions3(vehicleID);   
+        GPS = new Instructions(vehicleID);   
         trackable = false;
         
         vehicleCount++;
@@ -88,6 +88,8 @@ public class Vehicle
     }
     public boolean getInAccident(){ return GPS.getInAccident();}
     
+    public double getDistanceFromPoint(){return GPS.getDistanceFromPoint();}
+    
 
     /***************************************************************************
     ***METHOD NAME: move()
@@ -101,6 +103,12 @@ public class Vehicle
     ***DATE: OCTOBER 28, 2018
     ***************************************************************************/
     public void move(double rate) { GPS.move(rate*1000); }
+    
+    
+    public String getPosition()
+    {
+        return GPS.getDirection();
+    }
     
 
     public Color getColor(){return color;}

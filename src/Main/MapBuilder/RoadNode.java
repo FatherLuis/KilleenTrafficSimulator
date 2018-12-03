@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main.Operators;
+package Main.MapBuilder;
 
 import Main.Init.Point;
 import Main.Init.Road;
+import Main.Vehicles.Instructions.CollisionDetection;
+import Main.Vehicles.Vehicle;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +20,9 @@ public class RoadNode extends Point
     protected ArrayList incomingVehicles;
     
     private Road road;
+    
+    
+    
     
     public RoadNode(Point point) 
     {
@@ -44,6 +49,8 @@ public class RoadNode extends Point
     
     public void setRoad(Road road){this.road = road;}
     public Road getRoad(){return road;}
+    
+
     
     
     

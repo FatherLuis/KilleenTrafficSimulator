@@ -1,5 +1,6 @@
 package Main.Window;
 
+import Main.Window.Simulator.TrafficPanel;
 import Main.Clock;
 import Main.Database;
 import Main.Window.Control.Panels.CurrentCarPanel;

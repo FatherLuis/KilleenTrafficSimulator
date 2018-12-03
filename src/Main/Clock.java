@@ -201,10 +201,19 @@ public class Clock
     
     
     
-    
-    
-    
-    
-    
-    
+    public void changeTime(String strTime)
+    {        
+        // use comma as separator
+        String[] arr = strTime.split(":");
+        String[] arr2 = arr[0].split(" ");
+
+        
+        
+                
+        day = Integer.parseInt(arr2[0]);
+        hours = Integer.parseInt(arr2[1]);
+        minutes = 0;
+        seconds =0;
+    }
+
 }

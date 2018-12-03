@@ -5,7 +5,7 @@
  */
 package Main.Vehicles;
 
-import Main.Vehicles.Instructions.Instructions3;
+import Main.Vehicles.Instructions.Instructions;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
@@ -61,7 +61,7 @@ public class Bus extends Vehicle
     @Override
     public void move(double rate)
     {
-        GPS.move(rate*speed*500);
+        GPS.move(rate*speed);
         speed = GPS.getSpeed();
     }
     

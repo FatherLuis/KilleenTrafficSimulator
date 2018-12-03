@@ -2,8 +2,8 @@ package Main.Init;
 
 import Main.Building.School;
 import Main.Database;
-import Main.Operators.Intersection;
-import Main.Operators.RoadNode;
+import Main.MapBuilder.Intersection;
+import Main.MapBuilder.RoadNode;
 import Main.Vehicles.Bus;
 import Main.Vehicles.PersonalCar;
 import Main.Vehicles.Vehicle;

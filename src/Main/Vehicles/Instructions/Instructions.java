@@ -8,16 +8,16 @@ package Main.Vehicles.Instructions;
 import Main.Database;
 import Main.Init.Point;
 import Main.Init.Road;
-import Main.Operators.Intersection;
-import Main.Operators.RoadNode;
-import Main.Operators.StopSign;
+import Main.MapBuilder.Intersection;
+import Main.MapBuilder.RoadNode;
+import Main.MapBuilder.StopSign;
 import java.util.Random;
 
 /**
  *
  * @author fathe
  */
-public class Instructions3 
+public class Instructions 
 {
     private Route route;
     
@@ -48,15 +48,16 @@ public class Instructions3
     public double x;
     public double y;
     
-    
-
+    private CollisionDetection CD;
     private String vehicleID;
-    public Instructions3(int vehicleID)
+    
+    public Instructions(int vehicleID)
     {
         this.route = new Route();
         this.setUpLocation();
         
         this.vehicleID = String.valueOf(vehicleID);
+        CD = new CollisionDetection();
     }
     
     
@@ -71,6 +72,9 @@ public class Instructions3
         String ID = (String) curRoad.getRef().get(NodeIndex);
 
         curPoint = (RoadNode)Database.getPoint(ID);
+        
+        
+        
         
         this.speed = curRoad.getSpeed();
         
@@ -122,11 +126,9 @@ public class Instructions3
     public void setIsMovable(boolean isMove){ this.isMoveable = isMove;}
     
     
+    public String getDirection(){return position;}
     
-    public String getDirection()
-    {
-        return position;
-    }
+    public double getDistanceFromPoint(){return route.getDistanceFromPoint();}
     
     
     private void basicMove()
@@ -165,15 +167,19 @@ public class Instructions3
                 NodeIndex++;
                 ID = (String) curRoad.getRef().get(NodeIndex);
                 
-                //curPoint.removeVehicle(vehicleID);
+                curPoint.removeVehicle(vehicleID);
                 curPoint = (RoadNode)Database.getPoint(ID);
-                //curPoint.addVehicle(vehicleID);
+                curPoint.addVehicle(vehicleID);
 
                 route.newRoute(p1, curPoint);
                            
                 this.x = route.getLongitude();
                 this.y = route.getLatitude();
-                route.update(rate);
+                
+                if(!CD.isNearObsticles(Integer.parseInt(vehicleID), curPoint))
+                {
+                    route.update(rate);
+                }
                 
                 //possibleRelocate();
                 
@@ -191,11 +197,15 @@ public class Instructions3
         {
             this.x = route.getLongitude();
             this.y = route.getLatitude();
-            route.update(rate);    
+
+            if(!CD.isNearObsticles(Integer.parseInt(vehicleID), curPoint))
+            {
+                route.update(rate);
+            }   
             
             if(!route.onRoute())
             {
-                move(rate);
+                //move(rate);
             }
         }
         else
@@ -231,15 +241,19 @@ public class Instructions3
                 NodeIndex--;
                 ID = (String) curRoad.getRef().get(NodeIndex);
                 
-                //curPoint.removeVehicle(vehicleID);
+                curPoint.removeVehicle(vehicleID);
                 curPoint = (RoadNode)Database.getPoint(ID);
-                //curPoint.addVehicle(vehicleID);
+                curPoint.addVehicle(vehicleID);
 
                 route.newRoute(p1, curPoint);
                          
                 this.x = route.getLongitude();
                 this.y = route.getLatitude();
-                route.update(rate);
+                
+                if(!CD.isNearObsticles(Integer.parseInt(vehicleID), curPoint))
+                {
+                    route.update(rate);
+                }
                 
                 //possibleRelocate();
 
@@ -256,11 +270,15 @@ public class Instructions3
         {
             this.x = route.getLongitude();
             this.y = route.getLatitude();
-            route.update(rate);
+
+            if(!CD.isNearObsticles(Integer.parseInt(vehicleID), curPoint))
+            {
+                route.update(rate);
+            }
             
             if(!route.onRoute())
             {
-                move(rate);
+                //move(rate);
             }
             
             
